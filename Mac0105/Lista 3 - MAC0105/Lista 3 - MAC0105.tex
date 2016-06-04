@@ -1,0 +1,55 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+
+
+\title{ \textbf{Lista 3 - MAC105}}
+\date{}
+\author{ \textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item[(a)] O autor define $q$ para que, ao multiplicá-lo pelos números racionais $\frac{1}{m}$ e $\frac{1}{n}$, transformem-nos em números inteiros, sendo mais fácil de trabalhar, e define o $p$ como um elemento de referência nos inteiros.
+\item[(b)] Se isolarmos o $q$ desse modo:
+$$q \begin{pmatrix} \dfrac{1}{m}-\dfrac{1}{n} \end{pmatrix} >1$$
+$$\frac{1}{m}-\frac{1}{n}>\frac{1}{q}$$
+$$\frac{n-m}{mn}>\frac{1}{q}$$
+$$\frac{mn}{n-m}<q$$
+veremos que $q$ tem valor e que é maior que $\frac{mn}{n-m}$.
+\item[(c)] Como, fezendo a distributiva, vemos que $\frac{q}{m}-\frac{q}{n}>1$, então sempre haverá ao menos um número inteiro entre $\frac{q}{m}$ e $\frac{q}{n}$, sendo que o autor o chama de $p$.
+\item[(d)] Manipulando a afirmativa $\frac{q}{m}<p<\frac{q}{n}$ temos que $\frac{1}{m}<\frac{p}{q}<\frac{1}{n}$. Como $p$ não é necessáriamente divisível por $q$, então o resultado $r$ de $\frac{p}{q}$ é um número racional, concluindo que sempre haverá um número racional entre $\frac{1}{m}$ e $\frac{1}{m}$ ($\frac{1}{m}<r<\frac{1}{n}$).
+\item[(e)] Em $q(\frac{1}{m}-\frac{1}{n})>1$, se $q=0$ o lado esquerdo zeraria e a sentença seria falsa já que $0<1$.
+\end{enumerate}
+~
+\item
+\begin{enumerate}
+\item[(a)] A frase reescrita ficaria "Existe um elemento do conjunto $S$ que é maior que 0";\\
+Seu objeto é o elemento; \\
+Sua propriedade é que ele pertence ao conjunto $S$; \\
+E acontece de ele ser maior que 0.
+\item[(b)] A frase reescrita ficaria "Existem os conjuntos $S$ e $T$ tal que sua interseção é não vazia";\\
+Seus objetos são os conjuntos $S$ e $T$; \\
+Sua propriedade é a interseção dos conjuntos; \\
+E acontece da interseção não ser vazia.
+\item[(c)] A frase reescrita ficaria "Existe um inteiro positivo $k$ tal que $x^2-kx+2=0$";\\
+Seu objeto é o número $k$; \\
+Sua propriedade é que ele é inteiro e positivo; \\
+E acontece que ao substisuí-lo na equação $x^2-kx+2=0$ a igualdade se torna verdadeira.
+\end{enumerate}
+~
+\item
+\begin{enumerate}
+\item[(a)] Não está bem definida pois, ao fazer algumas contas, vemos, por exmplo, que $11 \in [2]$. Isso mostra que se $n$ é par, $[n]$ não será par já que nela existem elementos ímpares.
+\item[(b)] Bem definida, pois podemos observar que se $n$ é divisível por 3 então $n=3k$. Subtituindo na equação $\frac{a-n}{9}=p$ temos $$\frac{a-3k}{9}=p$$  $$a=3k+9p$$ $$a=3(k+3p)$$ Portanto para qualquer $a\in [n]$, $a$ é divisível por 3.
+\item[(c)] Não está bem definida, pois como $[n]$ e $[m]$ são subconjuntos infinitos de $\mathbb{Z}$ e não têm maximizadores, então não há como comparar os dois conjuntos.
+%\item[(a)] , pois, ao fazer algumas contas vemos, por exmplo, que $2\equiv 11$, então $11 \in [2]$. Isso mostra que se $n$ é par $[n]$ não será par já que nela existem elementos ímpares.
+%\item[(b)] Verdadeiro, pois podemos observar que se $n$ é divisível por 3 então $n=3k$. Subtituindo na equação $\frac{a-n}{9}=p$ temos $\frac{a-3k}{9}=p$, $a=3k+9p$ e $a=3(k+p)$. Portanto para qualquer $a\in [n]$, a é divisível por 3.
+%\item[(c)]  
+\end{enumerate}
+\end{enumerate}
+\end{document}

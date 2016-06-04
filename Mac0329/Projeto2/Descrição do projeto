@@ -1,0 +1,15 @@
+Nome: João Gabriel Basi
+N USP: 9793801
+
+Circuito Soma 1bit: Construido implementando a tabela-verdade da soma, que usa um bit do número "a" (ai), um do "b" (bi) 
+e um carry in (cin) como entradas, e resulta uma função soma (Si) e uma carry out (cout) como saídas.
+
+Circuito Operador: Utiliza uma sequência de portas para inverter o número "b" se a operação (indicada por "So") for subtração 
+(So = 1) e não inverte se a operação for soma (So = 1). Em seguida temos uma fileira de circuitos "Soma 1bit" que somam bit 
+por bit os números "a" e "b" (se So = 0) ou "b" invertido + 1 (se So = 1), sendo que esse + 1 é somado do valor de "So" pelo 
+carry in do primeiro dígito. Do lado esquerdo temos um circuito que identifica se houve overflow ou underflow verificando se
+cin != cout no último dígito.
+
+Circuito main: Implementa o circuito "Operador" utilizando como entradas dois números binários de 4 dígitos "a" e "b" e um 
+de um dígito "So" como indicador de operação e resulta na função soma (se So = 0) ou na função subtração (se So = 1) e em
+LED que indica se houve overflow/underflow na operação.

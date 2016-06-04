@@ -1,0 +1,40 @@
+Obs.:Ao rodar o programa acima todos os gráficos serão gerados dentro do notebook.
+
+
+
+Histogramas da seção 2.2:
+
+Transformação escala:
+A função gera valores aleatórios no intervalo [0,1) e os transforma em valores aleatórios no intervalo [a,b+1), então é de se esperar que seu histograma seja uma distribuição uniforme entre "a" e "b+1". Nesse programa é utilizado a=2 e b=9, então é gerada uma distribuição uniforme no intervalo [2,10).
+
+Soma de vetores:
+A função soma duas listas de valores aleatórios no intervalo [0,1). Como a chance da soma dar um número próximo de 1 é alta e a chance da soma ser próxima de 0 ou 2 é baixa, temos um histograma com uma maior concentração de números perto do 1, e uma menor concentração perto do 0 e do 2.
+A lógica é a mesma da soma de dois valores nos dados. Enquanto a chance da soma dar 7 é alta (1/6), a chance da soma ser 2 ou 12 é baixa (1/36 para cada), pois há mais combinações com resultado 7 do que com resultado 2 ou 12.
+
+Transformação em normal:
+A função transforma pontos distribuidos uniformemente em uma superfície em duas distribuições normais utilizando a transformação Box-Muller. Essas distribuições normais são observadas nos histogramas dos valores de x e no dos valores de y dos pontos gerados pela transformação.
+
+Raiz do vetor:
+A função devolve a raiz dos valores de uma lista. Aplicada em uma distribuição no intervalo [0,1), o histograma resultante é ---------------------------------
+
+
+
+Análise das funções do EP2:
+
+Distribuição borda:
+Utilizando qualquer um dos três métodos, a distribuição dos pontos extremos na borda do círculo permaneceu uniforme.
+
+Distribuições radial:
+-Método 1: Podemos observar que o gráfico da distribuição radial do método 1 tem uma concentração maior de pontos nas bordas do círculo, gerando um histograma com muitos pontos cianos, porém poucos de outras cores. Além disso, a distribuição radial dos pontos é uniforme até a coroa circular branca, porém, na ciana, os pontos aumentam muito de quantidade.
+-Método 2: Os pontos médios gerados pelo método 2 são uniformes radialmente, sendo isso uma consequêcia do método de escolha dos pontos, que pega um valor aleatório entre o centro e o raio e o rotaciona por um ângulo aleatório. Ao classificar os pontos por coroas circulares, desconsideramos a rotação sofrida, ficando somente com uma distribuição uniforme entre o centro e o raio. A distribuição gerada pode ser comparada com a gerada pela transformação Box-Muller, pois gera a mesma quantidade de pontos por coroa circular.
+-Método 3: Como o método 3 gera uma distribuição de pontos uniforme por área, então o número de pontos/área do círculo é o mesmo para qualquer divisões com mesma área. Sendo assim, como as coroas circulares mais externas tem maior área e as mais internas, menor, então a quantidade de pontos vai aumentando, proporcionalmente à área, da coroa mais interna para a mais externa.
+
+Distribuição por área:
+-Método 1: A distribuição por área do método 1 é consequência da radial, sendo que há mais pontos nas faixas centrais (azul e preta), que incluem o centro e parte da borda cada uma, uma quantidade mediana nos "polos" (faixas ciano e verde), que incluem uma parte grande da borda cada uma, e uma quantidade reduzida de pontos nas faixas intermediárias á essas (outras cores), que incluem uma pequena parte da borda cada uma.
+-Método 2: Também é consequência da distribuição radial. Há uma maior quantidade de pontos nas faixas centrais (azul e preta) pois elas incuem a parte central do círculo, e a quntidade de pontos vai diminuindo conforme as faixas vão ficando mais longes do centro, pois vão, cada vez mais, incluindo faixas das coroas circulares mais externas (que têm menos pontos/área) e, cada vez menos, das coroas mais internas (que têm mais pontos/área).
+-Método 3: A distribuição por área é uniforme pois os pontos são gerados para que ela fique uniforme.
+
+Distribuição das cordas:
+Método 1: A distribuição ficou com algumas falhas e uma grande concentração de cordas na borda do círculo causadas pois há uma distribuição radial uniforme dos pontos até a penúltima coroa circular (até aí as falhas aparecem uniformemente), porém, na coroa circular mais externa, há uma concentração grande de pontos médios, gerando uma alta concentração de cordas perto da borda do círculo.
+Método 2: A distribuição das cordas ficou uniforme devido à uniformidade da distribuição radial.
+Método 3: A distibuição das cordas refletiu a distribuição radial dos pontos médios. Mais perto do centro do círculo há um buraco, pois há menos pontos médios, e, conforme a quantidade de pontos por coroa circular aumenta, o número de cordas também aumenta, gerando uma grande concentração de cordas nas bordas.

@@ -1,0 +1,54 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+
+\usepackage{xspace}
+\usepackage{pifont}
+\usepackage{fancybox}
+
+\pagestyle{empty}
+\newcommand{\bigmc}[3]{$x=\dfrac{- #2 \pm\sqrt{#2^2-4\cdot#1\cdot#3}}{2\cdot#1}$}
+\newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}\xspace}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}\xspace}
+\newcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathcal{C}}\xspace}
+\newcommand{\serio}{\ding{98}\xspace}
+\newcommand{\A}{\ensuremath{\mathcal{A}}\xspace}
+\renewcommand{\L}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\tq}{\,|\,}
+\newcommand{\val}[1]{\serio\ovalbox{\textbf{#1}}}
+\newcommand{\conj}[2]{\ensuremath{\{#1\,|\;#2\}}}
+\newcommand{\bl}[1]{\textcolor{red}{\mathbf{#1}}}
+\DeclareMathOperator{\seno}{sen}
+
+\title{ \textbf{Lista 4 - MAC105}}
+\date{}
+\author{ \textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item
+Dizer "não existe"$\,$é o mesmo que dizer "para todo", então a frase fica: $f\,\not\preceq\, g$ se, e somente se, para todos reais $x_o$, $A$, existe $x\geqslant x_o$ tal que $f(x) >  Ag(x)$. 
+\item
+Começamos supondo que $m^3-2m-4=0$. Fatorando temos $(m-2)(m^2+2m+2)=0$ e vemos que 2 é a única raiz inteira, então m=2. Seguindo com a mesma lógica para $n^3-2n-4=0$, vemos que n=2 também, então m=n, provando que a afirmação é falsa.
+\item[4.]
+Segundo a fórmula de Báskara, o único jeito de uma raiz não ser racional é se $\sqrt{\Delta}$ não for uma raiz exata, então se calcularmos os $\Delta$s das equações vemos que $\Delta_1=b^2-4ac$ e $\Delta_2=b^2-4ca$, concluindo que $\Delta_1=\Delta_2$. Então se $\sqrt{\Delta_1}$ não for exata, $\sqrt{\Delta_2}$ também não é exata.
+\item[5.]
+\begin{enumerate}
+\item[(a)]
+O erro da demonstração está na negação de $x\neq3$ e $y\neq8$ que deveria ser $x=3$ \underline{ou} $y=8$ ao invés de um \underline{e} outro, fazendo com que $x$ pode ser igual a $3$ sem que $y$ seja igual a $8$.
+\item[(b)]
+Se $x=3$, temos que $3+y=10$, então $y=7$, da mesma forma podemos concluir que se $y=8$, $x=2$, provando que o feiorema é falso já que $y$ pode ser igual a $8$ e $x$ igual a $3$.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

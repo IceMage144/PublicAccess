@@ -1,0 +1,41 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+\usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
+\usepackage{graphicx} %permite colocar imagens no documento
+
+\title{ \textbf{Lista 5 - MAC105}}
+\date{}
+\author{ \textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item[2.]
+\begin{enumerate}
+\item[(a)]
+Uma raiz ser irracional é suficiente e necessário para que a outra também seja.
+\item[(b)]
+Ao construir o gráfico da equação temos que as raízes estão localizadas nos pontos $(r_1, 0)$ e $(r_2, 0)$, mas como o gráfico é simétrico sabemos que a distância de $(r_1, 0)$ até $(x_v, 0)$ é a mesma distância de $(r_2, 0)$ até $(x_v, 0)$, onde $x_v$ é a abcissa do vértice da parábola. Então temos que $r_2 = x_v - (r_1-x_v) = 2x_v-r_1$. Como $x_v$ é um número racional onde $x_v=\frac{-b}{2a}$, temos que se $r_1$ for irracional, $2x_v-r_1$ e, consequentemente, $r_2$ também serão irracionais.
+\end{enumerate}
+\item[3.]
+Se $\varepsilon\leqslant0$ então, para todo $x\in S$, $x\geqslant v$, então não existe $u<v$ que possa ser o limitante superior pois $u<x$. Porém se $\varepsilon>0$, para todo $x\in S$, $x$ será menor que $v$, então pode existir $x\leqslant u<v$, tal que $u$ é o limitante superior de $S$.
+\item[4.]
+Quando temos $am+bn=d$, sabemos que $d$ é o menor resultado possível para qualquer $m$ e $n$, pois se houvesse um $x$ menor que $d$, $d$ não seria o mdc, $x$ seria. Manipulando a equação temos $a\cdot\frac{m}{d}+b\cdot\frac{n}{d}=1$. Como d|m e d|n, então $\frac{m}{d}$ e $\frac{n}{d}$ são inteiros, e, para satisfazer a primeira relação já explicada, sabemos que 1 é o menor inteiro positivo possível, então podemos expressar o $mdc(a,b)$ como $mdc(a,b)=a\cdot\frac{m}{d}+b\cdot\frac{n}{d}=1$.
+
+Podemos prová-la sabendo que $am+bn=d$, então $a\cdot\frac{m}{d}+b\cdot\frac{n}{d}=\frac{am+bn}{d}=\frac{d}{d}=1$ e podemos também dar um exemplo:  $mdc(96,66)=3\cdot66-2\cdot96=6$ portanto $mdc(3,-2)=3\cdot\frac{66}{6}-2\cdot\frac{96}{6}=1$.
+\item[5.]
+\begin{enumerate}
+\item[(a)]
+Se $k=mdc(a,b)$, então $a$ e $b$ são múltiplos de $k$ e podemos reescrevê-los como $xk$ e $yk$ respectivamente. Porém para que $k|a+b+c$, $c$ tem que ser múltiplo de $k$. Trocando $c$ por $zk$ temos que $k|xk+yk+zk$, então é óbvio que $k|k(x+y+z)$ e, também, que $k|kz$.
+\item[(b)]
+Se $m-1$ e $n-1$ são múltiplos de $k=mdc(m-1,n-1)$, podemos escrevê-los como $ak$ e $bk$ respectivamente. Substituindo em $mn-1$ temos $(ak+1)(bk+1)-1=abk^2+ak+bk+1-1=k(abk+a+b)$, concluindo que $k|mn-1$
+\end{enumerate}
+\end{enumerate}
+\end{document}
