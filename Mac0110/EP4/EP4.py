@@ -1,3 +1,6 @@
+#.n João Gabriel Basi
+#.u 9793801
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
@@ -13,16 +16,17 @@ def leEntrada(nome):
         if linha == "H\n":
             grade = 1
         elif linha != "Q\n":
-            vivas.append((int(linha[0]),int(linha[2])))
+            coord = linha.split(",")
+            vivas.append((int(coord[0]),int(coord[1].rstrip())))
     return grade, vivas
 
 def simulaQuadGenerica(n, m, lista, t, b, s):
     res = []
     tela = np.array([[0 for j in range(m)] for i in range(n)])
     for i in lista:
-        tela[i[1]][i[0]] = 1
+        tela[i[0]][i[1]] = 1
     prox = tela.copy()
-    hist.append(tela)
+    hist.append(tela.copy())
     #ajusta o tipo das variaveis b e s
     if type(b) != list:
         b = [b]
@@ -49,7 +53,7 @@ def simulaQuadGenerica(n, m, lista, t, b, s):
                 elif tela[i][j] == 0:
                     if b.count(viz) == 1:
                         prox[i][j] = 1
-                hist.append(prox)
+        hist.append(prox.copy())
     #volta a matriz para uma lista com as coordenadas das celulas vivas
     for i in range(n):
         for j in range(m):
@@ -63,7 +67,7 @@ def simulaHexGenerica(n, m, lista, t, b, s):
     res = []
     tela = np.array([[0 for j in range(m)] for i in range(n)])
     for i in lista:
-        tela[i[1]][i[0]] = 1
+        tela[i[0]][i[1]] = 1
     prox = tela.copy()
     #ajusta o tipo das variaveis b e s
     if type(b) != list:
@@ -129,7 +133,7 @@ def desenhaHex(n, m, lista, figura):
     patches = []
     tela = [[1,1,1] for i in range(m*n)]
     for i in lista:
-        tela[i[0]+i[1]*n] = [0,0,1]
+        tela[i[0]+i[1]*n] = [0,0,0.5]
 
     #calcula a altura e o lado dos hexagonos
     if m >= 2:
@@ -159,11 +163,6 @@ def desenhaHex(n, m, lista, figura):
                 polygon = mpatches.RegularPolygon((x[i],y), 6, l, np.pi/6, lw = 1.0, facecolor=tela[i*n+y2.searchsorted(y)])
                 patches.append(polygon)
 
-    #caso específico
-    if m == 1 and n == 1:
-       c = [50, 50]
-       area = 56000
-
     #criando a figura
     fig = plt.figure(figsize=(5, 5), dpi=100)
     ax = fig.add_subplot(111)
@@ -179,9 +178,9 @@ def desenhaHex(n, m, lista, figura):
 def haRepeticoes(n, m, lista, t):
     a = 0
     temsim = False
-    while a < t-1 and temsim == False:
+    while a < t and temsim == False:
         b = a+1
-        while b < t and temsim == False:
+        while b < t+1 and temsim == False:
             idenlvl = 0
             for i in range(n):
                 for j in range(m):
@@ -192,28 +191,3 @@ def haRepeticoes(n, m, lista, t):
             b += 1
         a += 1
     return temsim
-
-if __name__ == "__main__":
-    nome = input("Digite o nome do arquivo a ser lido: ")
-    grade, vivas = leEntrada(nome)
-    n = int(input("Digite o numero de linhas: "))
-    m = int(input("Digite o numero de colunas: "))
-    t = int(input("Digite o numero de iteracoes: "))
-    figura = input("Digite o nome da figura a ser salva: ")
-    if grade == 0:
-        if input("Deseja fazer suas proprias regras?(s/n) \n") == "n":
-            res = simulaQuad(n, m, vivas, t)
-        else:
-            s = int(input("Uma celula sobrevive quando tiver quantos vizinhos (numeros de 0 a 8)?\n"))
-            b = int(input("Uma celula nasce quando tiver quantos vizinhos (numeros de 0 a 8)?\n"))
-            res = simulaQuadGenerica(n, m, vivas, t, b, s)
-        desenhaQuad(n, m, res, figura)
-        print("Ha repeticoes?: ", haRepeticoes(n, m, vivas, t))
-    else:
-        if input("Deseja fazer suas proprias regras?(s/n) \n") == "n":
-            res = simulaHex(n, m, vivas, t)
-        else:
-            s = int(input("Uma celula sobrevive quando tiver quantos vizinhos (numeros de 0 a 6)?\n"))
-            b = int(input("Uma celula nasce quando tiver quantos vizinhos (numeros de 0 a 6)?\n"))
-            res = simulaHexGenerica(n, m, vivas, t, b, s)
-        desenhaHex(n, m, res, figura)
