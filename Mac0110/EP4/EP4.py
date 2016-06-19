@@ -64,6 +64,7 @@ def simulaQuadGenerica(n, m, lista, t, b, s):
 def simulaHexGenerica(n, m, lista, t, b, s):
     if m%2 != 0:
         m += 1
+    lista = list(set(lista))
     res = []
     tela = np.array([[0 for j in range(m)] for i in range(n)])
     for i in lista:
@@ -173,7 +174,7 @@ def desenhaHex(n, m, lista, figura):
     ax.set_xlim(xmin=0, xmax=100)
     ax.set_ylim(ymin=0, ymax=100)
     ax.axis('off')
-    plt.savefig(figura)
+    plt.show()
 
 def haRepeticoes(n, m, lista, t):
     a = 0
@@ -191,3 +192,8 @@ def haRepeticoes(n, m, lista, t):
             b += 1
         a += 1
     return temsim
+
+if __name__ == "__main__":
+    grade, vivas = leEntrada("teste.txt")
+    res = simulaHex(20, 20, vivas, 81)
+    desenhaHex(20, 20, res, "figura")
