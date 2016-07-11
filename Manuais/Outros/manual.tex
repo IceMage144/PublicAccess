@@ -1,0 +1,596 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{color} %colore as letras
+\usepackage{url} %inclui urls
+\usepackage[pdfencoding=unicode]{hyperref} %transforma links em texto comum para clicar
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+\usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
+\usepackage{graphicx} %permite colocar imagens no documento
+\usepackage{xspace} %coloca em espaço matemático automaticamente
+
+
+\title{Manual}
+\author{João Gabriel Basi}
+\begin{document}
+\maketitle
+\Large
+\begin{enumerate}
+\item \textbf{Python}
+\normalsize
+\begin{enumerate}
+\item[1.1.] \textbf{Indentação} 
+\begin{itemize}
+\item A indentação é feita por espaços, enter e dois pontos
+\end{itemize}
+\item[1.2.] \textbf{Variáveis} 
+\begin{itemize}
+\item Os tipos das variáveis em Python são determinadas pelo compilador, mas podem ser declarados ao declarar a variável
+\item Strings são sempre consideradas como listas de caracteres
+\end{itemize}
+\item[1.3.] \textbf{Listas}
+\begin{itemize}
+\item Podem mesclar tipos de variáveis
+\item São declaradas como: 
+\begin{itemize}
+\item lista1 = [] 
+\item lista2 = [0]*5  (para 5 posições com zero)
+\item lista3 = [0 for i in range(5)] (mesmo do de cima)
+\item lista4 = [0, 0, 0, 0, 0]
+\end{itemize}
+\item Podem ser do tipo array, usando [] (os valores podem ser alterados à vontade), tupla, usando () (os valores não podem ser alterados) ou set, usando \{\} (não pode ter valores repetidos) 
+\item São referenciados como: \\
+list[0] = 0
+\end{itemize}
+\item[1.4.] \textbf{Funções}
+\begin{itemize}
+\item Tipos dos argumentos não precisam ser fornecidos
+\item São declaradas como: \\
+def area(altura, largura):\\[-0.5cm]
+
+\setlength{\parindent}{1cm} return altura * largura
+\end{itemize}
+\item[1.5.] \textbf{Objetos}
+
+\item[1.6.] \textbf{Expressões}
+\begin{enumerate}
+\item[1.6.1.] \textbf{Condicionais}
+\begin{itemize}
+\item if
+\item elif
+\item else
+\end{itemize}
+\item[1.6.2.] \textbf{Loops}
+\begin{itemize}
+\item while (normal)
+\item O for é escrito de outro jeito:\\
+for i in range($<inicio>, <fim+1>, <passo>$):\\[-0.5cm]
+
+\setlength{\parindent}{1cm} (O que cada loop faz)
+\end{itemize}
+\item[1.6.3.] \textbf{Outros}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{enumerate}
+\item[1.7.] \textbf{Comparadores e booleanos}
+\begin{itemize}
+\item $==$ e !$=$
+\item $<=$ e $>=$
+\item $<$ e $>$
+\item $\&\&$ ou and
+\item $||$ ou or
+\item  ! ou not
+\end{itemize}
+\item[1.8.] \textbf{Operadores}
+\begin{itemize}
+\item $+$ e $-$
+\item * e /
+\item ** (potenciação)
+\item \% (módulo)
+\item // (divisão inteira)
+\end{itemize}
+\item[1.9.] \textbf{Bibliotecas}
+\begin{itemize}
+\item São importadas de um dos modos:
+\begin{itemize}
+\item import <nome>
+\item import <nome> as <novo nome>
+\item from <nome> import <função> (para importar uma ou mais funções sem precisar de referência)
+\item from <nome> import * (para importar todas as funções sem precisar de referência)
+\end{itemize}
+\item Mais usadas:
+\begin{itemize}
+\item matplotlib.pyplot: gráficos
+\item numpy ou math: matemática
+\item random: função random
+\end{itemize}
+\end{itemize}
+\item[1.10.] \textbf{Input e output}
+\begin{itemize}
+\item Input: input() (retorna uma string, então tem que ser transformado para o tipo desejado)
+\item Output: print()
+\end{itemize}
+\item[1.11.] \textbf{Comentários}
+\begin{itemize}
+\item Só podem ser feitos de linha em linha com $\#$
+\end{itemize}
+\item[1.12.] \textbf{Funções e métodos úteis}
+\begin{itemize}
+\item len(list)
+\item Métodos das listas, tuplas e sets
+\end{itemize}
+\end{enumerate}
+%===================================================
+\Large
+\item \textbf{C e C++}
+\normalsize
+\begin{enumerate}
+\item[1.1.] \textbf{Indentação} 
+\begin{itemize}
+\item A indentação é feita por chaves e ponto e vírgula
+\end{itemize}
+\item[1.2.] \textbf{Variáveis} 
+\begin{itemize}
+\item Os tipos das variáveis têm que ser especificados ao serem criadas, segundo a tabela:
+\begin{center}
+\begin{tabular}{ | p{4cm} | l | l | l |} \hline 
+Tipo & Declaração & Referência & Bits \\ \hline
+inteiro & (unsigned) int & \% d & 32 bits \\ \hline
+inteiro longo& (unsigned) long long & \% lld & 64 bits\\ \hline
+ponto flutuante & (unsigned) float & \% f & ?? \\ \hline
+ponto flutuante de dupla precisão & (unsigned) double & \% g & ?? \\ \hline
+caractere & char & \% c ou \% s (strings) & 16 bits \\ \hline
+ponteiro & <tipo> * & \% p & H \\ \hline
+nada & void & --- & --- \\ \hline
+\end{tabular}
+\end{center}
+\item Em C as stringas são criadas como listas de caracteres
+\item Especiais C$++$:
+\begin{center}
+\begin{tabular}{ | l | l | l | l |} \hline 
+Tipo & Declaração & Referência & Bits \\ \hline
+string & string & \% s & ?? \\ \hline
+booleana & bool & ?? & 1 bit\\ \hline
+\end{tabular}
+\end{center}
+\end{itemize}
+\item[1.3.] \textbf{Listas}
+\begin{itemize}
+\item Seus itens só podem ser do tipo declarado
+\item São declaradas como: 
+\begin{itemize}
+\item <tipo da lista> lista1[<espaços>]; 
+\item int lista2[] = \{1, 3, 5, 7\};
+\end{itemize} 
+\item São referenciados como: \\
+list[0] = 0
+\end{itemize}
+\item[1.4.] \textbf{Funções}
+\begin{itemize}
+\item Tipos dos argumentos precisam ser fornecidos e o tipo do valor de retorno também (o tipo especificado antes do nome da função), se a função não tiver retorno, colocar void
+\item São declaradas como: \\
+int area(int altura, int largura)\{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} return (altura * largura);\\
+\}
+\end{itemize}
+\item[1.5.] \textbf{Objetos}
+\begin{itemize}
+\item Podem ser class (variáveis automaticamente em privado) ou struct (variáveis automaticamente em público)
+\item São declarados:
+class Rectangle \{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} int altura; \\[-0.5cm]
+
+\setlength{\parindent}{1cm} int largura; \\[-0.5cm]
+
+\setlength{\parindent}{1cm} public: \\[-0.5cm]
+
+\setlength{\parindent}{2cm} void setDim (int alt, int lar)\{ \\[-0.5cm]
+
+\setlength{\parindent}{3cm} altura = alt; \\[-0.5cm]
+
+\setlength{\parindent}{3cm} largura = lar;\} \\[-0.5cm]
+
+\setlength{\parindent}{2cm} int getDim()\{ \\[-0.5cm]
+
+\setlength{\parindent}{3cm} return \{altura, largura\};\} \\
+\}
+\end{itemize}
+\item[1.6.] \textbf{Expressões}
+\begin{enumerate}
+\item[1.6.1.] \textbf{Condicionais}
+\begin{itemize}
+\item if
+\item else if
+\item else
+\end{itemize}
+\item[1.6.2.] \textbf{Loops}
+\begin{itemize}
+\item while
+\item for
+\item do\{(alguma coisa)\}while(<condição>);
+\end{itemize}
+\item[1.6.3.] \textbf{Outros}
+\begin{itemize}
+\item switch
+\end{itemize}
+\end{enumerate}
+\item[1.7.] \textbf{Comparadores e booleanos}
+\begin{itemize}
+\item $==$ e !$=$
+\item $<=$ e $>=$
+\item $<$ e $>$
+\item $\&\&$
+\item $||$
+\item  !
+\end{itemize}
+\item[1.8.] \textbf{Operadores}
+\begin{itemize}
+\item Decimais:
+\begin{itemize}
+\item $+$ e $-$
+\item * e /
+\item \% (módulo)
+\end{itemize}
+\item Binários:
+\begin{itemize}
+\item $\&$ (and)
+\item | (or)
+\item $\sim$ (not)
+\item $\wedge$ (xor)
+\item $<<$ (left shift)
+\item $>>$ (right shift)
+\end{itemize}
+\end{itemize}
+\item[1.9.] \textbf{Bibliotecas}
+\begin{itemize}
+\item São importadas do modo:
+\begin{itemize}
+\item \#include $<<$nome$>>$
+\end{itemize}
+\item Mais usadas:
+\begin{itemize}
+\item <stdio.h> : inputs e outputs para C
+\item <iostream> : inputs e outputs para C$++$
+\item <math.h> : matemática
+\item <string.h> : strings
+\item <vector> : vetor fácil
+\item <map> : mapa
+\item <queue> : fila fácil
+\item <stack> : pilha fácil
+\end{itemize}
+\end{itemize}
+\item[1.10.] \textbf{Input e output}
+\begin{itemize}
+\item Input:
+\begin{itemize}
+\item stdio.h: scanf("<referência>", \&<variável>); (se a variável for uma string, não colocar o \&)
+\item iostream: cin $>>$ <variável>;
+\end{itemize}
+\item Output:
+\begin{itemize}
+\item stdio.h: printf("<referência> e frase", <variável>);
+\item iostream: cout $<<$ <variável> $<<$ endl;
+\end{itemize}
+\end{itemize}
+\item[1.11.] \textbf{Comentários}
+\begin{itemize}
+\item Podem ser feitos em uma linha com //, ou em várias com /* */
+\end{itemize}
+\item[1.12.] \textbf{Funções e métodos úteis}
+\begin{itemize}
+\item pow(base, expoente) (potenciação) (incluída no math.h)
+\item string.size() (acha o tamanho da string) (incuída no string.h)
+\item olhar site cplusplus
+\end{itemize}
+\end{enumerate}
+%========================================================
+\Large
+\item \textbf{JavaScript}
+\normalsize
+\begin{enumerate}
+\item[1.1.] \textbf{Indentação} 
+\begin{itemize}
+\item A indentação é feita por chaves e ponto e vírgula
+\end{itemize}
+\item[1.2.] \textbf{Variáveis} 
+\begin{itemize}
+\item O tipo da variável não precisa ser especificado mas ela precisa ser declarada usando:\\
+var variável = 42;
+\end{itemize}
+\item[1.3.] \textbf{Listas}
+\begin{itemize}
+\item Podem mesclar tipos de variáveis
+\item São declaradas como: 
+\begin{itemize}
+\item lista1 = [] ;
+\item lista2 = [0, 0, 0, 0, 0];
+\item lista3 = new Array();
+\end{itemize}
+\item São referenciados como: \\
+list[0] = 0;
+\end{itemize}
+\item[1.4.] \textbf{Funções}
+\begin{itemize}
+\item Tipos dos argumentos não precisam ser especificados
+\item São declaradas como: \\
+var area = function(altura, largura)\{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} return (altura * largura);\\
+\}
+\item Se a função for uma nova classe de objeto, ela deve ser declarada como:
+function Rectangle\{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} this.altura = altura; (variável publica)\\[-0.5cm]
+
+\setlength{\parindent}{1cm} this.largura = largura;\\[-0.5cm]
+
+\setlength{\parindent}{1cm} var cor = "branco"; (variável privada)\\
+\}
+\item Se já existir uma classe e é preciso adicionar algo a mais, usar:\\
+Rectangle.prototype.area = this.altura * this.largura;
+\item Se uma classe é uma subclasse de outra, podemos importar os métodos de uma para a outra usando:\\
+Square.prototype = new Rectangle;
+\end{itemize}
+\item[1.5.] \textbf{Objetos}
+\begin{itemize}
+\item São declarados:\\
+var Rectangle = \{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} altura: 30, \\[-0.5cm]
+
+\setlength{\parindent}{1cm} largura: 40 \\
+\}
+\item Ou, podem ser declarados:\\
+var Rectangle = new Object(); \\
+Rectangle.altura = 30; \\
+Rectangle.largura = 40; \\
+\end{itemize}
+\item[1.6.] \textbf{Expressões}
+\begin{enumerate}
+\item[1.6.1.] \textbf{Condicionais}
+\begin{itemize}
+\item if
+\item else if
+\item else
+\end{itemize}
+\item[1.6.2.] \textbf{Loops}
+\begin{itemize}
+\item while
+\item do-while
+\item for
+\item for-in
+\end{itemize}
+\item[1.6.3.] \textbf{Outros}
+\begin{itemize}
+\item switch
+\end{itemize}
+\end{enumerate}
+\item[1.7.] \textbf{Comparadores e booleanos}
+\begin{itemize}
+\item $===$ e !$==$
+\item $<=$ e $>=$
+\item $<$ e $>$
+\item $\&\&$
+\item $||$
+\item  !
+\end{itemize}
+\item[1.8.] \textbf{Operadores}
+\begin{itemize}
+\item $+$ e $-$
+\item * e /
+\item \% (módulo)
+\end{itemize}
+\item[1.9.] \textbf{Bibliotecas}
+\begin{itemize}
+\item Mais usadas:
+\begin{itemize}
+\item Math : matemática
+\end{itemize}
+\end{itemize}
+\item[1.10.] \textbf{Input e output}
+\begin{itemize}
+\item Input:
+\begin{itemize}
+\item prompt(<pergunta>, <resposta padrão>); (retorna a resposta do usuário)
+\item confirm(<pergunta>); (retorna true ou false dependendo do botão apertado)
+\end{itemize}
+\item Output:
+\begin{itemize}
+\item console.log(<frase>); (console)
+\item alert(<frase>); (pop-up)
+\end{itemize}
+\end{itemize}
+\item[1.11.] \textbf{Comentários}
+\begin{itemize}
+\item Podem ser feitos somente em uma linha com //
+\end{itemize}
+\item[1.12.] \textbf{Funções e métodos úteis}
+\begin{itemize}
+\item Math.random()
+\item list.length
+\item string.toUpperCase() e string.toLowerCase()
+\item object.hasOwnProerty("prop") (verifica se o objeto tem uma propriedade chamada "prop")
+\item num.toFixed(dig) (limita o número de casas decimais de um "num" float em "dig")
+\item string.substring(<começo>,<final>); (retorna a substring)
+\end{itemize}
+\end{enumerate}
+%===============================
+\Large
+\item \textbf{HTML e CSS}
+\normalsize
+\begin{enumerate}
+\item[1.1.] \textbf{Tags} 
+\begin{itemize}
+\item As tags são a forma de identificação dos comandos e são feitas por <(comando)> (texto) </(comando)>
+\item As tags tem atributos que são colocados na tag de abertura, como: <p style="font-size: 10px; color: red">(texto vermelho com fonte tamanho 10)</p>
+\end{itemize}
+\item[1.2.] \textbf{Layout}
+\begin{itemize}
+\item Sempre começar o documento com <!DOCTYPE html> e escrever o código entre <html> e </html>
+\item Utilizar <body> para o que vai na página e <head> para títulos (body tem atributo style)
+\item Em <head> colocar <title> para a frase que vai escrita na guia
+\end{itemize}
+\item[1.3.] \textbf{Edição de texto}
+\begin{itemize}
+\item Título: Pode ser feito de vários tamanhos com <h1> (maior) até <h6> (menor)
+\item Negrito : <strong>
+\item Itálico: <em>
+\item Cor da letra : atributo style="color: (cor)"
+\item Cor de fundo: atrubuto style="background-color: (cor)"
+\item Local do texto: atributo style="text-align:(right, center ou left)"
+\item Tamanho da fonte: atributo style="font-size: XXpx" (XX é o tamanho da fonte em pixels)
+\item Estilo da fonte: atributo style="font-family: (nome)"
+\item Ver \url{https://www.w3.org/TR/CSS21/fonts.html#generic-font-families}
+\end{itemize}
+\item[1.4.] \textbf{Indentação de frases}
+\begin{itemize}
+\item Um novo parágrafo é feito por <p>(frase)</p>
+\item Uma lista numerada é feita por:\\
+<ol>\\
+<li>(primeiro item)</li>\\
+<li>(segundo item)</li>\\
+<li>(terceiro item)</li>\\
+...\\
+</ol>
+\item Uma lista de itens é feita do mesmo jeito da numerada mas substituindo <ol> por <ul>
+\item Todos tem o atributo style
+\end{itemize}
+\item[1.5.] \textbf{Especiais}
+\begin{itemize}
+\item Imagem: <img src="(link)" /> (não tem fechamento)
+\item Hiperlink: <a href=(link)>(frase)</a>
+\end{itemize}
+\item[1.2.] \textbf{Variáveis} 
+\begin{itemize}
+\item O tipo da variável não precisa ser especificado mas ela precisa ser declarada usando:\\
+var variável = 42;
+\end{itemize}
+\item[1.3.] \textbf{Listas}
+\begin{itemize}
+\item Podem mesclar tipos de variáveis
+\item São declaradas como: 
+\begin{itemize}
+\item lista1 = [] ;
+\item lista2 = [0, 0, 0, 0, 0];
+\item lista3 = new Array();
+\end{itemize}
+\item São referenciados como: \\
+list[0] = 0;
+\end{itemize}
+\item[1.4.] \textbf{Funções}
+\begin{itemize}
+\item Tipos dos argumentos não precisam ser especificados
+\item São declaradas como: \\
+var area = function(altura, largura)\{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} return (altura * largura);\\
+\}
+\item Se a função for uma nova classe de objeto, ela deve ser declarada como:
+function Rectangle\{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} this.altura = altura; (variável publica)\\[-0.5cm]
+
+\setlength{\parindent}{1cm} this.largura = largura;\\[-0.5cm]
+
+\setlength{\parindent}{1cm} var cor = "branco"; (variável privada)\\
+\}
+\item Se já existir uma classe e é preciso adicionar algo a mais, usar:\\
+Rectangle.prototype.area = this.altura * this.largura;
+\item Se uma classe é uma subclasse de outra, podemos importar os métodos de uma para a outra usando:\\
+Square.prototype = new Rectangle;
+\end{itemize}
+\item[1.5.] \textbf{Objetos}
+\begin{itemize}
+\item São declarados:\\
+var Rectangle = \{ \\[-0.5cm]
+
+\setlength{\parindent}{1cm} altura: 30, \\[-0.5cm]
+
+\setlength{\parindent}{1cm} largura: 40 \\
+\}
+\item Ou, podem ser declarados:\\
+var Rectangle = new Object(); \\
+Rectangle.altura = 30; \\
+Rectangle.largura = 40; \\
+\end{itemize}
+\item[1.6.] \textbf{Expressões}
+\begin{enumerate}
+\item[1.6.1.] \textbf{Condicionais}
+\begin{itemize}
+\item if
+\item else if
+\item else
+\end{itemize}
+\item[1.6.2.] \textbf{Loops}
+\begin{itemize}
+\item while
+\item do-while
+\item for
+\item for-in
+\end{itemize}
+\item[1.6.3.] \textbf{Outros}
+\begin{itemize}
+\item switch
+\end{itemize}
+\end{enumerate}
+\item[1.7.] \textbf{Comparadores e booleanos}
+\begin{itemize}
+\item $===$ e !$==$
+\item $<=$ e $>=$
+\item $<$ e $>$
+\item $\&\&$
+\item $||$
+\item  !
+\end{itemize}
+\item[1.8.] \textbf{Operadores}
+\begin{itemize}
+\item $+$ e $-$
+\item * e /
+\item \% (módulo)
+\end{itemize}
+\item[1.9.] \textbf{Bibliotecas}
+\begin{itemize}
+\item Mais usadas:
+\begin{itemize}
+\item Math : matemática
+\end{itemize}
+\end{itemize}
+\item[1.10.] \textbf{Input e output}
+\begin{itemize}
+\item Input:
+\begin{itemize}
+\item prompt(<pergunta>, <resposta padrão>); (retorna a resposta do usuário)
+\item confirm(<pergunta>); (retorna true ou false dependendo do botão apertado)
+\end{itemize}
+\item Output:
+\begin{itemize}
+\item console.log(<frase>); (console)
+\item alert(<frase>); (pop-up)
+\end{itemize}
+\end{itemize}
+\item[1.11.] \textbf{Comentários}
+\begin{itemize}
+\item Podem ser feitos em quantas linhas for preciso com <!-- (comentário) -->
+\end{itemize}
+\item[1.12.] \textbf{Funções e métodos úteis}
+\begin{itemize}
+\item Math.random()
+\item list.length
+\item string.toUpperCase() e string.toLowerCase()
+\item object.hasOwnProerty("prop") (verifica se o objeto tem uma propriedade chamada "prop")
+\item num.toFixed(dig) (limita o número de casas decimais de um "num" float em "dig")
+\item string.substring(<começo>,<final>); (retorna a substring)
+\end{itemize}
+\end{enumerate}
+\end{enumerate}
+\end{document}

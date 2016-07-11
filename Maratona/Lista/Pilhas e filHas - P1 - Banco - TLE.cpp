@@ -5,7 +5,6 @@ using namespace std;
 
 int T[1123];
 int D[1123];
-int Esp[1123];
 int caix[11];
 
 int main(){
@@ -29,9 +28,8 @@ int main(){
 			}
 		}
 		temp += vago;
-		while (temp >= T[k] && k<n){
-			Esp[k] = temp - T[k];
-			k++;
+		if (T[top] <= temp && temp - T[top] >= 20){
+			res++;
 		}
 		for (int i = 0; i<c; i++){
 			caix[i] -= vago;
@@ -39,11 +37,6 @@ int main(){
 				caix[i] = D[top];
 				top++;
 			}
-		}
-	}
-	for (int i = 0; i<n; i++){
-		if (Esp[i] > 20){
-			res++;
 		}
 	}
 	cout<<res<<endl;

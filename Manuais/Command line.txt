@@ -1,0 +1,35 @@
+++ cd <destino> -> muda de diretório, lembrando que ".." é o dirtório anterior,
+ou o "diretório pai"
+++ pwd -> mostra o local do diretório atual
+++ ls <-a> <-l> <-t> -> lista todos os arquivos do diretório atual. ("-a" mostra
+os arquivos com nome que começa com ponto, "-l" mostra mais detalhes sobre os
+arquivos e "-t" ordena os arquivos pela data de modificação)
+++ cat <arquivo> -> mostra o conteúdo do arquivo
+++ mkdir <nome> -> cria uma pasta
+++ touch <nome> -> cria um arquivo de texto
+++ cp <arquivo> <destino> -> copia um arquivo ou arquivos para o destino (se for
+usado * no lugar do arquivo ou no nome do arquivo, ele copia todos os arquivos
+(* sozinho) ou todos os arquivos que começam com o que está antes do asterisco
+(como "m*" copia todos os arquivos que começam com "m"))
+++ mv <arquivo> <destino> -> move o arquivo para o destino, tem a mesma regra do
+asterisco do cp e se o destino for outro nome de arquivo, ele renomeia o arquivo
+++ rm <-r> <diretório/arquivo> -> deleta o arquivo permanentemente, e se for um
+diretório colocar o "-r" antes. Também tem a mesma regra do asterisco do cp
+++ sort <arquivo> -> printa as linhas do arquivo em ordem alfabética
+++ uniq <arquivo> -> printa as linhas do arquivo sem repetições consecutivas de
+linhas
+++ grep <-i> <-R> <-l> <substring> <arquivo/diretório> -> pesquisa a substing no
+arquivo ou nos arquivos de um diretório (usar o -R para diretório para achar
+todos os resultados) ("-i" é usado para achar também as variações da substring
+independente das letras maiúscolas ou minúscolas, e "-l" é usado para ocultar a
+linha achada quando se procura em um diretório)
+++ sed 's/<procura>/<substitui>/g' <arquivo> -> procura e substitui substrings
+no arquivo ("s" é de search e "g" é de global(sem ele o sed substitui apenas a
+primeira substring de cada linha)(se for tirar o "g", não tirar a "/"))
+++++ operações de redireção:
+++ > -> redireciona o output de um comando para um arquivo reescrevendo todo o
+seu conteúdo
+++ >> -> adiciona o output de um comando no final de um arquivo
+++ < -> redireciona o input para um comando
+++ | -> redireciona o output de um comando para o imput de outro
+++ 

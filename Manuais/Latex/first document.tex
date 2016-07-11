@@ -1,0 +1,112 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{color} %colore as letras
+\usepackage{url} %inclui urls
+\usepackage[pdfencoding=unicode]{hyperref} %transforma links em texto comum para clicar
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+\usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
+\usepackage{graphicx} %permite colocar imagens no documento
+\usepackage{xspace} %coloca em espaço matemático automaticamente
+\usepackage{pifont}
+\usepackage{fancybox} %adiciona uma box
+\newcommand{\bigmc}[3]{$x=\dfrac{- #2 \pm\sqrt{#2^2-4\cdot#1\cdot#3}}{2\cdot#1}$}
+\pagestyle{empty}
+\newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}\xspace}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}\xspace}
+\renewcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathcal{C}}\xspace}
+\newcommand{\serio}{\ding{98}\xspace}
+\newcommand{\A}{\ensuremath{\mathcal{A}}\xspace}
+\renewcommand{\L}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\tq}{\,|\,}
+\newcommand{\val}[1]{\serio\ovalbox{\textbf{#1}}}
+\newcommand{\conj}[2]{\ensuremath{\{#1\,|\;#2\}}}
+\newcommand{\bl}[1]{\textcolor{red}{\mathbf{#1}}}
+%cria um comando novo que executa uma função {\<nome do comando>}[numero de parametros]{"função" utilizando #1, #2... para se referir aos parametros}
+\DeclareMathOperator{\seno}{sen}
+
+
+\title{My first \LaTeX{} document}
+\date{16 de Março de 2016}
+\author{João Gabriel Bási 02}
+\begin{document}
+\maketitle
+
+Hello \textbf{world}, \textit{here} is {\color{red} my} \texttt{first} \underline{document!} \\
+% Comment
+\tiny tiny \scriptsize scriptsize \small small \normalsize normalsize \large large \Large Large \LARGE LARGE \huge huge \Huge Huge \normalsize
+%tamanhos das fontes
+
+\begin{enumerate}
+\item number 1
+\begin{enumerate}
+\item subitem number 1.1
+\end{enumerate}
+\item number 2
+\item[42.] the answer
+\end{enumerate}
+
+Subscript $K_i$ or $E_{el}$, superscript $x^2$ or $x^{12}$ and both $x^{10}_o$.
+
+\begin{align}
+0 &= 3x^3+3x^2-6x   \\
+   &= 3(x^3+x^2-2x)   \\
+   &= 3x(x^2+x-2)        \\
+   &= 3x(x+2)(x-1)        \\
+   &\therefore              \\
+x &= 0, -2, 1\\
+\end{align}
+%colocar {align*} se não quiser os números na direita
+%& alinha o que tiver embaixo nesse ponto e \\ quebra a linha
+bmatrix:
+$
+\begin{bmatrix}
+1 & 2 & 3 \\
+a & b & c \\
+\end{bmatrix}
+\text { pmatrix: }
+\begin{pmatrix}
+1 & 2 & 3 \\
+a & b & c \\
+\end{pmatrix}
+\text { vmatrix: }
+\begin{vmatrix}
+1 & 2 & 3 \\
+a & b & c \\
+\end{vmatrix}
+$ \\
+
+Some fractions: $\dfrac{x^2}{x^3} = \frac{1}{x^2}$, an square root: $\sqrt[3]{15}$, an highlighted integral: $$\int_{a}^{b}f(x)\pm \sqrt{50} dx$$ and now a sin: $\seno(\frac{\pi}{2}) = 1\text{ ou sen}(\frac{\pi}{2})$ \\
+Alguns símbolos:
+$
+\forall x, \exists y\in\mathbb{Z} : x \geqslant y \text{ and } x \leqslant y^2 \\
+\forall z, \nexists y \in R\cap T : {(x,y)}  \subseteq R\cup T \\
+\forall \delta, \exists \varepsilon \leqslant |\delta - x| \rightarrow +\infty \Longleftrightarrow \varepsilon > 0 \\
+\bar{x} \quad \vec{x} \quad x^\prime \quad \neg \quad \preceq \quad \not \preceq \quad \not =
+\quad \equiv \quad \simeq \quad \gg \quad \ll \quad \sim$ \\
+$\displaystyle \lim_{x\rightarrow0}\cos x = 1$ %o "x -> 0" só aparecerá embaixo do limite se ele for colocado no modo display ($$$$) ou no \displaystyle, se não ele aparece como um subscrip 
+$$\boxed{\sum_{i=0}^n = \begin{pmatrix} i \\ n \end{pmatrix} a^{n-i}b^i}$$ \\
+
+\begin{center}
+\begin{tabular}{ | l | l | l | p{5cm} |} \hline 
+Dia& Temp. Mín.  & Temp. Máx & Resumo\\ \hline
+Segunda & 22$^\circ$C   & 28$^\circ$C  & Dia nublado com diversas pancadas de chuva;\\ \hline
+Terça       & 25$^\circ$C   & 32$^\circ$C  & Manhã nublada abrindo o sol à tarde.  Pequenos períodos de chuvas esparsas pela manhã;\\ \hline
+Quarta    & 28$^\circ$C   & 37$^\circ$C  & Dia de sol com pancadas de chuva ao anoitecer; \\ \hline
+\end{tabular}
+\end{center}
+
+\href{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}{LaTeX (manual)}\\
+\bigmc{1}{2}{3}
+
+\includegraphics[scale=0.5]{latex.png}
+\end{document}
