@@ -1,0 +1,27 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+
+\title{Relatório EP1 - MAC0121}
+\date{}
+\author{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item[1.]Conceitos matemáticos e simplificações utilizados\\
+Chamando a função de Collatz de $f$ e a função que determina o número de passos de $p$, a partir de um número inicial $a$, obti os valores de p para todos os números $b\_x$ (sendo $x$ o número de iterações de $f$ necessárias para obter $b\_x$ a partir de $a$) encontrados a cada iteração da função $f$,  pela fórmula $p(b\_x) = p(a) - x$. Também encontrei o valor de $p$ para todos os números $c\in[i,j]$ da forma $a\cdot2^y$ (sendo $y$ um inteiro positivo e $[i,j]$ o intervalo especificado no começo do programa) utilizando a só a regra para números pares da função inversa $f^{-1}$.
+\item[2.]Observações sobre a função\\
+\begin{itemize}
+\item Números cuja difença é pequena muitas vezes tem um valor de p igual.
+\item A função $f^{-1}$ é injetora para o conjunto dos múltiplos de $3$, pois será impossível aplicar a regra para ímpares já que não existe $t$ e $k$ inteiros tal que $3k = 3t+1$.
+\end{itemize}
+\end{enumerate}
+\end{document}
