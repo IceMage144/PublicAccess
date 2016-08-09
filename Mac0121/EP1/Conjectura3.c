@@ -11,9 +11,11 @@ int collatz(lld num, int steps){
 		return steps;
 	}
 	else if (num%2 == 0){
+		printf("%lld ", num);
 		return collatz(num/2, steps+1);
 	}
 	else {
+		printf("%lld ", num);
 		return collatz(3*num+1, steps+1);
 	}
 }
@@ -24,7 +26,7 @@ int main(){
 	clock_t beg, end;
 	beg = clock();
 	for(int i = 0; i <= fim-inicio; i++){
-		printf("%d\n", collatz(i+inicio, 0));
+		printf("==> %d\n", collatz(i+inicio, 0));
 	}
 	end = clock();
 	printf("Time: %lfms\n", 1000.0*(double)(end-beg)/CLOCKS_PER_SEC);

@@ -16,12 +16,27 @@
 \begin{document}
 \maketitle
 \begin{enumerate}
-\item[1.]Conceitos matemáticos e simplificações utilizados\\
-Chamando a função de Collatz de $f$ e a função que determina o número de passos de $p$, a partir de um número inicial $a$, obti os valores de p para todos os números $b\_x$ (sendo $x$ o número de iterações de $f$ necessárias para obter $b\_x$ a partir de $a$) encontrados a cada iteração da função $f$,  pela fórmula $p(b\_x) = p(a) - x$. Também encontrei o valor de $p$ para todos os números $c\in[i,j]$ da forma $a\cdot2^y$ (sendo $y$ um inteiro positivo e $[i,j]$ o intervalo especificado no começo do programa) utilizando a só a regra para números pares da função inversa $f^{-1}$.
-\item[2.]Observações sobre a função\\
+\large
+\item[1.]\textbf{Conceitos matemáticos e simplificações utilizados}
+\normalsize\\
+Chamando a função de Collatz de $f$, a função que determina o número de passos de $p$ e o intervalo especificado na entrada do programa de $[i,j]$:
 \begin{itemize}
-\item Números cuja difença é pequena muitas vezes tem um valor de p igual.
-\item A função $f^{-1}$ é injetora para o conjunto dos múltiplos de $3$, pois será impossível aplicar a regra para ímpares já que não existe $t$ e $k$ inteiros tal que $3k = 3t+1$.
+\item A partir de um número inicial $a\in[i,j]$, obti os valores de $p$ para todos os inteiros $b_x$ (sendo $x$ o número de iterações de $f$ necessárias para obter $b_x$ a partir de $a$) encontrados a cada iteração da função $f$, pela fórmula $p(b_x) = p(a) - x$.
+\item Se um número $b_x$ obtido a partir de $a$ já tiver o seu valor de $p$ guardado no vetor, utilizei a fórmula $p(a) = p(b_x) + x$ para obter o valor de $p(a)$.
+%\item Encontrei o valor de $p$ para todos os inteiros $c_y \leqslant j$ da forma $a\cdot2^y$ pela fórmula $p(c_y) = p(a) + y$ (sendo $y$ um inteiro positivo) utilizando a regra para obter números pares da função inversa $f^{-1}$, $y$ vezes.
 \end{itemize}
+\large
+\item[2.]\textbf{Observações sobre a função}
+\normalsize\\
+Ainda utilizando as variáveis e funções definidas no item anterior:
+\begin{itemize}
+\item Quanto maior o $a$, maior é a chance de números consecutivos a ele terem o mesmo valor de $p$.
+\item Se utilizarmos a função $f^{-1}$ a partir do 1, há vezes em que há dois resultados possíveis, um ímpar (utilizando $f^{-1}(a) = (a-1)/3$) e outro par (utilizando $f^{-1}(a) = 2a$), e há vezes em que só há o resultado par; porém, ao atingir um múltiplo de $3$, passa a ser impossível achar um resultado ímapar, já que não existe $k$ inteiro tal que $f^{-1}(3k) = ((3k)-1)/3$, e a função passa a obter só resultados pares.
+\end{itemize}
+\large
+\item[3.]\textbf{Maior intervalo testado para o código}
+\normalsize\\
+%O programa trabalha com uma lista de $10^7$ posições, então a diferença $j-i$ tem que ser $\leqslant 10^7$, porém os números testados não correspondem às suas respectivas posições no vetor, e sim à uma posição defina pelo programa, permitindo $i,j \geqslant 10^7$, ainda respeitando a desigualdade $j-i \leqslant 10^7$. Foi testado que, para a grande maioria dos números menores que $10^{11}$, os valores do conjunto $[i,j]$ podem ser calculados sem que haja problema de overflow. Resumindo: as entradas do programa devem ser $i,j \leqslant 10^{11}$, com $j-i \leqslant 10^7$.
+Consegui testar até 113382, depois disso alguns números começam a dar overflow no int em alguma das iterações da função
 \end{enumerate}
 \end{document}
