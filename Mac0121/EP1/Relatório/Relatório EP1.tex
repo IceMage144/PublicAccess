@@ -28,15 +28,22 @@ Chamando a função de Collatz de $f$, a função que determina o número de pas
 \large
 \item[2.]\textbf{Observações sobre a função}
 \normalsize\\
-Ainda utilizando as variáveis e funções definidas no item anterior:
+Ainda utilizando as variáveis e funções definidas no item anterior e definindo a função inversa de $f$ como
+$$f^{-1}(x)\left\{
+\begin{array}{ll}
+      \frac{x-1}{3} & \text{, se o resultado dessa conta for ímpar}\\
+      2x & \text{, qualquer }x\\
+\end{array} 
+\right.
+$$
 \begin{itemize}
 \item Quanto maior o $a$, maior é a chance de números consecutivos a ele terem o mesmo valor de $p$.
-\item Se utilizarmos a função $f^{-1}$ a partir do 1, há vezes em que há dois resultados possíveis, um ímpar (utilizando $f^{-1}(a) = (a-1)/3$) e outro par (utilizando $f^{-1}(a) = 2a$), e há vezes em que só há o resultado par; porém, ao atingir um múltiplo de $3$, passa a ser impossível achar um resultado ímapar, já que não existe $k$ inteiro tal que $f^{-1}(3k) = ((3k)-1)/3$, e a função passa a obter só resultados pares.
+\item Se utilizarmos a função $f^{-1}$ várias vezes a partir do 1 e fizermos uma árvore de resultados, há vezes em que há dois resultados possíveis: um ímpar (utilizando $f^{-1}(x) = \frac{x-1}{3}$) e outro par (utilizando $f^{-1}(x) = 2x$), e há vezes em que só há o resultado par. Porém, depois de atingir um múltiplo de $3$, passa a ser impossível achar um resultado ímpar, já que não existe $k$ inteiro tal que $\frac{(3k)-1}{3}$ seja inteiro, então a função passa a obter só resultados pares naquele ramo da árvore.
 \end{itemize}
 \large
 \item[3.]\textbf{Maior intervalo testado para o código}
 \normalsize\\
 %O programa trabalha com uma lista de $10^7$ posições, então a diferença $j-i$ tem que ser $\leqslant 10^7$, porém os números testados não correspondem às suas respectivas posições no vetor, e sim à uma posição defina pelo programa, permitindo $i,j \geqslant 10^7$, ainda respeitando a desigualdade $j-i \leqslant 10^7$. Foi testado que, para a grande maioria dos números menores que $10^{11}$, os valores do conjunto $[i,j]$ podem ser calculados sem que haja problema de overflow. Resumindo: as entradas do programa devem ser $i,j \leqslant 10^{11}$, com $j-i \leqslant 10^7$.
-Consegui testar até 113382, depois disso alguns números começam a dar overflow no int em alguma das iterações da função
+O programa conseguiu calcular o valor de $p$ para todos os números positivos que cabem em um int ($x \leqslant 2^{31}, \forall x \in \mathbb{N}$).
 \end{enumerate}
 \end{document}

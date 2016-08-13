@@ -8,7 +8,7 @@ No USP: 9793801
 #include <stdlib.h>
 
 /*calcula a função de Collatz*/ 
-int collatz(int num){
+long collatz(long num){
 	if (num%2 == 0)
 		return (num/2);
 	else
@@ -16,9 +16,9 @@ int collatz(int num){
 }
 
 int main(){
-	int steps, aux, inicio, fim, i;
+	long steps, aux, inicio, fim, i;
 	int *res;
-	if (scanf("%d%d", &inicio, &fim) != 2)
+	if (scanf("%ld%ld", &inicio, &fim) != 2)
 		exit(1);
 	res = (int*)malloc((fim-inicio+1) * sizeof(int));
 	if (res == NULL)
@@ -42,7 +42,7 @@ int main(){
 			}
 			res[i-inicio] = steps;
 			aux = i;
-			/*preenche o número de passos dos números achados em cada iteração da função de
+			/*preenche os passos dos números achados em cada iteração da função de
 			i até 1 ou até um número que não tenha sido calculado ainda*/
 			while (res[aux-inicio] == 0 && aux != 1){
 				aux = collatz(aux);
@@ -53,8 +53,7 @@ int main(){
 		}
 	}
 	for (i = 0; i <= fim-inicio; i++)
-		printf("%d\n", res[i]);
+		printf("%ld: %d\n", i+1, res[i]);
 	free(res);
 	return 0;
 }
-/*113382*/
