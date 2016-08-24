@@ -20,7 +20,7 @@ int main(){
 	int *res;
 	if (scanf("%ld%ld", &inicio, &fim) != 2)
 		exit(1);
-	res = (int*)malloc((fim-inicio+1) * sizeof(int));
+	res = (int*)calloc(fim-inicio+1, sizeof(int));
 	if (res == NULL)
 		exit(1);
 	for (i = inicio; i <= fim; i++){
@@ -51,9 +51,12 @@ int main(){
 					res[aux-inicio] = steps;
 			}
 		}
+		if (i == 250000000) printf("25 percent\n");
+		else if (i == 500000000) printf("50 percent\n");
+		else if (i == 750000000) printf("75 percent\n");
+		else if (i == 1000000000) printf("100 percent\n");
+		printf("%d\n", res[i-inicio]);
 	}
-	for (i = 0; i <= fim-inicio; i++)
-		printf("%ld: %d\n", i+1, res[i]);
 	free(res);
 	return 0;
 }

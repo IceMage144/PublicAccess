@@ -1,0 +1,22 @@
+44000000  XOR    $0,$0,$0   Limpa o $0
+5afc0001  SETW   rX,1       Coloca 1 em rX
+fe000080  INT    #80        Como rX=1, lê entrada
+2300ff30  SUBI   $0,rA,48   Subtrai faz rA-48 e guarda em $0
+5a010001  SETW   $1,1       Coloca 1 em $1
+43020000  ORI    $2,$0,0    Copia o valor de $0 para $2
+3702020a  DIVUI  $2,$2,10   Divide o valor de $2 por 10
+ff000000  Loop=========
+4a020004  JZ     $2,4       Se $2 for zero pula 4 linhas
+3702020a  DIVUI  $2,$2,10   Divide $2 por 10
+3501010a  MULUI  $1,$1,10   Multiplica $1 por 10
+49000003  JMPB   3          Volta 3 linhas
+5afc0002  SETW   rX,2       Coloca 2 em rX
+ff000000  Loop=========
+4a010007  JZ     $1,7       Se $1 for zero pula 7 linhas
+36020001  DIVU   $2,$0,$1   Divide $0 por $1 e guarda em $2
+3702020a  DIVUI  $2,$2,10   Divide $2 por 10 e guarda em $2
+31fbfe30  ADDUI  rY,rR,48   Soma rR e 48 e guarda em rY
+fe000080  INT    #80        rX=2 => Printa rY
+3701010a  DIVUI  $1,$1,10   Divide $1 por 10 e guarda em $1
+49000006  JMPB   6          Volta 6 linhas
+fe000000  INT    0          Termina o programa

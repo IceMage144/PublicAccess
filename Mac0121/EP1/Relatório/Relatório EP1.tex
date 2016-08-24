@@ -19,31 +19,32 @@
 \large
 \item[1.]\textbf{Conceitos matemáticos e simplificações utilizados}
 \normalsize\\
-Chamando a função de Collatz de $f$, a função que determina o número de passos de $p$ e o intervalo especificado na entrada do programa de $[i,j]$:
+Chamando a função de Collatz de $f$ e a função que determina o número de passos de $p$:
 \begin{itemize}
-\item A partir de um número inicial $a\in[i,j]$, obti os valores de $p$ para todos os inteiros $b_x$ (sendo $x$ o número de iterações de $f$ necessárias para obter $b_x$ a partir de $a$) encontrados a cada iteração da função $f$, pela fórmula $p(b_x) = p(a) - x$.
-\item Se um número $b_x$ obtido a partir de $a$ já tiver o seu valor de $p$ guardado no vetor, utilizei a fórmula $p(a) = p(b_x) + x$ para obter o valor de $p(a)$.
+%\item A partir de um número inicial $a\in[i,j]$, obti os valores de $p$ para todos os inteiros $b_x$ (sendo $x$ o número de iterações de $f$ necessárias para obter $b_x$ a partir de $a$) encontrados a cada iteração da função $f$, pela fórmula $p(b_x) = p(a) - x$.
+%\item Se um número $b_x$ obtido a partir de $a$ já tiver o seu valor de $p$ guardado no vetor, utilizei a fórmula $p(a) = p(b_x) + x$ para obter o valor de $p(a)$.
 %\item Encontrei o valor de $p$ para todos os inteiros $c_y \leqslant j$ da forma $a\cdot2^y$ pela fórmula $p(c_y) = p(a) + y$ (sendo $y$ um inteiro positivo) utilizando a regra para obter números pares da função inversa $f^{-1}$, $y$ vezes.
+\item Identifiquei os números $k$ pares que satisfazem a equação $k=\frac{t}{2}=3u-1$, para $t$ par e $u$ ímpar, e guardei o valor de $p$ de um quarto deles em um vetor, pois se alguma iteração de $f$ em um número $a$ inicial resultar em um desses $k$ guardados, posso achar o valor de $p(a)$ utilizando a fórmula $p(a) =p(k)+x$ (sendo $x$ o número de aplicações de $f$ para se obter $k$ a partir de $a$). Esses $k$ são números que podem ser obtidos a partir da aplicação de $f$ em dois números diferentes, então há uma chance maior deles serem achados em uma iteração de $f$, além de poderem ser identificados facilmente pela equação já citada.
 \end{itemize}
 \large
 \item[2.]\textbf{Observações sobre a função}
 \normalsize\\
-Ainda utilizando as variáveis e funções definidas no item anterior e definindo a função inversa de $f$ como
+Definindo a função inversa de $f$ como:
 $$f^{-1}(x)\left\{
 \begin{array}{ll}
-      \frac{x-1}{3} & \text{, se o resultado dessa conta for ímpar}\\
-      2x & \text{, qualquer }x\\
+      \frac{x-1}{3} & \text{, se o resultado for ímpar}\\
+      2x & \text{, sempre}\\
 \end{array} 
 \right.
 $$
 \begin{itemize}
-\item Quanto maior o $a$, maior é a chance de números consecutivos a ele terem o mesmo valor de $p$.
-\item Se utilizarmos a função $f^{-1}$ várias vezes a partir do 1 e fizermos uma árvore de resultados, há vezes em que há dois resultados possíveis: um ímpar (utilizando $f^{-1}(x) = \frac{x-1}{3}$) e outro par (utilizando $f^{-1}(x) = 2x$), e há vezes em que só há o resultado par. Porém, depois de atingir um múltiplo de $3$, passa a ser impossível achar um resultado ímpar, já que não existe $k$ inteiro tal que $\frac{(3k)-1}{3}$ seja inteiro, então a função passa a obter só resultados pares naquele ramo da árvore.
+\item Quanto maiores os números, maior é a chance de números consecutivos a eles terem o mesmo valor de $p$.
+\item Se utilizarmos a função $f^{-1}$ várias vezes a partir do 1 e fizermos uma árvore de resultados, há vezes em que há dois resultados possíveis: um ímpar (utilizando $f^{-1}(x) = \frac{x-1}{3}$) e outro par (utilizando $f^{-1}(x) = 2x$), e há vezes em que só há o resultado par. Porém, depois de atingir um múltiplo de $3$, passa a ser impossível achar um resultado ímpar, já que não existe $b$ inteiro tal que $\frac{(3b)-1}{3}$ seja inteiro, então a função passa a obter só resultados pares naquele ramo da árvore.
 \end{itemize}
 \large
 \item[3.]\textbf{Maior intervalo testado para o código}
 \normalsize\\
 %O programa trabalha com uma lista de $10^7$ posições, então a diferença $j-i$ tem que ser $\leqslant 10^7$, porém os números testados não correspondem às suas respectivas posições no vetor, e sim à uma posição defina pelo programa, permitindo $i,j \geqslant 10^7$, ainda respeitando a desigualdade $j-i \leqslant 10^7$. Foi testado que, para a grande maioria dos números menores que $10^{11}$, os valores do conjunto $[i,j]$ podem ser calculados sem que haja problema de overflow. Resumindo: as entradas do programa devem ser $i,j \leqslant 10^{11}$, com $j-i \leqslant 10^7$.
-O programa conseguiu calcular o valor de $p$ para todos os números positivos que cabem em um int ($x \leqslant 2^{31}, \forall x \in \mathbb{N}$).
+O programa conseguiu calcular o valor de $p$ para todos os números positivos que cabem em um int ($x \leqslant 2^{31}, x \in \mathbb{N}$).
 \end{enumerate}
 \end{document}
