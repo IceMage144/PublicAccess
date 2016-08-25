@@ -24,6 +24,7 @@ fe000080  INT    #80         Como rX=1, lê entrada
 4900000a  JMPB   10          Volta 10 linhas
 ff000000  NOP=====================================
 fedb0404  Debug  $4,$4
+5afc0002  SETW   rX,2        Coloca 2 em rX
 38030b04  CMPU   $3,$11,$4   for linha in f==========={for
 4e0300  JP     $3,      Pula  linhas se $3>0
 5a050000  SETW   $5,0        Coloca 0 em $5
@@ -41,21 +42,60 @@ fedb0a0a  Debug  $10,$10     ========================={/len
 5a070000  SETW   $7,0        Coloca 0 em $7
 5a080000  SETW   $8,0        Coloca 0 em $8
 5a090000  SETW   $9,0        Coloca 0 em $9
+300e0d05  ADD    $14,$13,$5  Soma $13+$5 e guarda em $14
 38030902  CMPU   $3,$9,$2    i < col=================={while
-5203000b  JNN    $3,11       Pula 11 linhas se $3 não for <0
-080c0905  LDBU   $12,$9,$5   Guarda M[$9+$5] em $12
+5203000a  JNN    $3,10       Pula 10 linhas se $3 não for <0
+080c090e  LDBU   $12,$9,$14  Guarda M[$9+$14] em $12
 39030c0a  CMPUI  $3,$12,10   linha[i+count] != '\n'==={and
 4a030006  JZ     $3,6        Pula 6 linhas se $3=0
 39030c20  CMPUI  $3,$12,32   linha[i+count] == ' '===={if
 4c030002  JNZ    $3,2        Pula 2 linhas se $3!=0
 31060601  ADDUI  $6,$6,1     Adiciona 1 no $6
+31090901  ADDUI  $9,$9,1     Adiciona 1 no $9========={/if
+4900000a  JMPB   10          Volta 10 linhas=========={/while
+39030c20  CMPUI  $3,$12,32   linha[i+count] != ' '===={if
+4a0300  JZ     $3,        Pula  linhas se $3=0
+39030c0a  CMPUI  $3,$12,10   linha[i+count] != '\n'==={and
+4a0300  JZ     $3,        Pula  linhas se $3=0
+080c090e  LDBU   $12,$9,$14  Guarda M[$9+$14] em $12=={while
+39030c20  CMPUI  $3,$12,32   linha[i+count] != ' '
+4a030006  JZ     $3,6        Pula 6 linhas se $3=0
+39030c00  CMPUI  $3,$12,0    i != 0==================={and
+4a030004  JZ     $3,4        Pula 4 linhas se $3=0
+31070701  ADDUI  $7,$7,1     Adiciona 1 no $7
+33090901  SUBUI  $9,$9,1     Subtrai 1 do $9
+49000007  JMPB   7           Volta 7 linhas==========={/while
+39030601  CMPUI  $3,$6,1     spaces <= 1=============={if
+4e03000c  JP     $3,12       Pula 12 linhas se $3>0
+44090909  XOR    $9,$9,$9    Zera o $9
+080c090e  LDBU   $12,$9,$14  Guarda M[$9+$14] em $12=={while
+39030c20  CMPUI  $3,$12,32   linha[i+count] != ' '
+4a030007  JZ     $3,7        Pula 7 linhas se $3=0
+39030c0a  CMPUI  $3,$12,10   linha[i+count] != '\n'==={and
+4a030005  JZ     $3,5        Pula 5 linhas se $3=0
+31fb0c00  ADDUI  rY,$12,0    Copia $12 para rY
+fe000080  INT    #80         Como rX=2, printa rY
 31090901  ADDUI  $9,$9,1     Adiciona 1 no $9
 49000008  JMPB   8           Volta 8 linhas==========={/while
-5afc0002  SETW   rX,2        Coloca 2 em rX
+480000  JMP              Pula  linhas============={/if
+33060601  SUBUI  $6,$6,1     Subtrai 1 do $6=========={else
+36080706  DIVU   $8,$7,$6    Guarda $7//$6 em $8
+31080801  ADDUI  $8,$8,1     Adiciona 1 no $8
+39030601  CMPUI  $3,$6,1     newspaces > 1============{if
+54030005  JNP    $3,5        Pula 5 linhas se $3<=0
+38030706  CMPU   $3,$7,$6    xspaces >= spaces========{while
+50030003  JN     $3,3        Pula 3 linhas se $3<0
+32070706  SUBU   $7,$7,$6    Subtrai $6 do $7
+49000003  JMPB   3           Volta 3 linhas==========={/while/if
+
+
+
+
+
 38030501  CMPU   $3,$5,$1    Coloca em $3 a comparação de $5 e $1
 4a030005  JZ     $3,5        Pula 5 linhas se $3=0
 09fb0500  LDBUI  rY,$5,0     Guarda M[$5] em rY
-fe000080  INT    #80         Como rX=2, printa rA
+fe000080  INT    #80         Como rX=2, printa rY
 31050501  ADDUI  $5,$5,1     Adiciona 1 no $5
 49000005  JMPB   5           Volta 5 linhas
 fe000000  INT    0           Finaliza o programa
