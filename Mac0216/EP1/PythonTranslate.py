@@ -1,4 +1,4 @@
-#$0 -> zero
+#$0 -> k
 #$1 -> EOT
 #$2 -> col
 #$3 -> comparações
@@ -12,7 +12,8 @@
 #$b -> redparag
 #$c -> reader
 #$d -> redchar
-#$e -> auxiar
+#$e -> redchar+count
+#$f -> j
 
 def main():
     col = int(input("Quantas colunas?\n")) #$2
