@@ -1,0 +1,7 @@
+33fdfd1c  SUBUI  rSP,rSP,28
+5afc0002  SETW   rX,2
+09fbfd00  LDBUI  rY,rSP,0
+fe000080  INT    #80
+5afb000a  SETW   rY,10   
+fe000080  INT    #80
+fe000000  INT    0
