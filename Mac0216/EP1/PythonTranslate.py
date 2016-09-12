@@ -52,16 +52,13 @@ def main():
                             print(linha[j+count], end='')
                         else:
                             for k in range(newspaces):
-                                print('_', end='')
+                                print(' ', end='')
                             if spaces <= xspaces:
-                                print('_', end='')
+                                print(' ', end='')
                             spaces -= 1
             else:
                 for j in range(i):
-                    if linha[j+count] != ' ':
-                        print(linha[j+count], end='')
-                    else:
-                        print('_', end='')
+                    print(linha[j+count], end='')
             print()
             count += i+1
         #loop para voltar no count < len(linha)

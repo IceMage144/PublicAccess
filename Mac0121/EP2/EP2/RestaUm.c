@@ -211,28 +211,6 @@ void freeAll2 (int **mat, int m, int *v1, int *v2){
     free(v2);
 }
 
-/*------------------------------------------------------------------*/
-/*Se você estiver vendo essas duas funções é porque ou eu esqueci de
-retirá-las, ou ainda estou debugando*/
-void imprimeMatriz (int **mat, int m, int n){
-    int i, j;
-    printf("============================\n");
-    for (i = 0; i < m; i++)
-        for (j = 0; j < n; j++)
-            printf("%d%c", mat[i][j], " \n"[j == n-1]);
-    return ;
-}
-
-void imprimeVetor (int *v, int len){
-	int i;
-	printf("[");
-	for (i = 0; i < len; i++)
-		printf("%d%c", v[i], " ]"[i == len-1]);
-	printf("\n");
-	return ;
-}
-/*------------------------------------------------------------------*/
-
 /*recebe o tabuleiro "mat", uma matriz com as posições dos espaços livres
 no começo do jogo "livres" e seu número de linhas "nLivres" e verifica se
 todas as posições que estavam livres no começo do jogo estão ocupadas.
@@ -330,12 +308,6 @@ int ehPossivel (int **mat, int m, int n, int nOcup, int nLivres, int **livres){
             }
         }
     }
-    /*--------------------------------------------
-    printf("full: ");
-    imprimeVetor(begClass, 6);
-    printf("empty: ");
-    imprimeVetor(endClass, 6);
-    --------------------------------------------*/
     /*Teste 2*/
     for (i = 0; i < 6; i++){
         if (endClass[i] != begClass[i]){
@@ -425,13 +397,11 @@ int main (){
                 printf("Impossivel\n");
                 working = 0;
             }
-        /*----------------------------------------------------------*/
         /*Conta o número de jogadas e o printa se esse número for múltiplo
         de 10^8*/
         moves++;
         if (moves%STEP == 0)
             printf("%ld movimentos ja foram executados\n", moves);
-        /*----------------------------------------------------------*/
     }
     imprimePilha(p);
     freeAll(p, nOcup-nLivres, tab, lin, livres, nLivres);
