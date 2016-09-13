@@ -7,9 +7,11 @@ spaces      IS     $5
 xspaces     IS     $6
 newspaces   IS     $7
 aux         IS     $8
-i           IS     $9
-j           IS     $10
-k           IS     $11
+auxII       IS     $9
+mem         IS     $10
+i           IS     $11
+j           IS     $12
+k           IS     $13
             EXTERN main
 main        SETW   rX,1
             SUBU   rSP,rSP,28
@@ -27,31 +29,46 @@ endRC       XOR    EOT,EOT,EOT
             XOR    aux,aux,aux
 readNStore  INT    #80                           *Lê o texto e o guarda na
             JN     rA,endRNS                     *memória
-            CMPU   comp,aux,2
-            JNZ    comp,6
             CMPU   comp,rA,10
-            JZ     comp,16
+            JNZ    comp,5
+            CMPU   comp,auxII,2
+            JZ     comp,readNStore
+            ADDU   auxII,auxII,1
+            JMP    readNStore
             CMPU   comp,rA,32
-            JNP    comp,readNStore
-            JMP    7
-            CMPU   comp,rA,10
-            JNZ    comp,3
-            SETW   aux,2
-            JMP    9
-            CMPU   comp,rA,32
-            JNP    comp,3
-            XOR    aux,aux,aux
-            JMP    5
-            SETW   rA,32
+            JP     comp,8
+            CMPU   comp,auxII,0
+            JP     comp,readNStore
             CMPU   comp,aux,1
             JZ     comp,readNStore
             SETW   aux,1
+            SETW   rA,32
+            JMP    17
+            XOR    aux,aux,aux
+            CMPU   comp,auxII,1
+            JNZ    comp,6
+            SETW   mem,32
+            STBU   mem,EOT,0
+            ADDU   EOT,EOT,1
+            XOR    auxII,auxII,auxII
+            JMP    9
+            CMPU   comp,auxII,2
+            JNZ    comp,7
+loop        JZ     auxII,6
+            SETW   mem,10
+            STBU   mem,EOT,0
+            ADDU   EOT,EOT,1
+            SUBU   auxII,auxII,1
+            JMP    loop
             STBU   rA,EOT,0
             ADDU   EOT,EOT,1
             JMP    readNStore
 endRNS      SETW   rX,2
+            SETW   mem,10
+            STBU   mem,EOT,0
+            ADDU   EOT,EOT,1
 readingLine CMPU   comp,count,EOT
-            JNN    comp,end
+            JZ     comp,end
             XOR    spaces,spaces,spaces
             XOR    xspaces,xspaces,xspaces
             XOR    newspaces,newspaces,newspaces

@@ -1,7 +1,9 @@
-33fdfd1c  SUBUI  rSP,rSP,28
 5afc0002  SETW   rX,2
-09fbfd00  LDBUI  rY,rSP,0
-fe000080  INT    #80
-5afb000a  SETW   rY,10   
-fe000080  INT    #80
+39030120  CMPU   $3,$1,20
+4a030006  JZ     $3,6
+33fdfd01  SUBUI  rSP,rSP,1
+0900fd00  LDBUI  $0,rSP,0
+fedb0000  INT    Debug $0
+31010101  ADDUI  $1,$1,1
+41000003  JMPB   6
 fe000000  INT    0
