@@ -43,10 +43,11 @@ readNStore  INT    #80                           *Lê o texto e o guarda na
             JZ     comp,readNStore
             SETW   aux,1
             SETW   rA,32
-            JMP    17
-            XOR    aux,aux,aux
+            JMP    19
             CMPU   comp,auxII,1
-            JNZ    comp,6
+            JNZ    comp,8
+            CMPU   comp,aux,1
+            JZ     comp,4
             SETW   mem,32
             STBU   mem,EOT,0
             ADDU   EOT,EOT,1
@@ -60,13 +61,22 @@ loop        JZ     auxII,6
             ADDU   EOT,EOT,1
             SUBU   auxII,auxII,1
             JMP    loop
+            XOR    aux,aux,aux
             STBU   rA,EOT,0
             ADDU   EOT,EOT,1
             JMP    readNStore
 endRNS      SETW   rX,2
+            LDBU   reader,EOT,0
+            CMPU   comp,reader,32
+            JP     comp,2
+            SUBU   EOT,EOT,1
             SETW   mem,10
             STBU   mem,EOT,0
             ADDU   EOT,EOT,1
+            LDBU   reader,count,0
+            CMPU   comp,reader,32
+            JP     comp,2
+            ADDU   count,count,1
 readingLine CMPU   comp,count,EOT
             JZ     comp,end
             XOR    spaces,spaces,spaces
