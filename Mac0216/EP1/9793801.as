@@ -36,46 +36,38 @@ readNStore  INT    #80                           *Lê o texto e o guarda na
             ADDU   auxII,auxII,1
             JMP    readNStore
             CMPU   comp,rA,32
-            JP     comp,8
-            CMPU   comp,auxII,0
-            JP     comp,readNStore
-            CMPU   comp,aux,1
-            JZ     comp,readNStore
+            JP     comp,3
             SETW   aux,1
-            SETW   rA,32
-            JMP    19
-            CMPU   comp,auxII,1
-            JNZ    comp,8
-            CMPU   comp,aux,1
-            JZ     comp,4
+            JMP    readNStore
+            JNZ    auxII,6
+            JZ     aux,18
             SETW   mem,32
             STBU   mem,EOT,0
             ADDU   EOT,EOT,1
-            XOR    auxII,auxII,auxII
-            JMP    9
+            JMP    13
             CMPU   comp,auxII,2
             JNZ    comp,7
-loop        JZ     auxII,6
+loop        JZ     auxII,10
             SETW   mem,10
             STBU   mem,EOT,0
             ADDU   EOT,EOT,1
             SUBU   auxII,auxII,1
             JMP    loop
+            SETW   mem,32
+            STBU   mem,EOT,0
+            ADDU   EOT,EOT,1
+            XOR    auxII,auxII,auxII
             XOR    aux,aux,aux
             STBU   rA,EOT,0
             ADDU   EOT,EOT,1
             JMP    readNStore
 endRNS      SETW   rX,2
-            LDBU   reader,EOT,rA                 *Essa perte corta possíveis
-            CMPU   comp,reader,32                *espaços que podem ter sobrado
-            JP     comp,2                        *no começo e no final do texto
-            SUBU   EOT,EOT,1                     *(caso no texto original haja
-            SETW   mem,10                        *espaços nesses lugares) e
-            STBU   mem,EOT,0                     *adiciona um \n no final do texto
-            ADDU   EOT,EOT,1
-            LDBU   reader,count,0
-            CMPU   comp,reader,32
-            JP     comp,2
+            SETW   mem,10                        *Essa perte corta um possível
+            STBU   mem,EOT,0                     *espaço que pode ter sobrado
+            ADDU   EOT,EOT,1                     *no começo do texto, caso no
+            LDBU   reader,count,0                *texto original haja espaços
+            CMPU   comp,reader,32                *nesse lugar, e adiciona um
+            JP     comp,2                        *\n no final do texto
             ADDU   count,count,1
 readingLine CMPU   comp,count,EOT                *Aqui começa o algoritmo de
             JZ     comp,end                      *justificação
