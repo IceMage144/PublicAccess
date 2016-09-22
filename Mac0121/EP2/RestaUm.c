@@ -224,12 +224,12 @@ void imprimeMatriz (int **mat, int m, int n){
 }
 
 void imprimeVetor (int *v, int len){
-	int i;
-	printf("[");
-	for (i = 0; i < len; i++)
-		printf("%d%c", v[i], " ]"[i == len-1]);
-	printf("\n");
-	return ;
+    int i;
+    printf("[");
+    for (i = 0; i < len; i++)
+        printf("%d%c", v[i], " ]"[i == len-1]);
+    printf("\n");
+    return ;
 }
 /*------------------------------------------------------------------*/
 
@@ -362,12 +362,43 @@ int ehPossivel (int **mat, int m, int n, int nOcup, int nLivres, int **livres){
     return 1;
 }
 
+int **criaPagoda (int **mat, int m, int n, int **livres, int *pagFin){
+    int i, j, lin, col;
+    int **pag;
+    pag = criaMatriz(m, n);
+    lin = livres[0][0]%2;
+    col = livres[0][1]%2;
+    for (i = 0; i < m; i++){
+        for (j = 0; j < n; j++){
+            if (i%2 == lin && j%2 == col && mat[i][j]){
+                pag[i][j] = 1;
+                if (mat[i][j] == -1){
+                    (*pagFin)++;
+                }
+            }
+        }
+    }
+    return pag;
+}
+
+int checaPagoda (int **mat, int m, int n, int **pag, int pagFin){
+    int i, j, pagAtt = 0;
+    for (i = 0; i < m; i++){
+        for (j = 0; j < n; j++){
+            if (pag[i][j] == 1 && mat[i][j] == 1){
+                pagAtt++;
+            }
+        }
+    }
+    return (pagAtt >= pagFin);
+}
+
 int main (){
     pilha *p;
-    int **tab, **livres;
+    int **tab, **livres, **pag;
     int lin, col, i, j, k, ok;
     int nLivres = 0, nOcup = 0, attl = 0, attc = 0, attmove = 0;
-    int working = 1;
+    int working = 1, pagFin = 0;
     long moves = 0;
     if (scanf("%d%d", &lin, &col) != 2)
         exit(1);
@@ -390,6 +421,9 @@ int main (){
                 livres[k][1] = j;
                 k++;
             }
+    pag = criaPagoda(tab, lin, col, livres, &pagFin);
+    imprimeMatriz(pag, lin, col);
+    printf("%d\n", pagFin);
     if (!ehPossivel(tab, lin, col, nOcup, nLivres, livres)){
         printf("Impossivel\n");
         freeAll(p, nOcup-nLivres, tab, lin, livres, nLivres);
@@ -409,22 +443,27 @@ int main (){
                 else
                     attc++;
         }
-        if (ok == 1){
-            mexe(attl, attc, tab, attmove);
-            empilha(p, attl, attc, attmove);
-            attl = 0;
-            attc = 0;
-            attmove = -1;
-        }
-        else /*Backtrack*/
-            if (!pilhaVazia(p)){
-                desempilha(p, &attl, &attc, &attmove);
+        if (checaPagoda(tab, lin, col, pag, pagFin))
+            if (ok == 1){
                 mexe(attl, attc, tab, attmove);
+                empilha(p, attl, attc, attmove);
+                attl = 0;
+                attc = 0;
+                attmove = -1;
             }
-            else {
-                printf("Impossivel\n");
-                working = 0;
-            }
+            else /*Backtrack*/
+                if (!pilhaVazia(p)){
+                    desempilha(p, &attl, &attc, &attmove);
+                    mexe(attl, attc, tab, attmove);
+                }
+                else {
+                    printf("Impossivel\n");
+                    working = 0;
+                }
+        else {
+            desempilha(p, &attl, &attc, &attmove);
+            mexe(attl, attc, tab, attmove);
+        }
         /*----------------------------------------------------------*/
         /*Conta o número de jogadas e o printa se esse número for múltiplo
         de 10^8*/
