@@ -144,13 +144,13 @@ cima, 1 para a esquerda, 2 para baixo, 3 para a direita ou -1 se não
 há movimentos possíveis*/
 int podeMexer (int **mat, int m, int n, int lin, int col, int move){
     if (mat[lin][col] == 1){
-        if (lin-2 >= 0 && mat[lin-2][col] == -1 && mat[lin-1][col] == 1 && move < 0)
+        if (move < 0 && lin-2 >= 0 && mat[lin-2][col] == -1 && mat[lin-1][col] == 1)
             return 0;
-        if (col-2 >= 0 && mat[lin][col-2] == -1 && mat[lin][col-1] == 1 && move < 1)
+        if (move < 1 && col-2 >= 0 && mat[lin][col-2] == -1 && mat[lin][col-1] == 1)
             return 1;
-        if (lin+2 < m && mat[lin+2][col] == -1 && mat[lin+1][col] == 1 && move < 2)
+        if (move < 2 && lin+2 < m && mat[lin+2][col] == -1 && mat[lin+1][col] == 1)
             return 2;
-        if (col+2 < n && mat[lin][col+2] == -1 && mat[lin][col+1] == 1 && move < 3)
+        if (move < 3 && col+2 < n && mat[lin][col+2] == -1 && mat[lin][col+1] == 1)
             return 3;
         return -1;
     }
@@ -368,28 +368,22 @@ int **criaPagoda (int **mat, int m, int n, int **livres, int *pagFin){
     pag = criaMatriz(m, n);
     lin = livres[0][0]%2;
     col = livres[0][1]%2;
-    for (i = 0; i < m; i++){
-        for (j = 0; j < n; j++){
+    for (i = 0; i < m; i++)
+        for (j = 0; j < n; j++)
             if (i%2 == lin && j%2 == col && mat[i][j]){
                 pag[i][j] = 1;
-                if (mat[i][j] == -1){
+                if (mat[i][j] == -1)
                     (*pagFin)++;
-                }
             }
-        }
-    }
     return pag;
 }
 
 int checaPagoda (int **mat, int m, int n, int **pag, int pagFin){
     int i, j, pagAtt = 0;
-    for (i = 0; i < m; i++){
-        for (j = 0; j < n; j++){
-            if (pag[i][j] == 1 && mat[i][j] == 1){
+    for (i = 0; i < m; i++)
+        for (j = 0; j < n; j++)
+            if (pag[i][j] == 1 && mat[i][j] == 1)
                 pagAtt++;
-            }
-        }
-    }
     return (pagAtt >= pagFin);
 }
 
@@ -443,24 +437,23 @@ int main (){
                 else
                     attc++;
         }
-        if (checaPagoda(tab, lin, col, pag, pagFin))
-            if (ok == 1){
+        if (ok == 1){
+            mexe(attl, attc, tab, attmove);
+            empilha(p, attl, attc, attmove);
+            attl = 0;
+            attc = 0;
+            attmove = -1;
+        }
+        else /*Backtracking*/
+            if (!pilhaVazia(p)){
+                desempilha(p, &attl, &attc, &attmove);
                 mexe(attl, attc, tab, attmove);
-                empilha(p, attl, attc, attmove);
-                attl = 0;
-                attc = 0;
-                attmove = -1;
             }
-            else /*Backtrack*/
-                if (!pilhaVazia(p)){
-                    desempilha(p, &attl, &attc, &attmove);
-                    mexe(attl, attc, tab, attmove);
-                }
-                else {
-                    printf("Impossivel\n");
-                    working = 0;
-                }
-        else {
+            else {
+                printf("Impossivel\n");
+                working = 0;
+            }
+        if (!checaPagoda(tab, lin, col, pag, pagFin)){
             desempilha(p, &attl, &attc, &attmove);
             mexe(attl, attc, tab, attmove);
         }
