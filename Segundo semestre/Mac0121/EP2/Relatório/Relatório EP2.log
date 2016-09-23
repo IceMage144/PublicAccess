@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.3.15)  5 SEP 2016 16:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.3.15)  23 SEP 2016 00:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -646,6 +646,12 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 23.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Overfull \hbox (0.34294pt too wide) in paragraph at lines 25--29
+\T1/cmr/m/n/12 re-pre-sen-tando "sem bu-raco", "bu-raco sem pe鏰"e "bu-raco com
+ pe鏰"respectivamente,
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 25--29
 
  []
@@ -657,21 +663,13 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 34.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 57.
+(babel)             in language append on input line 56.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 57.
+(babel)             in language append on input line 56.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
-
- []
-
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 65.
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Underfull \hbox (badness 10000) in paragraph at lines 65--66
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
 
  []
 
@@ -682,73 +680,115 @@ File: peg_solitaire_classes.png Graphic file (type png)
 Package pdftex.def Info: peg_solitaire_classes.png used on input line 67.
 (pdftex.def)             Requested size: 170.63707pt x 87.8279pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--72
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--77
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 77.
+(babel)             in language append on input line 76.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 77.
+(babel)             in language append on input line 76.
 [2 <./peg_solitaire_classes.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+<pagoda.png, id=29, 387.4475pt x 370.38374pt>
+File: pagoda.png Graphic file (type png)
+ <use pagoda.png>
+Package pdftex.def Info: pagoda.png used on input line 77.
+(pdftex.def)             Requested size: 193.72327pt x 185.1914pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--84
 
  []
 
+<pagoda2.png, id=31, 445.665pt x 405.515pt>
+File: pagoda2.png Graphic file (type png)
+ <use pagoda2.png>
+Package pdftex.def Info: pagoda2.png used on input line 85.
+(pdftex.def)             Requested size: 222.83195pt x 202.75699pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--87
+Underfull \hbox (badness 10000) in paragraph at lines 90--93
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 98.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 98.
+(babel)             in language append on input line 93.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 98.
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 98.
- (./Relat贸rio EP2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 98.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 98.
+(babel)             in language append on input line 93.
+[3 <./pagoda.png> <./pagoda2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 93--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--108
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 121.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 123.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 123.
+ [4]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 124.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 124.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 124.
+ [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 124.
+
+(./Relat贸rio EP2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 124.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 124.
 Package rerunfilecheck Info: File `"Relat贸rio EP2".out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 124.
  ) 
 Here is how much of TeX's memory you used:
- 10551 strings out of 494976
- 144478 string characters out of 6180334
- 222521 words of memory out of 5000000
- 13669 multiletter control sequences out of 15000+600000
- 18113 words of font info for 53 fonts, out of 8000000 for 9000
+ 10580 strings out of 494976
+ 144848 string characters out of 6180334
+ 222576 words of memory out of 5000000
+ 13688 multiletter control sequences out of 15000+600000
+ 20427 words of font info for 56 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 29i,10n,27p,1422b,519s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </
-home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/
-joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/joaog
-abriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/joaogabrie
-l/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/joaogabriel/.te
-xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
-am10.pfb>
-Output written on "Relat贸rio EP2.pdf" (3 pages, 124110 bytes).
+ 29i,10n,27p,1422b,523s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </
+home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/
+joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/joaog
+abriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/joaogabrie
+l/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/joaogabriel/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/joaogabriel/.texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/joaogabriel/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecrm2074.600pk></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on "Relat贸rio EP2.pdf" (5 pages, 303586 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
- 4 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 323 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

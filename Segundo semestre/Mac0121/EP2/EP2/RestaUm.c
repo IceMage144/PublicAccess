@@ -112,6 +112,16 @@ void imprimePilha (pilha *p){
     }
 }
 
+/*Desaloca uma pilha de tamanho tam*/
+void freePilha (pilha *p, int tam){
+    int i;
+    for (i = 0; i < tam; i++)
+        free(p->v[i]);
+    free(p->v);
+    free(p);
+    return;
+}
+
 /*=====================Funções sobre matrizes======================*/
 /*Aloca uma matriz com "m" linhas e "n" colunas e retorna um ponteiro
 para ela*/
@@ -144,13 +154,13 @@ cima, 1 para a esquerda, 2 para baixo, 3 para a direita ou -1 se não
 há movimentos possíveis*/
 int podeMexer (int **mat, int m, int n, int lin, int col, int move){
     if (mat[lin][col] == 1){
-        if (lin-2 >= 0 && mat[lin-2][col] == -1 && mat[lin-1][col] == 1 && move < 0)
+        if (move < 0 && lin-2 >= 0 && mat[lin-2][col] == -1 && mat[lin-1][col] == 1)
             return 0;
-        if (col-2 >= 0 && mat[lin][col-2] == -1 && mat[lin][col-1] == 1 && move < 1)
+        if (move < 1 && col-2 >= 0 && mat[lin][col-2] == -1 && mat[lin][col-1] == 1)
             return 1;
-        if (lin+2 < m && mat[lin+2][col] == -1 && mat[lin+1][col] == 1 && move < 2)
+        if (move < 2 && lin+2 < m && mat[lin+2][col] == -1 && mat[lin+1][col] == 1)
             return 2;
-        if (col+2 < n && mat[lin][col+2] == -1 && mat[lin][col+1] == 1 && move < 3)
+        if (move < 3 && col+2 < n && mat[lin][col+2] == -1 && mat[lin][col+1] == 1)
             return 3;
         return -1;
     }
@@ -185,33 +195,18 @@ void mexe (int lin, int col, int **mat, int move){
     }
 }
 
-/*==========================Miscelânea=============================*/
-/*Executa a função free em uma pilha "p" e duas matrizes "mat1" e "mat2"*/
-void freeAll (pilha *p, int tam, int **mat1, int m1, int **mat2, int m2){
-    int i;
-    for (i = 0; i < tam; i++)
-        free(p->v[i]);
-    free(p->v);
-    free(p);
-    for (i = 0; i < m1; i++)
-        free(mat1[i]);
-    free(mat1);
-    for (i = 0; i < m2; i++)
-        free(mat2[i]);
-    free(mat2);
-}
-
-/*Executa a função free em uma matriz "mat" e dois vetores "v1" e "v2"*/
-void freeAll2 (int **mat, int m, int *v1, int *v2){
+/*Desaloca uma matriz de m linhas*/
+void freeMatriz (int **mat, int m){
     int i;
     for (i = 0; i < m; i++)
         free(mat[i]);
     free(mat);
-    free(v1);
-    free(v2);
+    return;
 }
 
-/*recebe o tabuleiro "mat", uma matriz com as posições dos espaços livres
+/*==========================Miscelânea=============================*/
+
+/*Recebe o tabuleiro "mat", uma matriz com as posições dos espaços livres
 no começo do jogo "livres" e seu número de linhas "nLivres" e verifica se
 todas as posições que estavam livres no começo do jogo estão ocupadas.
 Retorna 1 se sim ou 0 caso contrário*/
@@ -240,25 +235,31 @@ int *criaVetor (int len, int val){
 
 /*Executa um algoritmo flood fill recursivo (parecido com uma dfs
 (depth-first search)) para identificar se há partes desconexas no
-tabuleiro*/
-void floodFill (int **mat, int m, int n, int lin, int col){
+tabuleiro. Se entrou em ao menos um if retorna 1, caso contrário
+retorna 0*/
+int floodFill (int **mat, int m, int n, int lin, int col){
+    int loop = 0;
     if (lin+1 < m && mat[lin+1][col] == 1){
         mat[lin+1][col] = 2;
         floodFill(mat, m, n, lin+1, col);
+        loop = 1;
     }
     if (col+1 < n && mat[lin][col+1] == 1){
         mat[lin][col+1] = 2;
         floodFill(mat, m, n, lin, col+1);
+        loop = 1;
     }
     if (lin-1 >= 0 && mat[lin-1][col] == 1){
         mat[lin-1][col] = 2;
         floodFill(mat, m, n, lin-1, col);
+        loop = 1;
     }
     if (col-1 >= 0 && mat[lin][col-1] == 1){
         mat[lin][col-1] = 2;
         floodFill(mat, m, n, lin, col-1);
+        loop = 1;
     }
-    return ;
+    return loop;
 }
 
 /*Faz alguns testes no tabuleiro (que são descritos melhor no corpo da
@@ -311,7 +312,9 @@ int ehPossivel (int **mat, int m, int n, int nOcup, int nLivres, int **livres){
     /*Teste 2*/
     for (i = 0; i < 6; i++){
         if (endClass[i] != begClass[i]){
-            freeAll2(matAux, m, endClass, begClass);
+            freeMatriz(matAux, m);
+            free(endClass);
+            free(begClass);
             return 0;
         }
     }
@@ -321,26 +324,63 @@ int ehPossivel (int **mat, int m, int n, int nOcup, int nLivres, int **livres){
     for (i = 0; i < nLivres; i++){
         auxl = livres[i][0];
         auxc = livres[i][1];
-        matAux[auxl][auxc] = 2;
-        floodFill(matAux, m, n, auxl, auxc);
+        if (floodFill(matAux, m, n, auxl, auxc))
+            matAux[auxl][auxc] = 2;
     }
     /*Teste 3*/
     for (i = 0; i < m; i++)
         for (j = 0; j < n; j++)
             if (matAux[i][j] == 1){
-                freeAll2(matAux, m, endClass, begClass);
+                freeMatriz(matAux, m);
+                free(endClass);
+                free(begClass);
                 return 0;
             }
     return 1;
 }
 
+/*Recebe um tauleiro de m linhas e n colunas, o vetor de posições dos
+espaços livres iniciais, seu tamanho e um ponteiro para retornar um
+segundo valor pagFin. A função calcula um tabuleiro simplificado da
+função pagoda (mais informações no relatório) e retorna um ponteiro
+para ele*/
+int **criaPagoda (int **mat, int m, int n, int **liv, int nLiv, int *pagFin){
+    int i, j, k, lin, col;
+    int **pag;
+    pag = criaMatriz(m, n);
+    for (k = 0; k < nLiv; k++){
+        lin = liv[k][0]%2;
+        col = liv[k][1]%2;
+        for (i = 0; i < m; i++)
+            for (j = 0; j < n; j++)
+                if (i%2 == lin && j%2 == col && mat[i][j]){
+                    pag[i][j] = 1;
+                    if (mat[i][j] == -1)
+                        (*pagFin)++;
+                }
+    }
+    return pag;
+}
+
+/*Recebe o tabuleiro de m linhas e n colunas, o tabuleiro com a função
+pagoda e o valor de pagoda do tabuleiro final. Retorna 1 se o valor de 
+pagoda do tabuleiro atual é maior que o do tabuleiro final e 0 caso
+contrário*/
+int checaPagoda (int **mat, int m, int n, int **pag, int pagFin){
+    int i, j, pagAtt = 0;
+    for (i = 0; i < m; i++)
+        for (j = 0; j < n; j++)
+            if (pag[i][j] == 1 && mat[i][j] == 1)
+                pagAtt++;
+    return (pagAtt >= pagFin);
+}
+
 int main (){
     pilha *p;
-    int **tab, **livres;
+    int **tab, **livres, **pag;
     int lin, col, i, j, k, ok;
     int nLivres = 0, nOcup = 0, attl = 0, attc = 0, attmove = 0;
-    int working = 1;
-    long moves = 0;
+    int working = 1, pagFin = 0;
     if (scanf("%d%d", &lin, &col) != 2)
         exit(1);
     tab = criaMatriz(lin, col);
@@ -362,9 +402,13 @@ int main (){
                 livres[k][1] = j;
                 k++;
             }
+    pag = criaPagoda(tab, lin, col, livres, nLivres, &pagFin);
     if (!ehPossivel(tab, lin, col, nOcup, nLivres, livres)){
         printf("Impossivel\n");
-        freeAll(p, nOcup-nLivres, tab, lin, livres, nLivres);
+        freePilha(p, nOcup-nLivres);
+        freeMatriz(tab, lin);
+        freeMatriz(livres, nLivres);
+        freeMatriz(pag, lin);
         return 0;
     }
     while ((!pilhaCheia(p) || !concluido(tab, livres, nLivres)) && working){
@@ -388,7 +432,7 @@ int main (){
             attc = 0;
             attmove = -1;
         }
-        else /*Backtrack*/
+        else /*Backtracking*/
             if (!pilhaVazia(p)){
                 desempilha(p, &attl, &attc, &attmove);
                 mexe(attl, attc, tab, attmove);
@@ -397,13 +441,15 @@ int main (){
                 printf("Impossivel\n");
                 working = 0;
             }
-        /*Conta o número de jogadas e o printa se esse número for múltiplo
-        de 10^8*/
-        moves++;
-        if (moves%STEP == 0)
-            printf("%ld movimentos ja foram executados\n", moves);
+        if (!checaPagoda(tab, lin, col, pag, pagFin)){
+            desempilha(p, &attl, &attc, &attmove);
+            mexe(attl, attc, tab, attmove);
+        }
     }
     imprimePilha(p);
-    freeAll(p, nOcup-nLivres, tab, lin, livres, nLivres);
+    freePilha(p, nOcup-nLivres);
+    freeMatriz(tab, lin);
+    freeMatriz(livres, nLivres);
+    freeMatriz(pag, lin);
     return 0;
 }
