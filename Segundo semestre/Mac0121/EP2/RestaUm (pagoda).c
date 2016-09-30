@@ -30,11 +30,13 @@ pilha *criaPilha (int tam){
     int i, j;
     p = malloc(sizeof(pilha));
     if (p == NULL){
+        printf("A pilha não pode ser alocada\n");
         free(p);
         exit(1);
     }
     p->v = malloc(tam*sizeof(int*));
     if (p->v == NULL){
+        printf("A pilha não pode ser alocada\n");
         free(p->v);
         free(p);
         exit(1);
@@ -42,6 +44,7 @@ pilha *criaPilha (int tam){
     for (i = 0; i < tam; i++){
         p->v[i] = malloc(3*sizeof(int));
         if (p->v[i] == NULL){
+            printf("A pilha não pode ser alocada\n");
             for (j = 0; j <= i; j++)
                 free(p->v[j]);
             free(p->v);
@@ -50,7 +53,7 @@ pilha *criaPilha (int tam){
         }
     }
     p->topo = 0;
-    p->pMax = tam - 1;
+    p->pMax = tam;
     return p;
 }
 
@@ -63,12 +66,6 @@ int pilhaVazia (pilha *p){
 /*Retorna 1 se a pilha estiver cheia ou 0 caso contrário*/
 int pilhaCheia (pilha *p){
     return (p->topo == p->pMax);
-}
-
-/*Retorna 1 se a pilha tem mais camadas do que seu máximo e 0 caso
-contrário*/
-int pilhaEstourou (pilha *p){
-    return (p->topo > p->pMax);
 }
 
 /*empilha uma posição com linha "lin" e coluna "col" e um movimento
@@ -363,12 +360,48 @@ int ehPossivel (int **mat, int m, int n, int nOcup, int nLivres, int **livres){
     return 1;
 }
 
+/*Recebe um tauleiro de m linhas e n colunas, o vetor de posições dos
+espaços livres iniciais, seu tamanho e um ponteiro para retornar um
+segundo valor pagFin. A função calcula um tabuleiro simplificado da
+função pagoda (mais informações no relatório) e retorna um ponteiro
+para ele*/
+int **criaPagoda (int **mat, int m, int n, int **liv, int nLiv, int *pagFin){
+    int i, j, k, lin, col;
+    int **pag;
+    pag = criaMatriz(m, n);
+    for (k = 0; k < nLiv; k++){
+        lin = liv[k][0]%2;
+        col = liv[k][1]%2;
+        for (i = 0; i < m; i++)
+            for (j = 0; j < n; j++)
+                if (i%2 == lin && j%2 == col && mat[i][j]){
+                    pag[i][j] = 1;
+                    if (mat[i][j] == -1)
+                        (*pagFin)++;
+                }
+    }
+    return pag;
+}
+
+/*Recebe o tabuleiro de m linhas e n colunas, o tabuleiro com a função
+pagoda e o valor de pagoda do tabuleiro final. Retorna 1 se o valor de 
+pagoda do tabuleiro atual é maior que o do tabuleiro final e 0 caso
+contrário*/
+int checaPagoda (int **mat, int m, int n, int **pag, int pagFin){
+    int i, j, pagAtt = 0;
+    for (i = 0; i < m; i++)
+        for (j = 0; j < n; j++)
+            if (pag[i][j] == 1 && mat[i][j] == 1)
+                pagAtt++;
+    return (pagAtt >= pagFin);
+}
+
 int main (){
     pilha *p;
-    int **tab, **livres;
+    int **tab, **livres, **pag;
     int lin, col, i, j, k, ok;
     int nLivres = 0, nOcup = 0, attl = 0, attc = 0, attmove = 0;
-    int working = 1;
+    int working = 1, pagFin = 0;
     long moves = 0;
     if (scanf("%d%d", &lin, &col) != 2)
         exit(1);
@@ -382,7 +415,7 @@ int main (){
             else if (tab[i][j] == 1)
                 nOcup++;
         }
-    p = criaPilha(nOcup-nLivres+1);
+    p = criaPilha(nOcup-nLivres);
     livres = criaMatriz(nLivres, 2);
     for (i = 0, k = 0; i < lin && k != nLivres; i++)
         for (j = 0; j < col && k != nLivres; j++)
@@ -391,11 +424,14 @@ int main (){
                 livres[k][1] = j;
                 k++;
             }
+    pag = criaPagoda(tab, lin, col, livres, nLivres, &pagFin);
+    imprimeMatriz(tab, lin, col);
     if (!ehPossivel(tab, lin, col, nOcup, nLivres, livres)){
         printf("Impossivel\n");
-        freePilha(p, nOcup-nLivres+1);
+        freePilha(p, nOcup-nLivres);
         freeMatriz(tab, lin);
         freeMatriz(livres, nLivres);
+        freeMatriz(pag, lin);
         return 0;
     }
     while ((!pilhaCheia(p) || !concluido(tab, livres, nLivres)) && working){
@@ -428,7 +464,7 @@ int main (){
                 printf("Impossivel\n");
                 working = 0;
             }
-        if (pilhaEstourou(p)){
+        if (!checaPagoda(tab, lin, col, pag, pagFin)){
             desempilha(p, &attl, &attc, &attmove);
             mexe(attl, attc, tab, attmove);
         }
@@ -441,8 +477,9 @@ int main (){
         /*----------------------------------------------------------*/
     }
     imprimePilha(p);
-    freePilha(p, nOcup-nLivres+1);
+    freePilha(p, nOcup-nLivres);
     freeMatriz(tab, lin);
     freeMatriz(livres, nLivres);
+    freeMatriz(pag, lin);
     return 0;
 }

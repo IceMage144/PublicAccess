@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.3.15)  24 SEP 2016 12:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.3.15)  24 SEP 2016 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -669,7 +669,7 @@ Package babel Info: Redefining portuges shorthand "|
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 63--65
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
 
  []
 
@@ -677,82 +677,97 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--65
 File: peg_solitaire_classes.png Graphic file (type png)
 
 <use peg_solitaire_classes.png>
-Package pdftex.def Info: peg_solitaire_classes.png used on input line 66.
+Package pdftex.def Info: peg_solitaire_classes.png used on input line 67.
 (pdftex.def)             Requested size: 170.63707pt x 87.8279pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--72
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 73--75
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 75.
+(babel)             in language append on input line 76.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 75.
+(babel)             in language append on input line 76.
 [2 <./peg_solitaire_classes.png>]
 <pagoda.png, id=29, 387.4475pt x 370.38374pt>
 File: pagoda.png Graphic file (type png)
  <use pagoda.png>
-Package pdftex.def Info: pagoda.png used on input line 76.
+Package pdftex.def Info: pagoda.png used on input line 77.
 (pdftex.def)             Requested size: 193.72327pt x 185.1914pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--83
+Underfull \hbox (badness 10000) in paragraph at lines 81--84
 
  []
 
+<pagoda2.png, id=31, 445.665pt x 405.515pt>
+File: pagoda2.png Graphic file (type png)
+ <use pagoda2.png>
+Package pdftex.def Info: pagoda2.png used on input line 85.
+(pdftex.def)             Requested size: 222.83195pt x 202.75699pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--86
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 95--97
+Underfull \hbox (badness 10000) in paragraph at lines 90--93
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 97.
+(babel)             in language append on input line 93.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 97.
-[3 <./pagoda.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 98--99
+(babel)             in language append on input line 93.
+[3 <./pagoda.png> <./pagoda2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 93--96
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 110.
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--108
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 121.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 113.
+(babel)             in language append on input line 123.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 113.
+(babel)             in language append on input line 123.
  [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 124.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 124.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 124.
+ [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 124.
 
 (./Relatório EP2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 124.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 124.
 Package rerunfilecheck Info: File `"Relatório EP2".out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 113.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 124.
  ) 
 Here is how much of TeX's memory you used:
- 10574 strings out of 494976
- 144768 string characters out of 6180334
+ 10580 strings out of 494976
+ 144848 string characters out of 6180334
  222576 words of memory out of 5000000
- 13684 multiletter control sequences out of 15000+600000
+ 13688 multiletter control sequences out of 15000+600000
  20427 words of font info for 56 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
  29i,10n,27p,1422b,523s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -770,10 +785,10 @@ msfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on "Relatório EP2.pdf" (4 pages, 213406 bytes).
+Output written on "Relatório EP2.pdf" (5 pages, 303585 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 323 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
