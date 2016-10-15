@@ -26,7 +26,7 @@ void imprimeVetor (int *vect, int tam) {
 }
 
 int main () {
-	int tam, i, aux;
+	int tam, i, aux, moves = 0;
 	int *vect;
 	if (scanf("%d", &tam) != 1) exit(1);
 	vect = criaVetor(tam);
@@ -34,8 +34,10 @@ int main () {
 		if (scanf("%d", &vect[i]) != 1) exit(1);
 	while (scanf("%d", &aux) != EOF){
 		triRotacao(vect, tam, aux);
+		moves++;
 	}
 	imprimeVetor(vect, tam);
+	printf("moves = %d\n", moves);
 	free(vect);
 	return 0;
 }

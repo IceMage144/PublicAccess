@@ -84,7 +84,7 @@ void triReversao (int v[], int tam, int pos1) {
     aux = v[pos1];
     v[pos1] = v[pos2];
     v[pos2] = aux;
-    printf("%d\n", pos1);
+    /*printf("%d\n", pos1);*/
 }
 
 /*Separa os elementos do vetor "v" de tamanho "tam" em dois vetores "imp"
@@ -140,7 +140,7 @@ void triSort (int v[], int tam) {
             }
             desord--;
         }
-        printf("moves = %d\n", moves);
+        /*printf("moves = %d\n", moves);*/
     }
     else {
         par = criaVetor(tam/2);
@@ -152,7 +152,7 @@ void triSort (int v[], int tam) {
         junta(v, tam, impar, par);
         if (vetorOrdenado(v, tam)){
             imprimePilha(trocas);
-            printf("moves = %d\n", trocas->topo);
+            /*printf("moves = %d\n", trocas->topo);*/
         }
         else
             printf("Nao e possivel\n");
@@ -167,6 +167,7 @@ int main () {
     int *v;
     if (!scanf("%d", &tam))
         exit(1);
+    /*printf("%d\n", tam);*/
     if (tam <= 1)
         return 0;
     v = criaVetor(tam);
@@ -175,6 +176,7 @@ int main () {
             free(v);
             exit(1);
         }
+        /*printf("%d\n", v[i]);*/
     }
     triSort(v, tam);
     free(v);
