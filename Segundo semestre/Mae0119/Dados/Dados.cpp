@@ -240,6 +240,9 @@ int main() {
         std::string strAux (input.begin(), input.end());
         text[6].setString(strAux);
 
+        if (maxplot == 0)
+        	maxplot = 1;
+
         //Randomizing
         if (total <= maxplot) {
 	        face = rand()%6;
