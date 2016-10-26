@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <cmath>
 
 //Define some constants
 #define video_max_x 1000
@@ -11,24 +12,39 @@
 #define graph_max_y 530
 #define graph_min_x 0
 #define graph_min_y 0
-#define plot_min_x 30
+#define plot_max_x 950
+#define plot_min_x 50
+#define plot_min_y 30
 #define plot_max_y 500
 
 //define some colors
 #define LightGray sf::Color(192, 192, 192)
 #define DarkGray sf::Color(64, 64, 64)
 #define DarkBlue sf::Color(68, 68, 249)
-#define Black sf::Color::Black
-#define White sf::Color::White
+#define MBlack sf::Color(0, 0, 0)
+#define MWhite sf::Color(255, 255, 255)
 
 std::vector<char> input;
 
-int checkForKey (sf::Event event, int *maxplot, int *total) {
+int checkForMouse (sf::Window *window) {
+	sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
+	float x = localPosition.x;
+	float y = localPosition.y;
+	printf("mouse = %f:%f\n", x, y);
+	if (x > graph_min_x+150 && x < graph_min_x+250 && y > graph_max_y+125 && y < graph_max_y+155) {
+		printf("1\n");
+		return 1;
+	}
+	printf("0\n");
+	return 0;
+}
+
+int checkForKey (sf::Event event, int *maxplot, int *total, sf::Window *window) {
 	if (event.key.code == sf::Keyboard::BackSpace && input.size() > 0) {
 		input.pop_back();
 		return 0;
 	}
-	else if (event.key.code == sf::Keyboard::Return) {
+	else if (event.key.code == sf::Keyboard::Return || (sf::Mouse::isButtonPressed(sf::Mouse::Left) && checkForMouse(window))) {
 		*total = 0;
 		std::string strAux (input.begin(), input.end());
 		*maxplot = atoi(strAux.c_str());
@@ -63,27 +79,24 @@ int checkForKey (sf::Event event, int *maxplot, int *total) {
 int main() {
 	int face, total = 0;
 	int ocurr[6];
-	int maxplot = 1;
+	int maxplot = 0;
 	sf::Color colors[] = {sf::Color::Red,
 						  sf::Color::Blue,
 						  sf::Color(204, 0, 102),
 						  sf::Color(0, 204, 0),
 						  sf::Color(255, 128, 0),
-						  Black};
+						  MBlack};
 
     for (int i = 0; i < 6; i++)
     	ocurr[i] = 0;
 
-    sf::RenderWindow window(sf::VideoMode(video_max_x, video_max_y), "Week law of big numbers simulator");
+    sf::RenderWindow window(sf::VideoMode(video_max_x, video_max_y), "Week law of large numbers simulator");
     window.setKeyRepeatEnabled(false);
 
     sf::Font font;
-	if (!font.loadFromFile("font.ttf"))
-	{
+	if (!font.loadFromFile("font.ttf")) {
 	    std::cout << "Erro\n";
 	}
-
-    
 
     //Creating the objects
     sf::VertexArray window_bg(sf::Quads, 4);
@@ -91,6 +104,7 @@ int main() {
     std::vector<sf::Vertex> vertices[6];
     sf::VertexArray Grid(sf::Lines, 12);
     sf::VertexArray HUD(sf::Quads, 12);
+    sf::VertexArray Details(sf::Triangles, 6);
     sf::Text text[10];
 
 	//Defining the vertices of the window background
@@ -112,30 +126,30 @@ int main() {
 	graph_bg[3].position = sf::Vector2f(graph_min_x, graph_max_y);
 
 	//Defining the color of the graph background
-	graph_bg[0].color = White;
-	graph_bg[1].color = White;
-	graph_bg[2].color = White;
-	graph_bg[3].color = White;
+	graph_bg[0].color = MWhite;
+	graph_bg[1].color = MWhite;
+	graph_bg[2].color = MWhite;
+	graph_bg[3].color = MWhite;
 
 	//Creating a grid
 	//y axis
-	Grid[0].position = sf::Vector2f(plot_min_x, graph_min_y);
+	Grid[0].position = sf::Vector2f(plot_min_x, plot_min_y);
 	Grid[1].position = sf::Vector2f(plot_min_x, plot_max_y);
 	//x axis
 	Grid[2].position = sf::Vector2f(plot_min_x, plot_max_y);
-	Grid[3].position = sf::Vector2f(graph_max_x, plot_max_y);
+	Grid[3].position = sf::Vector2f(plot_max_x, plot_max_y);
 	//3/4 line
-	Grid[4].position = sf::Vector2f(plot_min_x, graph_min_y+(plot_max_y-graph_min_y)*3/4);
-	Grid[5].position = sf::Vector2f(graph_max_x, graph_min_y+(plot_max_y-graph_min_y)*3/4);
+	Grid[4].position = sf::Vector2f(plot_min_x, plot_min_y+(plot_max_y-plot_min_y)*3/4);
+	Grid[5].position = sf::Vector2f(plot_max_x, plot_min_y+(plot_max_y-plot_min_y)*3/4);
 	//1/2 line
-	Grid[6].position = sf::Vector2f(plot_min_x, graph_min_y+(plot_max_y-graph_min_y)/2);
-	Grid[7].position = sf::Vector2f(graph_max_x, graph_min_y+(plot_max_y-graph_min_y)/2);
+	Grid[6].position = sf::Vector2f(plot_min_x, plot_min_y+(plot_max_y-plot_min_y)/2);
+	Grid[7].position = sf::Vector2f(plot_max_x, plot_min_y+(plot_max_y-plot_min_y)/2);
 	//1/4 line
-	Grid[8].position = sf::Vector2f(plot_min_x, graph_min_y+(plot_max_y-graph_min_y)/4);
-	Grid[9].position = sf::Vector2f(graph_max_x, graph_min_y+(plot_max_y-graph_min_y)/4);
+	Grid[8].position = sf::Vector2f(plot_min_x, plot_min_y+(plot_max_y-plot_min_y)/4);
+	Grid[9].position = sf::Vector2f(plot_max_x, plot_min_y+(plot_max_y-plot_min_y)/4);
 	//1/6 line
-	Grid[10].position = sf::Vector2f(plot_min_x, graph_min_y+(plot_max_y-graph_min_y)*5/6);
-	Grid[11].position = sf::Vector2f(graph_max_x, graph_min_y+(plot_max_y-graph_min_y)*5/6);
+	Grid[10].position = sf::Vector2f(plot_min_x, plot_min_y+(plot_max_y-plot_min_y)*5/6);
+	Grid[11].position = sf::Vector2f(plot_max_x, plot_min_y+(plot_max_y-plot_min_y)*5/6);
 
 	Grid[0].color = DarkGray;
 	Grid[1].color = DarkGray;
@@ -147,43 +161,58 @@ int main() {
 	Grid[7].color = LightGray;
 	Grid[8].color = LightGray;
 	Grid[9].color = LightGray;
-	Grid[10].color = Black;
-	Grid[11].color = Black;
+	Grid[10].color = MBlack;
+	Grid[11].color = MBlack;
 
 	//Creating a HUD
 	//Top line
 	HUD[0].position = sf::Vector2f(graph_min_x, graph_max_y);
 	HUD[1].position = sf::Vector2f(graph_max_x, graph_max_y);
-	HUD[2].position = sf::Vector2f(graph_max_x, graph_max_y+3);
-	HUD[3].position = sf::Vector2f(graph_min_x, graph_max_y+3);
+	HUD[2].position = sf::Vector2f(graph_max_x, graph_max_y+5);
+	HUD[3].position = sf::Vector2f(graph_min_x, graph_max_y+5);
 	//Number box
 	HUD[4].position = sf::Vector2f(graph_min_x+100, graph_max_y+75);
 	HUD[5].position = sf::Vector2f(graph_min_x+300, graph_max_y+75);
 	HUD[6].position = sf::Vector2f(graph_min_x+300, graph_max_y+105);
 	HUD[7].position = sf::Vector2f(graph_min_x+100, graph_max_y+105);
-	//Plot box
+	//Plot button
 	HUD[8].position = sf::Vector2f(graph_min_x+150, graph_max_y+125);
 	HUD[9].position = sf::Vector2f(graph_min_x+250, graph_max_y+125);
 	HUD[10].position = sf::Vector2f(graph_min_x+250, graph_max_y+155);
 	HUD[11].position = sf::Vector2f(graph_min_x+150, graph_max_y+155);
 
-	HUD[0].color = Black;
-	HUD[1].color = Black;
-	HUD[2].color = Black;
-	HUD[3].color = Black;
-	HUD[4].color = White;
-	HUD[5].color = White;
-	HUD[6].color = White;
-	HUD[7].color = White;
+	HUD[0].color = LightGray;
+	HUD[1].color = LightGray;
+	HUD[2].color = MBlack;
+	HUD[3].color = MBlack;
+	HUD[4].color = MWhite;
+	HUD[5].color = MWhite;
+	HUD[6].color = MWhite;
+	HUD[7].color = MWhite;
 	HUD[8].color = LightGray;
 	HUD[9].color = LightGray;
 	HUD[10].color = LightGray;
 	HUD[11].color = LightGray;
 
+	Details[0].position = sf::Vector2f(plot_min_x, plot_min_y-5);
+	Details[1].position = sf::Vector2f(plot_min_x+5, plot_min_y+5);
+	Details[2].position = sf::Vector2f(plot_min_x-5, plot_min_y+5);
+	Details[3].position = sf::Vector2f(plot_max_x+5, plot_max_y);
+	Details[4].position = sf::Vector2f(plot_max_x-5, plot_max_y-5);
+	Details[5].position = sf::Vector2f(plot_max_x-5, plot_max_y+5);
+
+	Details[0].color = MBlack;
+	Details[1].color = MBlack;
+	Details[2].color = MBlack;
+	Details[3].color = MBlack;
+	Details[4].color = MBlack;
+	Details[5].color = MBlack;
+
+
 	//Creating the text
 	for (int i = 0; i < 10; i++) {
     	text[i].setFont(font);
-    	text[i].setColor(Black);
+    	text[i].setFillColor(MBlack);
     }
 
     text[0].setCharacterSize(15);
@@ -198,12 +227,12 @@ int main() {
 	text[9].setCharacterSize(24);
 
 
-    text[0].setPosition(sf::Vector2f(graph_min_x+15, graph_min_y));
-    text[1].setPosition(sf::Vector2f(graph_min_x+15, plot_max_y));
-    text[2].setPosition(sf::Vector2f(graph_min_x, graph_min_y+(plot_max_y-graph_min_y)*3/4-7));
-    text[3].setPosition(sf::Vector2f(graph_min_x, graph_min_y+(plot_max_y-graph_min_y)/2-7));
-    text[4].setPosition(sf::Vector2f(graph_min_x, graph_min_y+(plot_max_y-graph_min_y)/4-7));
-    text[5].setPosition(sf::Vector2f(graph_min_x, graph_min_y+(plot_max_y-graph_min_y)*5/6-7));
+    text[0].setPosition(sf::Vector2f(plot_min_x-15, plot_min_y));
+    text[1].setPosition(sf::Vector2f(plot_min_x-15, plot_max_y));
+    text[2].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*3/4-7));
+    text[3].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/2-7));
+    text[4].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/4-7));
+    text[5].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*5/6-7));
     text[6].setPosition(sf::Vector2f(graph_min_x+164, graph_max_y+75));
     text[7].setPosition(sf::Vector2f(graph_min_x+170, graph_max_y+125));
     text[8].setPosition(sf::Vector2f(graph_min_x+400, graph_max_y+25));
@@ -216,7 +245,7 @@ int main() {
     text[4].setString("3/4");
     text[5].setString("1/6");
     text[7].setString("Plot");
-    text[8].setString("Weak law of big numbers simulator");
+    text[8].setString("Weak law of large numbers simulator");
     text[9].setString("Number of throws");
 
 	//Loop
@@ -228,7 +257,7 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::KeyPressed) {
-            	if (checkForKey(event, &maxplot, &total)) {
+            	if (checkForKey(event, &maxplot, &total, &window)) {
             		for (int i = 0; i < 6; i++) {
             			vertices[i].clear();
             			ocurr[i] = 0;
@@ -239,18 +268,18 @@ int main() {
 
         std::string strAux (input.begin(), input.end());
         text[6].setString(strAux);
-
-        if (maxplot == 0)
-        	maxplot = 1;
+        checkForMouse(&window);
 
         //Randomizing
-        if (total <= maxplot) {
-	        face = rand()%6;
-	        ocurr[face]++;
-	        total++;
-	        for (int i = 0; i < 6; i++)
-	        	vertices[i].push_back(sf::Vertex(sf::Vector2f(plot_min_x+(graph_max_x-plot_min_x)*total/maxplot, plot_max_y-(plot_max_y-graph_min_y)*ocurr[i]/total), colors[i]));
-	    }
+        for (int j = 0; j < log10(maxplot); j++) {
+	        if (total < maxplot && maxplot != 0) {
+		        face = rand()%6;
+		        ocurr[face]++;
+		        total++;
+		        for (int i = 0; i < 6; i++)
+		        	vertices[i].push_back(sf::Vertex(sf::Vector2f(plot_min_x+(plot_max_x-plot_min_x)*total/maxplot, plot_max_y-(plot_max_y-plot_min_y)*ocurr[i]/total), colors[i]));
+		    }
+		}
 
 	    //Drawing
         window.clear();
@@ -258,6 +287,7 @@ int main() {
         window.draw(graph_bg);
         window.draw(Grid);
         window.draw(HUD);
+        window.draw(Details);
         for (int i = 0; i < 10; i++)
         	window.draw(text[i]);
         for (int i = 0; i < 6; i++)
