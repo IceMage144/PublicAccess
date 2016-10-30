@@ -20,9 +20,15 @@
 //define some colors
 #define LightGray sf::Color(192, 192, 192)
 #define DarkGray sf::Color(64, 64, 64)
+#define Gray sf::Color(128, 128, 128)
 #define DarkBlue sf::Color(68, 68, 249)
 #define MBlack sf::Color(0, 0, 0)
 #define MWhite sf::Color(255, 255, 255)
+#define Blue sf::Color(0, 0, 255)
+#define Red sf::Color(220, 20, 60)
+#define Orange sf::Color(255, 128, 0)
+#define Green sf::Color(0, 201, 87)
+#define Purple sf::Color(128, 0, 128)
 
 std::vector<char> input;
 
@@ -30,12 +36,9 @@ int checkForMouse (sf::Window *window) {
 	sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
 	float x = localPosition.x;
 	float y = localPosition.y;
-	printf("mouse = %f:%f\n", x, y);
 	if (x > graph_min_x+150 && x < graph_min_x+250 && y > graph_max_y+125 && y < graph_max_y+155) {
-		printf("1\n");
 		return 1;
 	}
-	printf("0\n");
 	return 0;
 }
 
@@ -44,7 +47,7 @@ int checkForKey (sf::Event event, int *maxplot, int *total, sf::Window *window) 
 		input.pop_back();
 		return 0;
 	}
-	else if (event.key.code == sf::Keyboard::Return || (sf::Mouse::isButtonPressed(sf::Mouse::Left) && checkForMouse(window))) {
+	else if (event.key.code == sf::Keyboard::Return) {
 		*total = 0;
 		std::string strAux (input.begin(), input.end());
 		*maxplot = atoi(strAux.c_str());
@@ -80,32 +83,34 @@ int main() {
 	int face, total = 0;
 	int ocurr[6];
 	int maxplot = 0;
-	sf::Color colors[] = {sf::Color::Red,
-						  sf::Color::Blue,
-						  sf::Color(204, 0, 102),
-						  sf::Color(0, 204, 0),
-						  sf::Color(255, 128, 0),
-						  MBlack};
+	int buttonFrame = 0;
+	sf::Color colors[] = {Red,
+						  Blue,
+						  Purple,
+						  Green,
+						  Orange,
+						  Gray};
 
-    for (int i = 0; i < 6; i++)
-    	ocurr[i] = 0;
+	for (int i = 0; i < 6; i++)
+		ocurr[i] = 0;
 
-    sf::RenderWindow window(sf::VideoMode(video_max_x, video_max_y), "Week law of large numbers simulator");
-    window.setKeyRepeatEnabled(false);
+	sf::RenderWindow window(sf::VideoMode(video_max_x, video_max_y), "Week law of large numbers simulator");
+	window.setKeyRepeatEnabled(false);
 
-    sf::Font font;
+	sf::Font font;
 	if (!font.loadFromFile("font.ttf")) {
-	    std::cout << "Erro\n";
+		std::cout << "Erro\n";
 	}
 
-    //Creating the objects
-    sf::VertexArray window_bg(sf::Quads, 4);
-    sf::VertexArray graph_bg(sf::Quads, 4);
-    std::vector<sf::Vertex> vertices[6];
-    sf::VertexArray Grid(sf::Lines, 12);
-    sf::VertexArray HUD(sf::Quads, 12);
-    sf::VertexArray Details(sf::Triangles, 6);
-    sf::Text text[10];
+	//Creating the objects
+	sf::VertexArray window_bg(sf::Quads, 4);
+	sf::VertexArray graph_bg(sf::Quads, 4);
+	std::vector<sf::Vertex> vertices[6];
+	sf::VertexArray Grid(sf::Lines, 12);
+	sf::VertexArray HUD(sf::Quads, 12);
+	sf::VertexArray Legend(sf::Quads, 24);
+	sf::VertexArray Details(sf::Triangles, 6);
+	sf::Text text[18];
 
 	//Defining the vertices of the window background
 	window_bg[0].position = sf::Vector2f(0, 0);
@@ -189,11 +194,12 @@ int main() {
 	HUD[5].color = MWhite;
 	HUD[6].color = MWhite;
 	HUD[7].color = MWhite;
-	HUD[8].color = LightGray;
-	HUD[9].color = LightGray;
-	HUD[10].color = LightGray;
-	HUD[11].color = LightGray;
+	HUD[8].color = Gray;
+	HUD[9].color = Gray;
+	HUD[10].color = Gray;
+	HUD[11].color = Gray;
 
+	//Graph details
 	Details[0].position = sf::Vector2f(plot_min_x, plot_min_y-5);
 	Details[1].position = sf::Vector2f(plot_min_x+5, plot_min_y+5);
 	Details[2].position = sf::Vector2f(plot_min_x-5, plot_min_y+5);
@@ -208,92 +214,162 @@ int main() {
 	Details[4].color = MBlack;
 	Details[5].color = MBlack;
 
+	//Graph legend
+	for (int i = 0; i < 6; i++) {
+		Legend[4*i].position = sf::Vector2f(graph_min_x+400 + 80*i, graph_max_y+75);
+		Legend[4*i+1].position = sf::Vector2f(graph_min_x+460 + 80*i, graph_max_y+75);
+		Legend[4*i+2].position = sf::Vector2f(graph_min_x+460 + 80*i, graph_max_y+135);
+		Legend[4*i+3].position = sf::Vector2f(graph_min_x+400 + 80*i, graph_max_y+135);
+	}
+
+	for (int i = 0; i < 4; i++)
+		Legend[i].color = Red;
+	for (int i = 0; i < 4; i++)
+		Legend[i+4].color = Blue;
+	for (int i = 0; i < 4; i++)
+		Legend[i+8].color = Purple;
+	for (int i = 0; i < 4; i++)
+		Legend[i+12].color = Green;
+	for (int i = 0; i < 4; i++)
+		Legend[i+16].color = Orange;
+	for (int i = 0; i < 4; i++)
+		Legend[i+20].color = Gray;
+
 
 	//Creating the text
-	for (int i = 0; i < 10; i++) {
-    	text[i].setFont(font);
-    	text[i].setFillColor(MBlack);
-    }
+	for (int i = 0; i < 18; i++) {
+		text[i].setFont(font);
+		text[i].setFillColor(MBlack);
+	}
 
-    text[0].setCharacterSize(15);
-    text[1].setCharacterSize(15);
-    text[2].setCharacterSize(15);
-    text[3].setCharacterSize(15);
-    text[4].setCharacterSize(15);
-    text[5].setCharacterSize(15);
-    text[6].setCharacterSize(24);
+	text[0].setCharacterSize(15);
+	text[1].setCharacterSize(15);
+	text[2].setCharacterSize(15);
+	text[3].setCharacterSize(15);
+	text[4].setCharacterSize(15);
+	text[5].setCharacterSize(15);
+	text[6].setCharacterSize(24);
 	text[7].setCharacterSize(24);
 	text[8].setCharacterSize(24);
 	text[9].setCharacterSize(24);
+	text[10].setCharacterSize(15);
+	text[11].setCharacterSize(15);
+	text[12].setCharacterSize(50);
+	text[13].setCharacterSize(50);
+	text[14].setCharacterSize(50);
+	text[15].setCharacterSize(50);
+	text[16].setCharacterSize(50);
+	text[17].setCharacterSize(50);
 
+	text[0].setPosition(sf::Vector2f(plot_min_x-15, plot_min_y));
+	text[1].setPosition(sf::Vector2f(plot_min_x-15, plot_max_y));
+	text[2].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*3/4-7));
+	text[3].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/2-7));
+	text[4].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/4-7));
+	text[5].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*5/6-7));
+	text[6].setPosition(sf::Vector2f(graph_min_x+164, graph_max_y+75));
+	text[7].setPosition(sf::Vector2f(graph_min_x+170, graph_max_y+125));
+	text[8].setPosition(sf::Vector2f(graph_min_x+400, graph_max_y+25));
+	text[9].setPosition(sf::Vector2f(graph_min_x+90, graph_max_y+25));
+	text[10].setPosition(sf::Vector2f(plot_min_x-45, plot_min_y-30));
+	text[11].setPosition(sf::Vector2f(plot_max_x-15, plot_max_y+10));
+	text[12].setPosition(sf::Vector2f(graph_min_x+415, graph_max_y+72));
+	text[13].setPosition(sf::Vector2f(graph_min_x+495, graph_max_y+72));
+	text[14].setPosition(sf::Vector2f(graph_min_x+575, graph_max_y+72));
+	text[15].setPosition(sf::Vector2f(graph_min_x+655, graph_max_y+72));
+	text[16].setPosition(sf::Vector2f(graph_min_x+735, graph_max_y+72));
+	text[17].setPosition(sf::Vector2f(graph_min_x+815, graph_max_y+72));
 
-    text[0].setPosition(sf::Vector2f(plot_min_x-15, plot_min_y));
-    text[1].setPosition(sf::Vector2f(plot_min_x-15, plot_max_y));
-    text[2].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*3/4-7));
-    text[3].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/2-7));
-    text[4].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)/4-7));
-    text[5].setPosition(sf::Vector2f(plot_min_x-30, plot_min_y+(plot_max_y-plot_min_y)*5/6-7));
-    text[6].setPosition(sf::Vector2f(graph_min_x+164, graph_max_y+75));
-    text[7].setPosition(sf::Vector2f(graph_min_x+170, graph_max_y+125));
-    text[8].setPosition(sf::Vector2f(graph_min_x+400, graph_max_y+25));
-    text[9].setPosition(sf::Vector2f(graph_min_x+90, graph_max_y+25));
-
-    text[0].setString("1");
-    text[1].setString("0");
-    text[2].setString("1/4");
-    text[3].setString("1/2");
-    text[4].setString("3/4");
-    text[5].setString("1/6");
-    text[7].setString("Plot");
-    text[8].setString("Weak law of large numbers simulator");
-    text[9].setString("Number of throws");
+	text[0].setString("1");
+	text[1].setString("0");
+	text[2].setString("1/4");
+	text[3].setString("1/2");
+	text[4].setString("3/4");
+	text[5].setString("1/6");
+	text[7].setString("Plot");
+	text[8].setString("Weak law of large numbers simulator");
+	text[9].setString("Number of throws");
+	text[10].setString("Ocurrences/Throw");
+	text[11].setString("Throw");
+	text[12].setString("1");
+	text[13].setString("2");
+	text[14].setString("3");
+	text[15].setString("4");
+	text[16].setString("5");
+	text[17].setString("6");
 
 	//Loop
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-            if (event.type == sf::Event::KeyPressed) {
-            	if (checkForKey(event, &maxplot, &total, &window)) {
-            		for (int i = 0; i < 6; i++) {
-            			vertices[i].clear();
-            			ocurr[i] = 0;
-            		}
-            	}
-            }
-        }
-
-        std::string strAux (input.begin(), input.end());
-        text[6].setString(strAux);
-        checkForMouse(&window);
-
-        //Randomizing
-        for (int j = 0; j < log10(maxplot); j++) {
-	        if (total < maxplot && maxplot != 0) {
-		        face = rand()%6;
-		        ocurr[face]++;
-		        total++;
-		        for (int i = 0; i < 6; i++)
-		        	vertices[i].push_back(sf::Vertex(sf::Vector2f(plot_min_x+(plot_max_x-plot_min_x)*total/maxplot, plot_max_y-(plot_max_y-plot_min_y)*ocurr[i]/total), colors[i]));
-		    }
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyPressed) {
+				if (checkForKey(event, &maxplot, &total, &window)) {
+					for (int i = 0; i < 6; i++) {
+						vertices[i].clear();
+						ocurr[i] = 0;
+					}
+				}
+			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				if (checkForMouse(&window)) {
+					total = 0;
+					std::string strAux (input.begin(), input.end());
+					maxplot = atoi(strAux.c_str());
+					input.clear();
+					for (int i = 0; i < 6; i++) {
+						vertices[i].clear();
+						ocurr[i] = 0;
+					}
+				}
+			}
 		}
 
-	    //Drawing
-        window.clear();
-        window.draw(window_bg);
-        window.draw(graph_bg);
-        window.draw(Grid);
-        window.draw(HUD);
-        window.draw(Details);
-        for (int i = 0; i < 10; i++)
-        	window.draw(text[i]);
-        for (int i = 0; i < 6; i++)
-        	window.draw(&vertices[i][0], total, sf::LinesStrip);
-        window.display();
-    }
+		std::string strAux (input.begin(), input.end());
+		text[6].setString(strAux);
 
-    return 0;
+		if (!checkForMouse(&window)) {
+			HUD[8].color = Gray;
+			HUD[9].color = Gray;
+			HUD[10].color = Gray;
+			HUD[11].color = Gray;
+		}
+		else {
+			HUD[8].color = LightGray;
+			HUD[9].color = LightGray;
+			HUD[10].color = LightGray;
+			HUD[11].color = LightGray;
+		}
+
+		//Randomizing
+		for (int j = 0; j < log10(maxplot); j++) {
+			if (total < maxplot && maxplot != 0) {
+				face = rand()%6;
+				ocurr[face]++;
+				total++;
+				for (int i = 0; i < 6; i++)
+					vertices[i].push_back(sf::Vertex(sf::Vector2f(plot_min_x+(plot_max_x-plot_min_x)*total/maxplot, plot_max_y-(plot_max_y-plot_min_y)*ocurr[i]/total), colors[i]));
+			}
+		}
+
+
+		//Drawing
+		window.clear();
+		window.draw(window_bg);
+		window.draw(graph_bg);
+		window.draw(Grid);
+		window.draw(HUD);
+		window.draw(Details);
+		window.draw(Legend);
+		for (int i = 0; i < 18; i++)
+			window.draw(text[i]);
+		for (int i = 0; i < 6; i++)
+			window.draw(&vertices[i][0], total, sf::LinesStrip);
+		window.display();
+	}
+
+	return 0;
 }

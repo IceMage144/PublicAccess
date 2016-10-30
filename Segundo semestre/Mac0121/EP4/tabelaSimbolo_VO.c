@@ -7,49 +7,9 @@
 #include <string.h>
 #include <ctype.h>
 #include "vectorfuncs.h"
-#include "tabelaSimbolo_VD.h"
+#include "tabelaSimbolo_VO.h"
 #include "auxfuncs.h"
 #include "buffer.h"
-
-void mergeV (VST *Table, int beg, int mid, int end) {
-    int pos = 0, aux1 = beg, aux2 = mid+1;
-    const char errmsg[] = "A tabela não pode ser ordenada\n";
-    Entry *Vaux;
-    Vaux = emalloc((end-beg+1)*sizeof(Entry), errmsg);
-    while (aux1 <= mid && aux2 <= end) {
-        if (Table->data[aux1].value < Table->data[aux2].value){
-            Vaux[pos] = Table->data[aux2];
-            aux2++;
-        }
-        else {
-            Vaux[pos] = Table->data[aux1];
-            aux1++;
-        }
-        pos++;
-    }
-    while (aux1 <= mid) {
-        Vaux[pos] = Table->data[aux1];
-        aux1++;
-        pos++;
-    }
-    while (aux2 <= end) {
-        Vaux[pos] = Table->data[aux2];
-        aux2++;
-        pos++;
-    }
-    for (aux1 = 0; aux1 < pos; aux1++)
-        Table->data[aux1+beg] = Vaux[aux1];
-    free(Vaux);
-}
-
-void mergeSortV (VST *Table, int beg, int end) {
-    int mid = (end+beg)/2;
-    if (beg < end) {
-        mergeSortV(Table, beg, mid);
-        mergeSortV(Table, mid+1, end);
-        mergeV(Table, beg, mid, end);
-    }
-}
 
 int binSearch (VST *Table, const char *key) {
     int beg = 0, end = Table->top, mid = (end+beg)/2, comp;
@@ -97,7 +57,7 @@ void OVPush (VST *Table, const char *key) {
 
 void OVPrintFreq (VST *Table) {
     int i;
-    mergeSortV(Table, 0, Table->top-1);
+    mergeSortV(Table, 0, Table->top-1, valcompV);
     for (i = 0; i < Table->top; i++) {
         /*printf("OK\n");*/
         printf("%s : %d\n", Table->data[i].key, Table->data[i].value);
@@ -130,8 +90,7 @@ void executeOV (FILE *input, char ordType) {
             if (!len)
                 break;
             strAux = emalloc(len*sizeof(char), errmsg);
-            for (i = 0; i < len+1; i++)
-                strAux[i] = 0;
+            strAux[len+1] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = Buff->data[beg+i];
             OVPush(Table, strAux);

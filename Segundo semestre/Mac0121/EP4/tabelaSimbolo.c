@@ -8,10 +8,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "tabelaSimbolo_VO.h"
-/*#include "tabelaSimbolo_VD.h"*/
+#include "tabelaSimbolo_VD.h"
 #include "tabelaSimbolo_LO.h"
-/*#include "tabelaSimbolo_LD.h"
-#include "tabelaSimbolo_AB.h"*/
+#include "tabelaSimbolo_LD.h"
+/*#include "tabelaSimbolo_AB.h"*/
 #include "auxfuncs.h"
 
 static void show_usage (int num){
@@ -45,16 +45,16 @@ int main (int argc, char **argv) {
 	input = fopen(argv[1], "r");
 	if (strcmp(argv[2], "VO") == 0)
 		executeOV(input, argv[3][0]);
-/*
+
 	else if (strcmp(argv[2], "VD") == 0)
 		executeUV(input, argv[3][0]);
-*/
+
 	else if (strcmp(argv[2], "LO") == 0)
 		executeOLL(input, argv[3][0]);
-/*
+
 	else if (strcmp(argv[2], "LD") == 0)
 		executeULL(input, argv[3][0]);
-
+/*
 	else if (strcmp(argv[2], "AB") == 0)
 		executeBST(input, argv[3][0]);
 */

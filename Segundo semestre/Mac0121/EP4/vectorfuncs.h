@@ -21,4 +21,10 @@ VST *VTableCreate ();
 
 void VTableDestroy (VST *Table);
 
+int valcompV (Entry *Entry1, Entry *Entry2);
+
+int strcompV (Entry *Entry1, Entry *Entry2);
+
+void mergeSortV (VST *Table, int beg, int end, int (*comp)(Entry*, Entry*));
+
 #endif

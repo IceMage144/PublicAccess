@@ -13,7 +13,7 @@ typedef struct llnode_t {
 
 typedef struct linkedlistst_t {
 	int top;
-	Node *head;
+	LLNode *head;
 } LinkedListSTable;
 
 #define LLST LinkedListSTable
@@ -21,5 +21,11 @@ typedef struct linkedlistst_t {
 LLST *LLTableCreate ();
 
 void LLTableDestroy (LLST *Table);
+
+int strcompL (LLNode *node1, LLNode *node2);
+
+int valcompL (LLNode *node1, LLNode *node2);
+
+void mergeSortL (LLNode *beg, LLNode *end, int size, int (*comp)(LLNode*, LLNode*));
 
 #endif

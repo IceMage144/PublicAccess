@@ -5,14 +5,9 @@
 #ifndef __TABELASIMBOLO_VD_H__
 #define __TABELASIMBOLO_VD_H__
 
+#include <stdio.h>
 #include "vectorfuncs.h"
 
-void UVPush (VST *Table, const char *key);
-
-/*
-void imprimeFreq (VST *Tabela);
-
-void imprimeLexi (VST *Tabela);
-*/
+void executeUV (FILE *input, char ordType);
 
 #endif

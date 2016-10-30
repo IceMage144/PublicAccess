@@ -12,57 +12,6 @@
 #include "auxfuncs.h"
 #include "buffer.h"
 
-void mergeL (LLNode *beg, LLNode *mid, LLNode *end) {
-    LLNode *auxNode1, *auxNode2, *currNode;
-    currNode = beg;
-    auxNode1 = beg->next;
-    auxNode2 = mid;
-    while (auxNode1 != mid && auxNode2 != end) {
-        if (auxNode1->value < auxNode2->value){
-            currNode->next = auxNode2;
-            currNode = auxNode2;
-            auxNode2 = auxNode2->next;
-        }
-        else {
-            currNode->next = auxNode1;
-            currNode = auxNode1;
-            auxNode1 = auxNode1->next;
-        }
-    }
-    while (auxNode1 != mid) {
-        currNode->next = auxNode1;
-        currNode = auxNode1;
-        auxNode1 = auxNode1->next;
-    }
-    while (auxNode2 != end) {
-        currNode->next = auxNode2;
-        currNode = auxNode2;
-        auxNode2 = auxNode2->next;
-    }
-    currNode->next = end;
-}
-
-void mergeSortL (LLNode *beg, LLNode *end, int size) {
-    int i = 0;
-    LLNode *mid;
-    mid = beg;
-    if (size > 1) {
-        while (i < size/2){
-            mid = mid->next;
-            i++;
-        }
-        mergeSortL(beg, mid->next, i);
-        i = 0;
-        mid = beg;
-        while (i < size/2){
-            mid = mid->next;
-            i++;
-        }
-        mergeSortL(mid, end, size-i);
-        mergeL(beg, mid->next, end);
-    }
-}
-
 void OLLPush (LLST *Table, const char *key) {
     const char errmsg[] = "A chave não pode ser adicionada na tabela\n";
     LLNode *currNode, *newNode, *memNode, *Head;
@@ -80,7 +29,7 @@ void OLLPush (LLST *Table, const char *key) {
         if (comp == 0)
             (currNode->value)++;
         else {
-            newNode = emalloc(sizeof(Node), errmsg);
+            newNode = emalloc(sizeof(LLNode), errmsg);
             newNode->key = estrdup(key);
             newNode->value = 1;
             if (comp > 0) {
@@ -95,7 +44,7 @@ void OLLPush (LLST *Table, const char *key) {
         }
     }
     else {
-        newNode = emalloc(sizeof(Node), errmsg);
+        newNode = emalloc(sizeof(LLNode), errmsg);
         newNode->key = estrdup(key);
         newNode->value = 1;
         newNode->next = Head->next;
@@ -106,7 +55,7 @@ void OLLPush (LLST *Table, const char *key) {
 
 void OLLPrintFreq (LLST *Table) {
     LLNode *auxNode;
-    mergeSortL(Table->head, NULL, Table->top);
+    mergeSortL(Table->head, NULL, Table->top, valcompL);
     auxNode = (Table->head)->next;
     while (auxNode != NULL) {
         printf("%s : %d\n", auxNode->key, auxNode->value);
@@ -142,8 +91,7 @@ void executeOLL (FILE *input, char ordType) {
             if (!len)
                 break;
             strAux = emalloc(len*sizeof(char), errmsg);
-            for (i = 0; i < len+2; i++)
-                strAux[i] = 0;
+            strAux[len+1] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = Buff->data[beg+i];
             OLLPush(Table, strAux);
