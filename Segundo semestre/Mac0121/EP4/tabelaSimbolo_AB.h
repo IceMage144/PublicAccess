@@ -14,14 +14,14 @@ typedef struct btnode_t {
 	struct btnode_t *greater;
 } BTNode;
 
-void BTTableDestroy (BtNode *Root);
+void BSTTableDestroy (BtNode *Root);
 
-void BTPush (BTNode *Root, const char *key);
+void BSTPush (BTNode *Root, const char *key);
 
-void BTPrintLexi (BTNode *Root);
+void BSTPrintLexi (BTNode *Root);
 
-void BTPrintFreq (BTNode *Root);
+void BSTPrintFreq (BTNode *Root);
 
-void executeBT (FILE *input, char ordType);
+void executeBST (FILE *input, char ordType);
 
 #endif

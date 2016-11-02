@@ -21,7 +21,7 @@ char *estrdup (const char *str) {
     int len;
     const char errmsg[] = "A string auxiliar não pode ser alocada";
     len = strlen(str);
-    aux = emalloc(len*sizeof(char), errmsg);
+    aux = emalloc((len+1)*sizeof(char), errmsg);
     strcpy(aux, str);
     return aux;
 }

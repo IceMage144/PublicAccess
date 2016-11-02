@@ -77,16 +77,16 @@ void executeULL (FILE *input, char ordType) {
     redChars = readLine(input, Buff);
     while (redChars) {
         while (beg < Buff->top){
-            while (!isalpha(Buff->data[beg]) && beg < Buff->top)
+            while (beg < Buff->top && !isalpha(Buff->data[beg]))
                 beg++;
-            while (isalnum(Buff->data[beg+len]) && beg+len < Buff->top)
+            while (beg+len < Buff->top && isalnum(Buff->data[beg+len]))
                 len++;
             if (!len)
                 break;
-            strAux = emalloc(len*sizeof(char), errmsg);
-            strAux[len+1] = 0;
+            strAux = emalloc((len+1)*sizeof(char), errmsg);
+            strAux[len] = 0;
             for (i = 0; i < len; i++)
-                strAux[i] = Buff->data[beg+i];
+                strAux[i] = tolower(Buff->data[beg+i]);
             ULLPush(Table, strAux);
             beg += len;
             len = 0;
