@@ -5,9 +5,12 @@
 #ifndef __TABELASIMBOLO_VD_H__
 #define __TABELASIMBOLO_VD_H__
 
-#include <stdio.h>
 #include "vectorfuncs.h"
 
-void executeUV (FILE *input, char ordType);
+void UVPush (VST *Table, const char *key);
+
+void UVPrintVal (VST *Table, int topChar);
+
+void UVPrintLexi (VST *Table, int topChar);
 
 #endif

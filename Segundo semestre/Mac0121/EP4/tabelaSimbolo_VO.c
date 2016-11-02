@@ -9,7 +9,6 @@
 #include "vectorfuncs.h"
 #include "tabelaSimbolo_VO.h"
 #include "auxfuncs.h"
-#include "buffer.h"
 
 int binSearch (VST *Table, const char *key) {
     int beg = 0, end = Table->top, mid = (end+beg)/2, comp;
@@ -55,58 +54,25 @@ void OVPush (VST *Table, const char *key) {
     (Table->data[pos].value)++;
 }
 
-void OVPrintFreq (VST *Table) {
-    int i;
+void OVPrintVal (VST *Table, int topChar) {
+    int i, j, len;
     mergeSortV(Table, 0, Table->top-1, valcompV);
     for (i = 0; i < Table->top; i++) {
-        printf("%s : %d\n", Table->data[i].key, Table->data[i].value);
+        len = strlen(Table->data[i].key);
+        printf("%s", Table->data[i].key);
+        for (j = len; j <= topChar; j++)
+            printf(" ");
+        printf("%d\n", Table->data[i].value);
     }
 }
 
-void OVPrintLexi (VST *Table) {
-    int i;
+void OVPrintLexi (VST *Table, int topChar) {
+    int i, j, len;
     for (i = 0; i < Table->top; i++) {
-        printf("%s : %d\n", Table->data[i].key, Table->data[i].value);
+        len = strlen(Table->data[i].key);
+        printf("%s", Table->data[i].key);
+        for (j = len; j <= topChar; j++)
+            printf(" ");
+        printf("%d\n", Table->data[i].value);
     }
-}
-
-void executeOV (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i;
-    const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    VST *Table;
-    Buffer *Buff;
-    Table = VTableCreate();
-    Buff = BufferCreate();
-    redChars = readLine(input, Buff);
-    while (redChars) {
-        while (beg < Buff->top){
-            while (beg < Buff->top && !isalpha(Buff->data[beg])){
-                /*printf("%c", Buff->data[beg]);*/
-                beg++;
-            }
-            while (beg+len < Buff->top && isalnum(Buff->data[beg+len])){
-                /*printf("%c", Buff->data[beg+len]);*/
-                len++;
-            }
-            if (!len)
-                break;
-            strAux = emalloc((len+1)*sizeof(char), errmsg);
-            strAux[len] = 0;
-            for (i = 0; i < len; i++)
-                strAux[i] = tolower(Buff->data[beg+i]);
-            OVPush(Table, strAux);
-            beg += len;
-            len = 0;
-            free(strAux);
-        }
-        redChars = readLine(input, Buff);
-        beg = 0;
-    }
-    if (ordType == 'O')
-        OVPrintFreq(Table);
-    else
-        OVPrintLexi(Table);
-    BufferDestroy(Buff);
-    VTableDestroy(Table);
 }

@@ -1,11 +1,12 @@
-CC = gcc
+CC = g++
 DEPS = polygons.h pgmdrawer.h
+CFLAGS = -I.
 
 %.o: %.cpp $(DEPS)
-	$(CC) -o -c $<
+	$(CC) -c $< $(CFLAGS)
 
 master.o: master.cpp
-	$(CC) -o -c $<
+	$(CC) -c $< $(CFLAGS)
 
-test: polygon.o master.o pgmdrawer.o
-	$(CC) $^ -o $@
+test: polygons.o master.o pgmdrawer.o
+	$(CC) $^ -o $@ $(CFLAGS)

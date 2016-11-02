@@ -70,4 +70,37 @@ public:
 	}
 };
 
+class Polygon : public GraphicalObject {
+	struct Node {
+		Point *pt;
+		struct Node *next;
+	};
+	Node *Head;
+	bool filled;
+	double thick;
+public:
+	Polygon (): Head(NULL), filled(false), thick(1) {}
+	Polygon (const Polygon& other, bool filled, double thick);
+	~Polygon ();
+	void add (const Point& pt);
+	virtual bool has_point (const Point& p) const;
+	Rect boundingBox () const;
+	GraphicalObject *clone () const {
+		return (new Polygon(*this));
+	}
+};
+
+class CurvedLine : public Polygon {
+	struct Node {
+		Point *pt;
+		struct Node *next;
+	};
+	Node *Head;
+	double thick;
+public:
+	CurvedLine (): Head(NULL), thick(1) {}
+	CurvedLine (const CurvedLine& other, double thick);
+	bool has_point (const Point& p) const;
+};
+
 #endif

@@ -5,10 +5,13 @@
 #ifndef __TABELASIMBOLO_LD_H__
 #define __TABELASIMBOLO_LD_H__
 
-#include <stdio.h>
 #include "linkedlistfuncs.h"
 
-void executeULL (FILE *input, char ordType);
+void ULLPush (LLST *Table, const char *key);
+
+void ULLPrintVal (LLST *Table, int topChar);
+
+void ULLPrintLexi (LLST *Table, int topChar);
 
 #endif
  

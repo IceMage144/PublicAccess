@@ -5,23 +5,30 @@
 #ifndef __TABELASIMBOLO_AB_H__
 #define __TABELASIMBOLO_AB_H__
 
-#include <stdio.h>
-
 typedef struct btnode_t {
 	char *key;
 	int value;
-	struct btnode_t *lesser;
-	struct btnode_t *greater;
+	struct btnode_t *left;
+	struct btnode_t *right;
 } BTNode;
 
-void BSTTableDestroy (BtNode *Root);
+typedef struct btst_t {
+	int top;
+	BTNode *root;
+} BinaryTreeSTable;
 
-void BSTPush (BTNode *Root, const char *key);
+#define BTST BinaryTreeSTable
 
-void BSTPrintLexi (BTNode *Root);
+BTST *BSTTableCreate ();
 
-void BSTPrintFreq (BTNode *Root);
+void BSTTableDestroy (BTST *Table);
 
-void executeBST (FILE *input, char ordType);
+void BSTTableDestroyNode (BTNode *Node);
+
+void BSTPush (BTST *Table, const char *key);
+
+void BSTPrintLexi (BTNode *Table, int topChar);
+
+void BSTPrintVal (BTST *Table, int topChar);
 
 #endif

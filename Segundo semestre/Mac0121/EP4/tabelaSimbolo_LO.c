@@ -6,11 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <math.h>
 #include "linkedlistfuncs.h"
 #include "tabelaSimbolo_LO.h"
 #include "auxfuncs.h"
-#include "buffer.h"
 
 void OLLPush (LLST *Table, const char *key) {
     const char errmsg[] = "A chave não pode ser adicionada na tabela\n";
@@ -53,59 +51,32 @@ void OLLPush (LLST *Table, const char *key) {
     }
 }
 
-void OLLPrintFreq (LLST *Table) {
+void OLLPrintVal (LLST *Table, int topChar) {
+    int i, len;
     LLNode *auxNode;
     mergeSortL(Table->head, NULL, Table->top, valcompL);
     auxNode = (Table->head)->next;
     while (auxNode != NULL) {
-        printf("%s : %d\n", auxNode->key, auxNode->value);
+        len = strlen(auxNode->key);
+        printf("%s", auxNode->key);
+        for (i = len; i <= topChar; i++)
+            printf(" ");
+        printf("%d\n", auxNode->value);
         auxNode = auxNode->next;
     }
 
 }
 
-void OLLPrintLexi (LLST *Table) {
+void OLLPrintLexi (LLST *Table, int topChar) {
+    int i, len;
     LLNode *auxNode;
     auxNode = (Table->head)->next;
     while (auxNode != NULL) {
-        printf("%s : %d\n", auxNode->key, auxNode->value);
+        len = strlen(auxNode->key);
+        printf("%s", auxNode->key);
+        for (i = len; i <= topChar; i++)
+            printf(" ");
+        printf("%d\n", auxNode->value);
         auxNode = auxNode->next;
     }
-}
-
-void executeOLL (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i;
-    const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    LLST *Table;
-    Buffer *Buff;
-    Table = LLTableCreate();
-    Buff = BufferCreate();
-    redChars = readLine(input, Buff);
-    while (redChars) {
-        while (beg < Buff->top){
-            while (beg < Buff->top && !isalpha(Buff->data[beg]))
-                beg++;
-            while (beg+len < Buff->top && isalnum(Buff->data[beg+len]))
-                len++;
-            if (!len)
-                break;
-            strAux = emalloc((len+1)*sizeof(char), errmsg);
-            strAux[len] = 0;
-            for (i = 0; i < len; i++)
-                strAux[i] = tolower(Buff->data[beg+i]);
-            OLLPush(Table, strAux);
-            beg += len;
-            len = 0;
-            free(strAux);
-        }
-        redChars = readLine(input, Buff);
-        beg = 0;
-    }
-    if (ordType == 'O')
-        OLLPrintFreq(Table);
-    else
-        OLLPrintLexi(Table);
-    BufferDestroy(Buff);
-    LLTableDestroy(Table);
 }
