@@ -1,5 +1,5 @@
 /*
-	Biblioteca feita por João Gabriel Basi
+    Biblioteca feita por João Gabriel Basi
 */
 
 #include <stdio.h>
@@ -12,35 +12,35 @@
 desordenado e ordenado*/
 
 VST *VTableCreate () {
-	const char errmsg[] = "A tabela de símbolos não pode ser alocada\n";
-	VST *Ret;
-	int i;
-	Ret = emalloc(sizeof(VST), errmsg);
-	Ret->data = emalloc(1024*sizeof(Entry), errmsg);
-	for (i = 0; i < 1024; i++){
-		Ret->data[i].key = NULL;
-		Ret->data[i].value = 0;
-	}
-	Ret->top = 0;
-	Ret->maxPos = 1024;
-	return Ret;
+    const char errmsg[] = "A tabela de símbolos não pode ser alocada\n";
+    VST *Ret;
+    int i;
+    Ret = emalloc(sizeof(VST), errmsg);
+    Ret->data = emalloc(1024*sizeof(Entry), errmsg);
+    for (i = 0; i < 1024; i++){
+        Ret->data[i].key = NULL;
+        Ret->data[i].value = 0;
+    }
+    Ret->top = 0;
+    Ret->maxPos = 1024;
+    return Ret;
 }
 
 void VTableDestroy (VST *Table) {
-	int i;
-	for (i = 0; i < Table->top; i++) {
-		free(Table->data[i].key);
-	}
-	free(Table->data);
-	free(Table);
+    int i;
+    for (i = 0; i < Table->top; i++) {
+        free(Table->data[i].key);
+    }
+    free(Table->data);
+    free(Table);
 }
 
 int valcompV (Entry *Entry1, Entry *Entry2) {
-    if (Entry1->value == Entry2->value)
-        return 0;
+    if (Entry1->value > Entry2->value)
+        return -1;
     if (Entry1->value < Entry2->value)
-        return 1;/*-------------NOPE----------------*/
-    return -1;
+        return 1;
+    return 0;
 }
 
 int strcompV (Entry *Entry1, Entry *Entry2) {

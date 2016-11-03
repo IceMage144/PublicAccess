@@ -30,14 +30,17 @@ int binSearch (VST *Table, const char *key) {
     return mid;
 }
 
-void OVPush (VST *Table, const char *key) {
+InsertionResult *OVPush (VST *Table, const char *key) {
+    const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
+    const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     int i = 0, pos;
-    const char errmsg[] = "A chave não pode ser adicionada na tabela\n";
     Entry *Taux;
+    InsertionResult *res;
+    res = emalloc(sizeof(InsertionResult), errmsg2);
     pos = binSearch(Table, key);
     if (pos == Table->top || strcmp(Table->data[pos].key, key) != 0) {
         if (Table->top == Table->maxPos) {
-            Taux = emalloc(2*Table->maxPos*sizeof(Entry), errmsg);
+            Taux = emalloc(2*Table->maxPos*sizeof(Entry), errmsg1);
             for (i = 0; i < Table->maxPos; i++)
                 Taux[i] = Table->data[i];
             free(Table->data);
@@ -49,9 +52,15 @@ void OVPush (VST *Table, const char *key) {
         }
         Table->data[pos].key = estrdup(key);
         Table->data[pos].value = 0;
+        res->new = 1;
+        res->value = &(Table->data[pos].value);
         (Table->top)++;
     }
-    (Table->data[pos].value)++;
+    else {
+        res->new = 0;
+        res->value = &(Table->data[pos].value);
+    }
+    return res;
 }
 
 void OVPrintVal (VST *Table, int topChar) {

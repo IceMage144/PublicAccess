@@ -1,5 +1,5 @@
 /*
-	Biblioteca feita por João Gabriel Basi
+    Biblioteca feita por João Gabriel Basi
 */
 
 #ifndef __BUFFER_H__

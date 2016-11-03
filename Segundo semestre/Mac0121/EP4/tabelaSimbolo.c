@@ -8,19 +8,19 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "buffer.h"
+#include "auxfuncs.h"
 #include "vectorfuncs.h"
 #include "linkedlistfuncs.h"
-#include "buffer.h"
 #include "tabelaSimbolo_VO.h"
 #include "tabelaSimbolo_VD.h"
 #include "tabelaSimbolo_LO.h"
 #include "tabelaSimbolo_LD.h"
 #include "tabelaSimbolo_AB.h"
-#include "auxfuncs.h"
 
 static void show_usage (int num){
     if (num == 0)
-        fprintf(stderr, "uso: ep4 <arquivo> <tipo da tabela> <ordem>\n");
+        fprintf(stderr, "Uso: ep4 <arquivo> <tipo da tabela> <ordem>\n");
     else if (num == 1) {
         fprintf(stderr, "Os tipos de tabela podem ser:\n");
         fprintf(stderr, "   VO: Vetor ordenado\n");
@@ -37,11 +37,12 @@ static void show_usage (int num){
 }
 
 void executeOV (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i, topChar = 0;
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    VST *Table;
+    int beg = 0, len = 0, redChars, i, topChar = 0;
+    InsertionResult *res;
     Buffer *Buff;
+    VST *Table;
+    char *strAux;
     Table = VTableCreate();
     Buff = BufferCreate();
     redChars = readLine(input, Buff);
@@ -59,10 +60,12 @@ void executeOV (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            OVPush(Table, strAux);
+            res = OVPush(Table, strAux);
+            (*(res->value))++;
             beg += len;
             len = 0;
             free(strAux);
+            free(res);
         }
         redChars = readLine(input, Buff);
         beg = 0;
@@ -71,16 +74,18 @@ void executeOV (FILE *input, char ordType) {
         OVPrintVal(Table, topChar);
     else
         OVPrintLexi(Table, topChar);
+    printf("%d\n", Table->top);
     BufferDestroy(Buff);
     VTableDestroy(Table);
 }
 
 void executeUV (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i, topChar = 0;
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    VST *Table;
+    int beg = 0, len = 0, redChars, i, topChar = 0;
+    InsertionResult *res;
     Buffer *Buff;
+    VST *Table;
+    char *strAux;
     Table = VTableCreate();
     Buff = BufferCreate();
     redChars = readLine(input, Buff);
@@ -98,10 +103,12 @@ void executeUV (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            UVPush(Table, strAux);
+            res = UVPush(Table, strAux);
+            (*(res->value))++;
             beg += len;
             len = 0;
             free(strAux);
+            free(res);
         }
         redChars = readLine(input, Buff);
         beg = 0;
@@ -110,16 +117,18 @@ void executeUV (FILE *input, char ordType) {
         UVPrintVal(Table, topChar);
     else
         UVPrintLexi(Table, topChar);
+    printf("%d\n", Table->top);
     BufferDestroy(Buff);
     VTableDestroy(Table);
 }
 
 void executeOLL (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i, topChar = 0;
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    LLST *Table;
+    int beg = 0, len = 0, redChars, i, topChar = 0;
+    InsertionResult *res;
     Buffer *Buff;
+    LLST *Table;
+    char *strAux;
     Table = LLTableCreate();
     Buff = BufferCreate();
     redChars = readLine(input, Buff);
@@ -137,10 +146,12 @@ void executeOLL (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            OLLPush(Table, strAux);
+            res = OLLPush(Table, strAux);
+            (*(res->value))++;
             beg += len;
             len = 0;
             free(strAux);
+            free(res);
         }
         redChars = readLine(input, Buff);
         beg = 0;
@@ -149,16 +160,18 @@ void executeOLL (FILE *input, char ordType) {
         OLLPrintVal(Table, topChar);
     else
         OLLPrintLexi(Table, topChar);
+    printf("%d\n", Table->top);
     BufferDestroy(Buff);
     LLTableDestroy(Table);
 }
 
 void executeULL (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i, topChar = 0;
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    LLST *Table;
+    int beg = 0, len = 0, redChars, i, topChar = 0;
+    InsertionResult *res;
     Buffer *Buff;
+    LLST *Table;
+    char *strAux;
     Table = LLTableCreate();
     Buff = BufferCreate();
     redChars = readLine(input, Buff);
@@ -176,10 +189,12 @@ void executeULL (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            ULLPush(Table, strAux);
+            res = ULLPush(Table, strAux);
+            (*(res->value))++;
             beg += len;
             len = 0;
             free(strAux);
+            free(res);
         }
         redChars = readLine(input, Buff);
         beg = 0;
@@ -188,16 +203,18 @@ void executeULL (FILE *input, char ordType) {
         ULLPrintVal(Table, topChar);
     else
         ULLPrintLexi(Table, topChar);
+    printf("%d\n", Table->top);
     BufferDestroy(Buff);
     LLTableDestroy(Table);
 }
 
 void executeBST (FILE *input, char ordType) {
-    int beg = 0, len = 0, redChars, i, topChar = 0;
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
-    char *strAux;
-    BTST *Table;
+    int beg = 0, len = 0, redChars, i, topChar = 0;
+    InsertionResult *res;
     Buffer *Buff;
+    BTST *Table;
+    char *strAux;
     Table = BSTTableCreate();
     Buff = BufferCreate();
     redChars = readLine(input, Buff);
@@ -215,10 +232,12 @@ void executeBST (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            BSTPush(Table, strAux);
+            res = BSTPush(Table, strAux);
+            (*(res->value))++;
             beg += len;
             len = 0;
             free(strAux);
+            free(res);
         }
         redChars = readLine(input, Buff);
         beg = 0;
@@ -227,10 +246,10 @@ void executeBST (FILE *input, char ordType) {
         BSTPrintVal(Table, topChar);
     else
         BSTPrintLexi(Table->root, topChar);
+    printf("%d\n", Table->top);
     BufferDestroy(Buff);
     BSTTableDestroy(Table);
 }
-
 
 int main (int argc, char **argv) {
     FILE *input;

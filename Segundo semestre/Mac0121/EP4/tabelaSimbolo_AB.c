@@ -34,72 +34,67 @@ void BSTTableDestroy (BTST *Table) {
     free(Table);
 }
 
-void BSTPush (BTST *Table, const char *key) {
-    int comp;
+InsertionResult *BSTPush (BTST *Table, const char *key) {
+    const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
+    const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     BTNode *auxNode, *newNode;
-    const char errmsg[] = "A chave não pode ser adicionada na tabela\n";
+    InsertionResult *res;
+    int comp;
+    res = emalloc(sizeof(InsertionResult), errmsg2);
     auxNode = Table->root;
     newNode = NULL;
     if (auxNode != NULL) {
         comp = strcmp(key, auxNode->key);
-        if (comp > 0) {
-            /*printf("right1\n");*/
+        if (comp > 0)
             newNode = auxNode->right;
-        }
-        else if (comp < 0) {
-            /*printf("left1\n");*/
+        else if (comp < 0)
             newNode = auxNode->left;
-        }
         else {
-            (auxNode->value)++;
-            /*printf("Added 1 to %s at the root\n", key);*/
+            res->new = 0;
+            res->value = &(auxNode->value);
         }
         while (newNode != NULL && comp != 0) {
             comp = strcmp(key, newNode->key);
             if (comp > 0){
-                /*printf("right2\n");*/
                 auxNode = newNode;
                 newNode = newNode->right;
             }
             else if (comp < 0) {
-                /*printf("left2\n");*/
                 auxNode = newNode;
                 newNode = newNode->left;
             }
             else {
-                (newNode->value)++;
-                /*printf("Added 1 to %s somewhere\n", key);*/
+                res->new = 0;
+                res->value = &(newNode->value);
             }
         }
         if (newNode == NULL && comp != 0) {
-            newNode = emalloc(sizeof(BTNode), errmsg);
-            newNode->value = 1;
+            newNode = emalloc(sizeof(BTNode), errmsg1);
+            newNode->value = 0;
             newNode->key = estrdup(key);
             newNode->right = NULL;
             newNode->left = NULL;
-            if (comp < 0) {
-                /*printf("left3\n");*/
+            if (comp < 0)
                 auxNode->left = newNode;
-                /*printf("Added %s at the left of %s\n", key, auxNode->key);*/
-            }
-            else {
-                /*printf("right3\n");*/
+            else
                 auxNode->right = newNode;
-                /*printf("Added %s at the right of %s\n", key, auxNode->key);*/
-            }
+            res->new = 1;
+            res->value = &(newNode->value);
             (Table->top)++;
         }
     }
     else {
-        newNode = emalloc(sizeof(BTNode), errmsg);
-        newNode->value = 1;
+        newNode = emalloc(sizeof(BTNode), errmsg1);
+        newNode->value = 0;
         newNode->key = estrdup(key);
         newNode->right = NULL;
         newNode->left = NULL;
         Table->root = newNode;
+        res->new = 1;
+        res->value = &(newNode->value);
         (Table->top)++;
-        /*printf("Added %s to the root\n", key);*/
     }
+    return res;
 }
 
 void BSTPrintLexi (BTNode *Table, int topChar) {

@@ -5,9 +5,10 @@
 #ifndef __TABELASIMBOLO_VD_H__
 #define __TABELASIMBOLO_VD_H__
 
+#include "auxfuncs.h"
 #include "vectorfuncs.h"
 
-void UVPush (VST *Table, const char *key);
+InsertionResult *UVPush (VST *Table, const char *key);
 
 void UVPrintVal (VST *Table, int topChar);
 
