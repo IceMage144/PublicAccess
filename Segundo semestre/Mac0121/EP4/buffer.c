@@ -7,9 +7,10 @@
 #include "buffer.h"
 #include "auxfuncs.h"
 
-/*Cria as funções sobre uma struct Buffer, que guarda caracteres lidos da
-entrada padrão*/
+/*Biblioteca de funções sobre a strutura Buffer, que guarda caracteres
+lidos da entrada padrão*/
 
+/*Retorna um ponteiro para um novo buffer*/
 Buffer *BufferCreate (){
     const char errmsg[] = "O Buffer não pode ser criado\n";
     Buffer *Buff;
@@ -20,12 +21,13 @@ Buffer *BufferCreate (){
     return Buff;
 }
 
+/*Desaloca um buffer "Buff"*/
 void BufferDestroy (Buffer *Buff){
     free(Buff->data);
     free(Buff);
 }
 
-
+/*Zera um buffer "Buff"*/
 void BufferReset(Buffer *Buff){
     int i;
     for (i = 0; i < Buff->top; i++){
@@ -34,6 +36,7 @@ void BufferReset(Buffer *Buff){
     Buff->top = 0;
 }
 
+/*Adiciona o caractere "c" à um buffer "Buff"*/
 void BufferPush(Buffer *Buff, char c){
     int i;
     char *Vaux;
@@ -50,7 +53,8 @@ void BufferPush(Buffer *Buff, char c){
     }
 }
 
-
+/*Lê uma linha de um arquivo "input" e guarda em um buffer "Buff",
+incluindo o caractere final "\n"*/
 int readLine(FILE *input, Buffer *Buff){
     char c = fgetc(input);
     int charCount = 0;

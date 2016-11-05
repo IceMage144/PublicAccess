@@ -8,9 +8,17 @@
 #include <ctype.h>
 #include "linkedlistfuncs.h"
 #include "tabelaSimbolo_LO.h"
+#include "vectorfuncs.h"
 #include "auxfuncs.h"
 
-InsertionResult *OLLPush (LLST *Table, const char *key) {
+/*Biblioteca com funções sobre a tabela de símbolos implementada com
+lista ligada ordenada*/
+
+/*Adiciona uma chave "key" à uma tablela de símbolos ordenada "Table", do tipo
+lista ligada, e retorna um InsertionResult, com um ponteiro para o campo
+"value" associado à "key" e com a variável new igual à 1 se a chave é nova,
+ou 0 caso contrário*/
+InsertionResult *OLLAdd (LLST *Table, const char *key) {
     const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
     const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     LLNode *currNode, *newNode, *memNode;
@@ -60,26 +68,32 @@ InsertionResult *OLLPush (LLST *Table, const char *key) {
     return res;
 }
 
+/*Função que imprime a tabela de símbolos ordenada "Table", do tipo lista
+ligada, na saída padrão, com seus elementos ordenados por ordem de ocorrência*/
 void OLLPrintVal (LLST *Table, int topChar) {
-    int i, len;
     LLNode *auxNode;
-    mergeSortL(&(Table->head), NULL, Table->top, valcompL);
-    auxNode = (Table->head)->next;
-    while (auxNode != NULL) {
-        len = strlen(auxNode->key);
-        printf("%s", auxNode->key);
-        for (i = len; i <= topChar; i++)
+    VST *AuxTable;
+    int len, i, j;
+    AuxTable = VTableCreate();
+    for (auxNode = Table->head; auxNode != NULL; auxNode = auxNode->next)
+        VTablePush(AuxTable, auxNode->key, auxNode->value);
+    mergeSortV(AuxTable, 0, AuxTable->top, valcompV);
+    for (i = 0; i < Table->top; i++) {
+        len = strlen(AuxTable->data[i].key);
+        printf("%s", AuxTable->data[i].key);
+        for (j = len; j <= topChar; j++)
             printf(" ");
-        printf("%d\n", auxNode->value);
-        auxNode = auxNode->next;
+        printf("%d\n", AuxTable->data[i].value);
     }
-
+    VTableDestroy(AuxTable);
 }
 
+/*Função que imprime a tabela de símbolos ordenada "Table", do tipo lista
+ligada, na saída padrão, com seus elementos ordenados por ordem alfabética*/
 void OLLPrintLexi (LLST *Table, int topChar) {
     int i, len;
     LLNode *auxNode;
-    auxNode = (Table->head)->next;
+    auxNode = Table->head;
     while (auxNode != NULL) {
         len = strlen(auxNode->key);
         printf("%s", auxNode->key);

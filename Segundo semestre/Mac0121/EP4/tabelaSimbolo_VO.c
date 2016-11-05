@@ -10,6 +10,13 @@
 #include "tabelaSimbolo_VO.h"
 #include "auxfuncs.h"
 
+/*Biblioteca com funções sobre a tabela de símbolos implementada com
+vetor ordenado*/
+
+/*Função auxiliar da função OVAdd. Recebe uma tabela "Table", implementada
+com vetor, e uma chave "key". A função procura a chave na tabela. Se
+encontrá-la, retorna a posição da chave, caso contrário, retorna a posição
+em que a chava deveria estar*/
 int binSearch (VST *Table, const char *key) {
     int beg = 0, end = Table->top, mid = (end+beg)/2, comp;
     while (end > beg) {
@@ -30,7 +37,11 @@ int binSearch (VST *Table, const char *key) {
     return mid;
 }
 
-InsertionResult *OVPush (VST *Table, const char *key) {
+/*Adiciona uma chave "key" à uma tablela de símbolos ordenada "Table", do
+tipo vetor, e retorna um InsertionResult, com um ponteiro para o campo
+"value" associado à "key" e com a variável new igual à 1 se a chave é nova,
+ou 0 caso contrário*/
+InsertionResult *OVAdd (VST *Table, const char *key) {
     const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
     const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     int i = 0, pos;
@@ -63,6 +74,8 @@ InsertionResult *OVPush (VST *Table, const char *key) {
     return res;
 }
 
+/*Função que imprime a tabela de símbolos ordenada "Table", do tipo vetor,
+na saída padrão, com seus elementos ordenados por ordem de ocorrência*/
 void OVPrintVal (VST *Table, int topChar) {
     int i, j, len;
     mergeSortV(Table, 0, Table->top-1, valcompV);
@@ -75,6 +88,8 @@ void OVPrintVal (VST *Table, int topChar) {
     }
 }
 
+/*Função que imprime a tabela de símbolos ordenada "Table", do tipo vetor,
+na saída padrão, com seus elementos ordenados por ordem alfabética*/
 void OVPrintLexi (VST *Table, int topChar) {
     int i, j, len;
     for (i = 0; i < Table->top; i++) {

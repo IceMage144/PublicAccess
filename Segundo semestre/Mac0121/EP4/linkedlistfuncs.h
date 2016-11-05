@@ -5,12 +5,17 @@
 #ifndef __LINKEDLISTFUNCS_H__
 #define __LINKEDLISTFUNCS_H__
 
+/*Biblioteca com funções comuns entre as tabelas de símbolos implementadas
+com lista ligada*/
+
+/*Nó para lista ligada*/
 typedef struct llnode_t {
     char *key;
     int value;
     struct llnode_t *next;
 } LLNode;
 
+/*Cabeça para lista ligada*/
 typedef struct linkedlistst_t {
     int top;
     LLNode *head;
@@ -18,14 +23,11 @@ typedef struct linkedlistst_t {
 
 #define LLST LinkedListSTable
 
+/*Retorna um ponteiro para uma tabela de símbolos nova feita com lista
+ligada*/
 LLST *LLTableCreate ();
 
+/*Desaloca uma tabela de símbolos "Table" implementada com lista ligada*/
 void LLTableDestroy (LLST *Table);
-
-int strcompL (LLNode *node1, LLNode *node2);
-
-int valcompL (LLNode *node1, LLNode *node2);
-
-void mergeSortL (LLNode **beg, LLNode *end, int size, int (*comp)(LLNode*, LLNode*));
 
 #endif

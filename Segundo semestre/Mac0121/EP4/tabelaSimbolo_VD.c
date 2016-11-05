@@ -10,7 +10,14 @@
 #include "tabelaSimbolo_VD.h"
 #include "auxfuncs.h"
 
-InsertionResult *UVPush (VST *Table, const char *key) {
+/*Biblioteca com funções sobre a tabela de símbolos implementada com
+vetor desordenado*/
+
+/*Adiciona uma chave "key" à uma tablela de símbolos desordenada "Table", do
+tipo vetor, e retorna um InsertionResult, com um ponteiro para o campo
+"value" associado à "key" e com a variável new igual à 1 se a chave é nova,
+ou 0 caso contrário*/
+InsertionResult *UVAdd (VST *Table, const char *key) {
     const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
     const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     int i = 0, pos = 0;
@@ -41,6 +48,8 @@ InsertionResult *UVPush (VST *Table, const char *key) {
     return res;
 }
 
+/*Função que imprime a tabela de símbolos desordenada "Table", do tipo vetor,
+na saída padrão, com seus elementos ordenados por ordem de ocorrência*/
 void UVPrintVal (VST *Table, int topChar) {
     int i, j, len;
     mergeSortV(Table, 0, Table->top-1, valcompV);
@@ -53,6 +62,8 @@ void UVPrintVal (VST *Table, int topChar) {
     }
 }
 
+/*Função que imprime a tabela de símbolos desordenada "Table", do tipo vetor,
+na saída padrão, com seus elementos ordenados por ordem alfabética*/
 void UVPrintLexi (VST *Table, int topChar) {
     int i, j, len;
     mergeSortV(Table, 0, Table->top-1, strcompV);

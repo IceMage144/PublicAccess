@@ -1,0 +1,112 @@
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} %permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[T1]{fontenc} %define a fonte das letras
+\usepackage{color} %colore as letras
+\usepackage{url} %inclui urls
+\usepackage[pdfencoding=unicode]{hyperref} %transforma links em texto comum para clicar
+\usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
+\usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
+\usepackage{graphicx} %permite colocar imagens no documento
+\usepackage{indentfirst}
+\setlength\parindent{24pt}
+
+\title{Relatório EP3 - MAC0121}
+\date{}
+\author{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}
+\begin{document}
+\maketitle
+\section{O programa}
+O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de lista ligada e uma ordem de impressão. O programa imprime na saída padrão as todas as palavras do arquivo e suas respectivas ocorrências, tanto em ordem alfabética, ou em ordem de ocorrência, dependendo do que for recebido na linha de comando.
+
+\section{As funções}
+As funções foram separadas em bibliotecas de acordo com a sua utilidade:
+	\subsection{auxfuncs.h}
+		Biblioteca com funções que auxiliam o programa a manusear a memória:
+		%struct
+		\begin{itemize}
+			\item \textit{emalloc}:
+			\item \textit{estrdup}:
+		\end{itemize}
+	\subsection{buffer.h}
+		Biblioteca de funções sobre a strutura Buffer:
+		%struct
+		\begin{itemize}
+			\item \textit{BufferCreate}:
+			\item \textit{BufferDestroy}:
+			\item \textit{BufferReset}:
+			\item \textit{BufferPush}:
+			\item \textit{readLine}:
+		\end{itemize}
+	\subsection{vectorfuncs.h}
+		Biblioteca com funções comuns entre as tabelas de símbolos implementadas com 		vetor:
+		%struct
+		\begin{itemize}
+			\item \textit{VTableCreate}: 
+			\item \textit{VTableDestroy}:
+			\item \textit{VTablePush}:
+			\item \textit{valcompV}:
+			\item \textit{strcompV}:
+			\item \textit{mergeSortV}:
+		\end{itemize}
+	\subsection{linkedlistfuncs.h}
+		Biblioteca com funções comuns entre as tabelas de símbolos implementadas com lista ligada:
+		%struct
+		\begin{itemize}
+			\item \textit{LLTableCreate}:
+			\item \textit{LLTableDestroy}:
+		\end{itemize}
+	\subsection{tabelaSimbolo\_VO.h}
+		 Biblioteca com funções sobre a tabela de símbolos implementada com vetor ordenado:
+		\begin{itemize}
+			\item \textit{OVAdd}:
+			\item \textit{OVPritVal}:
+			\item \textit{OVPrintLexi}:
+		\end{itemize}
+	\subsection{tabelaSimbolo\_VD.h}
+		Biblioteca com funções sobre a tabela de símbolos implementada com vetor desordenado;
+		\begin{itemize}
+			\item \textit{UVAdd}:
+			\item \textit{UVPrintVal}:
+			\item \textit{UVPrintLexi}:
+		\end{itemize}
+	\subsection{tabelaSimbolo\_LO.h}
+		Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada ordenada;
+		\begin{itemize}
+			\item \textit{OLLAdd}:
+			\item \textit{OLLPrintVal}:
+			\item \textit{OLLPrintLexi}:
+		\end{itemize}
+	\subsection{tabelaSimbolo\_LD.h}
+		Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada desordenada;
+		\begin{itemize}
+			\item \textit{ULLAdd}:
+			\item \textit{ULLPrintVal}:
+			\item \textit{ULLPrintLexi}:
+		\end{itemize}
+	\subsection{tabelaSimbolo\_AB.h}
+		Biblioteca com funções sobre a tabela de símbolos implementada com árvore de busca binária.
+		%struct
+		\begin{itemize}
+			\item \textit{BSTTableCreate}:
+			\item \textit{BSTTableDestroy}:
+			\item \textit{BSTAdd}:
+			\item \textit{BSTPrintVal}:
+			\item \textit{BSTPrintLexi}:
+		\end{itemize}
+	\subsection{tabelaSimbolo.c} %Verificar
+		\begin{itemize}
+			\item \textit{show\_usage}
+			\item \textit{executeOV}
+			\item \textit{executeUV}
+			\item \textit{executeOLL}
+			\item \textit{executeULL}
+			\item \textit{executeBST}
+		\end{itemize}
+\end{document}

@@ -11,6 +11,11 @@
 #include "auxfuncs.h"
 #include "vectorfuncs.h"
 
+/*Biblioteca com funções sobre a tabela de símbolos implementada com
+árvore de busca binária*/
+
+/*Retorna um ponteiro para uma nova tabela de símbolos, do tipo árvore de
+busca binária*/
 BTST *BSTTableCreate () {
     const char errmsg[] = "A tabela de símbolos não pode ser alocada\n";
     BTST *newTable;
@@ -20,6 +25,8 @@ BTST *BSTTableCreate () {
     return newTable;
 }
 
+/*Função recursiva auxiliar da BSTTableDestroy que desaloca os nós
+filhos de um nó "Node"*/
 void BSTTableDestroyNode (BTNode *Node) {
     if (Node != NULL) {
         BSTTableDestroyNode(Node->left);
@@ -29,12 +36,18 @@ void BSTTableDestroyNode (BTNode *Node) {
     }
 }
 
+/*Desaloca uma tabela de símbolos "Table", do tipo árvore de busca
+binária*/
 void BSTTableDestroy (BTST *Table) {
     BSTTableDestroyNode(Table->root);
     free(Table);
 }
 
-InsertionResult *BSTPush (BTST *Table, const char *key) {
+/*Adiciona uma chave "key" à uma tablela de símbolos "Table", do tipo
+árvore de busca binária, e retorna um InsertionResult, com um ponteiro
+para o campo value associado à "key" e com a variável new igual à 1 se
+a chave é nova, ou 0 caso contrário*/
+InsertionResult *BSTAdd (BTST *Table, const char *key) {
     const char errmsg1[] = "A chave não pode ser adicionada na tabela\n";
     const char errmsg2[] = "Uma estrutura auxiliar não pode ser alocada\n";
     BTNode *auxNode, *newNode;
@@ -97,6 +110,9 @@ InsertionResult *BSTPush (BTST *Table, const char *key) {
     return res;
 }
 
+/*Função recursiva que imprime a tabela de símbolos "Table", do tipo
+árvore de busca binária, na saída padrão, com seus elementos ordenados
+por ordem alfabética*/
 void BSTPrintLexi (BTNode *Table, int topChar) {
     int i, len;
     if (Table != NULL) {
@@ -110,27 +126,20 @@ void BSTPrintLexi (BTNode *Table, int topChar) {
     }
 }
 
+/*Função auxiliar da função BSTPrintVal, que transfere os elementos
+filhos de um nó "Node" para uma tabela de símbolos "AuxTable",
+implementda com vetor*/
 void BSTPrintValTransf (BTNode *Node, VST *AuxTable) {
-    int i;
-    Entry *EntryList;
-    const char errmsg[] = "A tabela não pode ser impressa\n";
     if (Node != NULL) {
-        AuxTable->data[AuxTable->top].key = estrdup(Node->key);
-        AuxTable->data[AuxTable->top].value = Node->value;
-        (AuxTable->top)++;
-        if (AuxTable->top == AuxTable->maxPos) {
-            EntryList = emalloc(2*AuxTable->maxPos*sizeof(Entry), errmsg);
-            for (i = 0; i < AuxTable->maxPos; i++)
-                EntryList[i] = AuxTable->data[i];
-            free(AuxTable->data);
-            AuxTable->data = EntryList;
-            AuxTable->maxPos *= 2;
-        }
+        VTablePush(AuxTable, Node->key, Node->value);
         BSTPrintValTransf(Node->left, AuxTable);
         BSTPrintValTransf(Node->right, AuxTable);
     }
 }
 
+/*Função recursiva que imprime a tabela de símbolos "Table", do tipo
+árvore de busca binária, na saída padrão, com seus elementos ordenados
+por ordem de ocorrência*/
 void BSTPrintVal (BTST *Table, int topChar) {
     int i, j, len;
     VST *AuxTable;

@@ -18,6 +18,18 @@
 #include "tabelaSimbolo_LD.h"
 #include "tabelaSimbolo_AB.h"
 
+/*Este arquivo contém a main do programa.*/
+/*O programa consiste na implementação de 5 tipos de tabelas de símbolos,
+que contam a ocorrência de cada palavra em um texto. O programa recebe na
+linha de comando o nome do arquivo que será lido, o tipo de tabela, e a
+ordem em que os elemetos da tabela devem ser impressos. As tabelas podem ser
+implementadas com: vetor ordenado (VO), vetor desordenado (VD), lista ligada
+oredenada (LO), lista ligada desordenada (LD) e árvore de busca binária (AB).
+A tabela é impressa na saída padrão ordenada por ordem de ocorrência (O) ou
+por ordem alfabética (A)*/
+
+/*Função que mostra alguns erros na saída padrão, caso o programa não
+tenha recebido os argumentos certos na linha de comando*/
 static void show_usage (int num){
     if (num == 0)
         fprintf(stderr, "Uso: ep4 <arquivo> <tipo da tabela> <ordem>\n");
@@ -36,6 +48,9 @@ static void show_usage (int num){
     }
 }
 
+/*Função que executa o programa no arquivo "input", utilizando vetor
+ordenado, e imprime na saída padrão a tabela ordenada de acordo com
+o valor "ordType" recebido*/
 void executeOV (FILE *input, char ordType) {
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
     int beg = 0, len = 0, redChars, i, topChar = 0;
@@ -60,7 +75,7 @@ void executeOV (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            res = OVPush(Table, strAux);
+            res = OVAdd(Table, strAux);
             (*(res->value))++;
             beg += len;
             len = 0;
@@ -79,6 +94,9 @@ void executeOV (FILE *input, char ordType) {
     VTableDestroy(Table);
 }
 
+/*Função que executa o programa no arquivo "input", utilizando vetor
+desordenado, e imprime na saída padrão a tabela ordenada de acordo com
+o valor "ordType" recebido*/
 void executeUV (FILE *input, char ordType) {
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
     int beg = 0, len = 0, redChars, i, topChar = 0;
@@ -103,7 +121,7 @@ void executeUV (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            res = UVPush(Table, strAux);
+            res = UVAdd(Table, strAux);
             (*(res->value))++;
             beg += len;
             len = 0;
@@ -122,6 +140,9 @@ void executeUV (FILE *input, char ordType) {
     VTableDestroy(Table);
 }
 
+/*Função que executa o programa no arquivo "input", utilizando lista ligada
+ordenada, e imprime na saída padrão a tabela ordenada de acordo com
+o valor "ordType" recebido*/
 void executeOLL (FILE *input, char ordType) {
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
     int beg = 0, len = 0, redChars, i, topChar = 0;
@@ -146,7 +167,7 @@ void executeOLL (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            res = OLLPush(Table, strAux);
+            res = OLLAdd(Table, strAux);
             (*(res->value))++;
             beg += len;
             len = 0;
@@ -165,6 +186,9 @@ void executeOLL (FILE *input, char ordType) {
     LLTableDestroy(Table);
 }
 
+/*Função que executa o programa no arquivo "input", utilizando lista ligada
+ordenada, e imprime na saída padrão a tabela ordenada de acordo com
+o valor "ordType" recebido*/
 void executeULL (FILE *input, char ordType) {
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
     int beg = 0, len = 0, redChars, i, topChar = 0;
@@ -189,7 +213,7 @@ void executeULL (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            res = ULLPush(Table, strAux);
+            res = ULLAdd(Table, strAux);
             (*(res->value))++;
             beg += len;
             len = 0;
@@ -208,6 +232,9 @@ void executeULL (FILE *input, char ordType) {
     LLTableDestroy(Table);
 }
 
+/*Função que executa o programa no arquivo "input", utilizando árvore de 
+busca binária, e imprime na saída padrão a tabela ordenada de acordo com
+o valor "ordType" recebido*/
 void executeBST (FILE *input, char ordType) {
     const char errmsg[] = "A string auxiliar não pode ser alocada\n";
     int beg = 0, len = 0, redChars, i, topChar = 0;
@@ -232,7 +259,7 @@ void executeBST (FILE *input, char ordType) {
             strAux[len] = 0;
             for (i = 0; i < len; i++)
                 strAux[i] = tolower(Buff->data[beg+i]);
-            res = BSTPush(Table, strAux);
+            res = BSTAdd(Table, strAux);
             (*(res->value))++;
             beg += len;
             len = 0;
