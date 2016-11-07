@@ -178,7 +178,7 @@ Os testes foram feitos com uma versão do dicionário inglês de 1913 \cite{dict
 \multirow{2}{*}{Implementação da tabela} & \multicolumn{2}{| c |}{Comparações} & \multicolumn{2}{| c |}{Movimentações} & \multicolumn{2}{| c |}{Tempos}\\ \cline{2-7}
 & médio & pior & médio & pior & Dicionário & Bíblia \\ \hline
 Vetor desordenado & $\frac{n(m+1)}{2}$ & $\frac{n(n+1)}{2}$ & 0 & 0 & 273,37s & 2,7s\\ \hline
-Vetor ordenado & $\frac{n(m+1)}{2}$ & $\frac{n(n+1)}{2}$ & $n(n-m)$ & $nm$ & 8,72s & 0,2s\\ \hline
+Vetor ordenado & $n\log n$ & $\frac{n(n+1)}{2}$ & $n(n-m)$ & $nm$ & 8,72s & 0,2s\\ \hline
 Lista ligada desordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 427,5s & 3,3s\\ \hline
 Lista ligada ordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 10900s (3h) & 48s\\ \hline
 Árvore de busca binária & $n\log n$ & $n^2$ & 0 & 0 & 1,78s & 0,2\\ \hline
