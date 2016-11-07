@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-/*Biblioteca de funções sobre a strutura Buffer, que guarda caracteres
+/*Biblioteca de funções sobre a estrutura Buffer, que guarda caracteres
 lidos da entrada padrão*/
 
 typedef struct {

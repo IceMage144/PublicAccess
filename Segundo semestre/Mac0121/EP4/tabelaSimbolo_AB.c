@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "linkedlistfuncs.h"
 #include "tabelaSimbolo_AB.h"
 #include "auxfuncs.h"
 #include "vectorfuncs.h"

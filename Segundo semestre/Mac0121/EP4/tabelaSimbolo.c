@@ -31,20 +31,26 @@ por ordem alfabética (A)*/
 /*Função que mostra alguns erros na saída padrão, caso o programa não
 tenha recebido os argumentos certos na linha de comando*/
 static void show_usage (int num){
-    if (num == 0)
-        fprintf(stderr, "Uso: ep4 <arquivo> <tipo da tabela> <ordem>\n");
-    else if (num == 1) {
-        fprintf(stderr, "Os tipos de tabela podem ser:\n");
-        fprintf(stderr, "   VO: Vetor ordenado\n");
-        fprintf(stderr, "   VD: Vetor desordenado\n");
-        fprintf(stderr, "   LO: Lista ligada ordenada\n");
-        fprintf(stderr, "   LD: Lista ligada desordenada\n");
-        fprintf(stderr, "   AB: Árvore de busca binária\n");
-    }
-    else {
-        fprintf(stderr, "A ordenação da saída pode ser:\n");
-        fprintf(stderr, "   O: Ordem de ocorrência\n");
-        fprintf(stderr, "   A: Ordem alfabética\n");
+    switch (num) {
+        case 0:
+            fprintf(stderr, "Uso: ep4 <arquivo> <tipo da tabela> <ordem>\n");
+            break;
+        case 1:
+            fprintf(stderr, "Os tipos de tabela podem ser:\n");
+            fprintf(stderr, "   VO: Vetor ordenado\n");
+            fprintf(stderr, "   VD: Vetor desordenado\n");
+            fprintf(stderr, "   LO: Lista ligada ordenada\n");
+            fprintf(stderr, "   LD: Lista ligada desordenada\n");
+            fprintf(stderr, "   AB: Árvore de busca binária\n");
+            break;
+        case 2:
+            fprintf(stderr, "A ordenação da saída pode ser:\n");
+            fprintf(stderr, "   O: Ordem de ocorrência\n");
+            fprintf(stderr, "   A: Ordem alfabética\n");
+            break;
+        case 3:
+            fprintf(stderr, "O arquivo não pode ser localizado\n");
+            break;
     }
 }
 
@@ -289,6 +295,10 @@ int main (int argc, char **argv) {
         exit(1);
     }
     input = fopen(argv[1], "r");
+    if (input == NULL) {
+        show_usage(3);
+        exit(1);
+    }
     if (strcmp(argv[2], "VO") == 0)
         executeOV(input, argv[3][0]);
 

@@ -7,7 +7,7 @@
 #include "buffer.h"
 #include "auxfuncs.h"
 
-/*Biblioteca de funções sobre a strutura Buffer, que guarda caracteres
+/*Biblioteca de funções sobre a estrutura Buffer, que guarda caracteres
 lidos da entrada padrão*/
 
 /*Retorna um ponteiro para um novo buffer*/

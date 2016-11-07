@@ -1,12 +1,7 @@
 \documentclass[12pt, a4paper]{article} %mostra o tipo do documento
-\setlength{\topmargin}{-.5in}
-\setlength{\textheight}{9in}
-\setlength{\textwidth}{6.3in}
-\setlength{\oddsidemargin}{-.125in}
-\setlength{\evensidemargin}{-.125in}
 \usepackage[brazil]{babel} %permite escrever em português
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper, textheight=260mm, textwidth=162mm]{geometry} %ajusta as margens
+\usepackage[a4paper, textheight=9in, textwidth=6.3in]{geometry} %ajusta as margens
 \usepackage[T1]{fontenc} %define a fonte das letras
 \usepackage{color} %colore as letras
 \usepackage{url} %inclui urls
@@ -15,7 +10,10 @@
 \usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
 \usepackage{graphicx} %permite colocar imagens no documento
 \usepackage{indentfirst}
+\usepackage{multirow}
 \setlength\parindent{24pt}
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
 
 \title{Relatório EP3 - MAC0121}
 \date{}
@@ -28,85 +26,166 @@ O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de
 \section{As funções}
 As funções foram separadas em bibliotecas de acordo com a sua utilidade:
 	\subsection{auxfuncs.h}
-		Biblioteca com funções que auxiliam o programa a manusear a memória:
-		%struct
-		\begin{itemize}
-			\item \textit{emalloc}:
-			\item \textit{estrdup}:
-		\end{itemize}
+	Biblioteca com funções e uma struct que auxiliam o programa a manusear a memória:
+	\begin{itemize}
+		\item \textit{InsertionResult}: Struct que auxilia no recebimento de dados sobre a inserção de um elemento na tabela de símbolos;
+		\item \textit{emalloc}: Aloca um espaço na memória, mostrando uma mensagem de erro se não houver espaço para a alocação;
+		\item \textit{estrdup}: Dulica uma string, retornando um ponteiro para a cópia e mostrando uma mensagem de erro se não houver espaço para a alocação;
+	\end{itemize}
+
 	\subsection{buffer.h}
-		Biblioteca de funções sobre a strutura Buffer:
-		%struct
-		\begin{itemize}
-			\item \textit{BufferCreate}:
-			\item \textit{BufferDestroy}:
-			\item \textit{BufferReset}:
-			\item \textit{BufferPush}:
-			\item \textit{readLine}:
-		\end{itemize}
+	Biblioteca que cria a struct Buffer e cria funções sobre ela:
+	\begin{itemize}
+		\item \textit{Buffer}: Struct com um vetor de tamanho dinâmico, que auxilia no recebimento de strings da entrada;
+		\item \textit{BufferCreate}: Cria um buffer;
+		\item \textit{BufferDestroy}: Destroi um buffer;
+		\item \textit{BufferReset}: Reseta um buffer;
+		\item \textit{BufferPush}: Adiciona um caractere no fim do buffer;
+		\item \textit{readLine}: Lê uma linha da entrada e guarda no buffer.
+	\end{itemize}
+
 	\subsection{vectorfuncs.h}
-		Biblioteca com funções comuns entre as tabelas de símbolos implementadas com 		vetor:
-		%struct
-		\begin{itemize}
-			\item \textit{VTableCreate}: 
-			\item \textit{VTableDestroy}:
-			\item \textit{VTablePush}:
-			\item \textit{valcompV}:
-			\item \textit{strcompV}:
-			\item \textit{mergeSortV}:
-		\end{itemize}
+	Biblioteca com funções comuns entre as tabelas de símbolos implementadas com 		vetor:
+	\begin{itemize}
+		\item \textit{Entry}: Struct que guarda uma chave e um valor associado à ela;
+		\item \textit{VectorSTable (VST)}: Struct que guarda uma tabela de símbolos com associações string-int por meio de um vetor de Entries;
+		\item \textit{VTableCreate}:  Cria uma tabela de símbolos utilizando vetor;
+		\item \textit{VTableDestroy}: Destroi uma tabela de símbolos implemetada com vetor;
+		\item \textit{VTablePush}: Adiciona uma chave e um valor associado à ela no fim de uma tabela de símbolos feita com vetor;
+		\item \textit{valcompV}: Compara dois valores de uma tabela de símbolos implementda com vetor;
+		\item \textit{strcompV}: Compara duas chaves de uma tabela de símbolos implementda com vetor;
+		\item \textit{mergeSortV}: Organiza uma tabela de símbolos implementada com vetor utilizando a função fornecida.
+	\end{itemize}
+
 	\subsection{linkedlistfuncs.h}
-		Biblioteca com funções comuns entre as tabelas de símbolos implementadas com lista ligada:
-		%struct
-		\begin{itemize}
-			\item \textit{LLTableCreate}:
-			\item \textit{LLTableDestroy}:
-		\end{itemize}
+	Biblioteca com funções comuns entre as tabelas de símbolos implementadas com lista ligada:
+	\begin{itemize}
+		\item \textit{LLNode}: Nó para lista ligada com uma chave, um valor associado à ela e um ponteiro para o próxomo nó;
+		\item \textit{LinkedListSTable (LLST)}: Cabeça para uma tabela de símbolos com associações string-int feita com uma lista ligada de LLNodes;
+		\item \textit{LLTableCreate}: Cria uma tablea de símbolos utilizando lista ligada;
+		\item \textit{LLTableDestroy}: Destroi uma tabela de símbolos que utiliza lista ligada.
+	\end{itemize}
+
 	\subsection{tabelaSimbolo\_VO.h}
-		 Biblioteca com funções sobre a tabela de símbolos implementada com vetor ordenado:
-		\begin{itemize}
-			\item \textit{OVAdd}:
-			\item \textit{OVPritVal}:
-			\item \textit{OVPrintLexi}:
-		\end{itemize}
+	Biblioteca com funções sobre a tabela de símbolos implementada com vetor ordenado:
+	\begin{itemize}
+		\item \textit{OVAdd}: Adiciona uma chave à uma tabela de símbolos ordenada e implementada com vetor;
+		\item \textit{OVPritVal}: Imprime os elementos de uma tabela de símbolos, ordenada e implementada com vetor, em ordem decrescente de valor;
+		\item \textit{OVPrintLexi}: Imprime os elementos de uma tabela de símbolos, ordenada e implementada com vetor, em ordem alfabética; 
+	\end{itemize}
+
 	\subsection{tabelaSimbolo\_VD.h}
-		Biblioteca com funções sobre a tabela de símbolos implementada com vetor desordenado;
-		\begin{itemize}
-			\item \textit{UVAdd}:
-			\item \textit{UVPrintVal}:
-			\item \textit{UVPrintLexi}:
-		\end{itemize}
+	Biblioteca com funções sobre a tabela de símbolos implementada com vetor desordenado;
+	\begin{itemize}
+		\item \textit{UVAdd}: Adiciona uma chave à uma tabela de símbolos desordenada e implementada com vetor;
+		\item \textit{UVPrintVal}: Imprime os elementos de uma tabela de símbolos, desordenada e implementada com vetor, em ordem decrescente de valor;
+		\item \textit{UVPrintLexi}: Imprime os elementos de uma tabela de símbolos, desordenada e implementada com vetor, em ordem alfabética; 
+	\end{itemize}
+
 	\subsection{tabelaSimbolo\_LO.h}
-		Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada ordenada;
-		\begin{itemize}
-			\item \textit{OLLAdd}:
-			\item \textit{OLLPrintVal}:
-			\item \textit{OLLPrintLexi}:
-		\end{itemize}
+	Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada ordenada;
+	\begin{itemize}
+		\item \textit{OLLAdd}: Adiciona uma chave à uma tabela de símbolos ordenada e implementada com lista ligada;
+		\item \textit{OLLPrintVal}: Imprime os elementos de uma tabela de símbolos, ordenada e implementada com lista ligada, em ordem decrescente de valor;
+		\item \textit{OLLPrintLexi}: Imprime os elementos de uma tabela de símbolos, ordenada e implementada com lista ligada, em ordem alfabética; 
+	\end{itemize}
+
 	\subsection{tabelaSimbolo\_LD.h}
-		Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada desordenada;
-		\begin{itemize}
-			\item \textit{ULLAdd}:
-			\item \textit{ULLPrintVal}:
-			\item \textit{ULLPrintLexi}:
-		\end{itemize}
+	Biblioteca com funções sobre a tabela de símbolos implementada com lista ligada desordenada;
+	\begin{itemize}
+		\item \textit{ULLAdd}: Adiciona uma chave à uma tabela de símbolos desordenada e implementada com lista ligada;
+		\item \textit{ULLPrintVal}: Imprime os elementos de uma tabela de símbolos, desordenada e implementada com lista ligada, em ordem decrescente de valor;
+		\item \textit{ULLPrintLexi}: Imprime os elementos de uma tabela de símbolos, desordenada e implementada com lista ligada, em ordem alfabética; 
+	\end{itemize}
+
 	\subsection{tabelaSimbolo\_AB.h}
-		Biblioteca com funções sobre a tabela de símbolos implementada com árvore de busca binária.
-		%struct
-		\begin{itemize}
-			\item \textit{BSTTableCreate}:
-			\item \textit{BSTTableDestroy}:
-			\item \textit{BSTAdd}:
-			\item \textit{BSTPrintVal}:
-			\item \textit{BSTPrintLexi}:
-		\end{itemize}
-	\subsection{tabelaSimbolo.c} %Verificar
-		\begin{itemize}
-			\item \textit{show\_usage}
-			\item \textit{executeOV}
-			\item \textit{executeUV}
-			\item \textit{executeOLL}
-			\item \textit{executeULL}
-			\item \textit{executeBST}
-		\end{itemize}
+	Biblioteca com funções sobre a tabela de símbolos implementada com árvore de busca binária.
+	\begin{itemize}
+		\item \textit{BTNode}: Nó para árvore binária com uma chave, um valor associado à ela, um ponteiro para o nó direito e um ponteiro para o nó esquerdo;
+		\item \textit{BinaryTreeSTable (BTST)}: Raiz para um tabela de símbolos com associações string-int feita com uma árvore binária de BTNodes;
+		\item \textit{BSTTableCreate}:  Cria uma tabela de símbolos utilizando árvore binária;
+		\item \textit{BSTTableDestroy}: Destroi uma tabela de símbolos implemetada com árvore binária;
+		\item \textit{BSTAdd}: Adiciona uma chave à uma tabela de símbolos implementada com árvore de busca binária;
+		\item \textit{BSTPrintVal}: Imprime os elementos de uma tabela de símbolos, implementada com árvore de busca binária, em ordem decrescente de valor;
+		\item \textit{BSTPrintLexi}: Imprime os elementos de uma tabela de símbolos, implementada com árvore de busca binária, em ordem alfabética; 
+	\end{itemize}
+%divisao nao especificada entre subsection e section
+	Na main: %verificar
+	\begin{itemize}
+		\item \textit{show\_usage}: Mostra uma mensagem de erro na saída de erro de acordo com o número fornecido;
+		\item \textit{executeOV}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com vetor;
+		\item \textit{executeUV}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com vetor;
+		\item \textit{executeOLL}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com lista ligada;
+		\item \textit{executeULL}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com lista ligada;
+		\item \textit{executeBST}: Executa o programa utilizando uma tabela de símbolos implementada com árvore de busca binária;
+	\end{itemize}
+\section{Análize dos algoritmos}
+	\subsection{Vetor desordenado}
+		\subsubsection{Inserção}
+		\par A inserção na tabela foi feita de modo linear, comparando a chave a ser inserida com todas as que estão na tabela. Se for achada uma chave igual, a função para de comparar, caso contrário, o algoritmo insere a nova chave no final da lista.
+		\par No pior caso, temos todas as palavras do texto diferentes, sempre inserindo a palavra no final da lista. Com isso, para cada palavra, fazemos $m$ comparações (sendo $m$ o número de palavras na tabela). Para $n$ palavras fazemos:
+		$$
+		\text{Max} = \sum^n_{m = 1}m\stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{n(n+1)}{2}\;\text{comparações}
+		$$
+		\par No caso médio, temos que a média de comparações é para uma inserção:
+		\begin{equation}
+		E(x) = \sum^m_{i=1}\left(i\cdot \frac{1}{m}\right) = \frac{1}{m}\cdot\sum^m_{i=1}i \stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{m(m+1)}{2m} = \frac{m+1}{2}
+		\end{equation}
+		\par Para $n$ inserções, temos, em média, $\frac{n(m+1)}{2}$ comparações. Como é dificil estimar a média de palavras que a tabela terá, não sabemos o valor exato de $m$, porém sabemos que $\frac{n(m+1)}{2}<\frac{n(n+1)}{2}\Rightarrow m<n$
+		\par Já em se tratando de movimentação de elementos da lista, o algoritmo de inserção não movimenta nenhum elemento, já que os elementos novos são inseridos no final da lista.
+		%$$
+		%\sum^m_{i=0}\frac{i+1}{2} = \frac{1}{2}\cdot\sum^{m+1}_{i = 1}i \stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{(m+1)(m+2)}{2}
+		%$$
+		\subsubsection{Impressão}
+		\par Para ambas as ordens de impressão, é preciso ordenar a lista. Para isso, o programa usa um merge sort, que faz $\,2n\log n$ movimentações e $n\log n$ comparações em todos os casos.
+
+	\subsection{Vetor ordenado}
+		\subsubsection{Inserção}
+		\par O programa faz uma busca binária para achar o lugar certo de inserção, então move todos os elementos, a partir desse lugar, uma posição à frente, para poder inserir a nova chave. Na busca binária, o algoritmo faz $\log n$ comparações, e colocando as chaves maiores para frente, se considerarmos que a probabilidade de uma palavra entrar em uma lugar da tabela é a mesma para qualquer posição, ele faz, em média, $\frac{n+1}{2}$ movimentações (a equação fica igual à equação (1) do item anterior).
+		\par Então concluímos que, para $n$ elementos, o algoritmo faz $n\log n$ comparações e, em média,$ \frac{n(n+1)}{2}$ movimentações.
+		\subsubsection{Impressão}
+		\par Como o vetor já está ordenado em ordem alfabética, para a impressão em ordem alfabética não são necessários comparações ou movimentações.
+		\par Já para a impressão em ordem de frequência, é preciso ordenar o vetor. Para isso foi utilizado um merge sort, que faz $2n\log n$ movimentações e $n\log n$ comparações.
+
+	\subsection{Lista ligada desordenada}
+		\subsubsection{Inserção}
+		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações (assim como calculado na equação (1) da inserção do vetor desordenado) se a chave estiver na lista, e faz $n$ comparações se ela não estiver; porém não faz nenhuma movimentação, já que o novo nó pode ser inserido trocando o ponteiro do nó anterior.
+		\par Se o algoritmo não achar uma chave igual na tabela, ele a insere no final da lista.
+		\par Com isso, concluímos que, no caso médio, o algoritmo faz $\frac{n(n+1)}{2}$ comparações, no pior caso faz $n^2$ comparações e não faz movimentações.
+		\subsubsection{Impressão}
+		\par Como a lista está desordenada, em ambos os casos programa passa as chaves da lista ligada para um vetor, fazendo $n$ movimentações e $n$ comparações, e ordena o vetor com um merge sort, que faz $2n\log n$ movimentações e $n\log n$ comparações, fazendo no total $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
+
+	\subsection{Lista ligada ordenada}
+		\subsubsection{Inserção}
+		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações (assim como calculado na equação (1) da inserção do vetor desordenado), porém, ele para ao achar uma chave maior ou igual à que será inserida e a insere nessa posição.
+		\par Com isso, o caso médio do algoritmo faz $\frac{n(n+1)}{2}$ comparações, seu pior caso faz $n^2$ comaprações e ele não faz nenhuma movimentação.
+		\subsubsection{Impressão}
+		\par Para a impressão em ordem alfabética, o programa só percorre a lista e imprime seus elementos, fazendo $n$ comparações, já que ela já está ordenada por ordem alfabética. Já para a ordem de ocorrência, o programa faz o mesmo procedimento da impressão da lista ligada desordenada, resultando em $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
+
+	\subsection{Árvore de busca binária}
+		\subsubsection{Inserção}
+		\par O programa percorre a árvore fazendo, no melhor caso, $\log n$ comparações e, no pior caso, $n$ comparações, porém a inserção nesse local é feita sem comparações ou movimentações, já que só é preciso mudar o ponteiro da folha em que será inserida o novo elemento.
+		\par Com isso, para $n$ elementos, temos que o caso médio é de $n\log n$ comparações, e o pior caso é de $n^2$ comparações.
+		\subsubsection{Impressão}
+		\par Para a impressão em ordem alfabética, o programa utiliza um algoritmo recursivo que faz $n$ comparações e nenhuma movimentação. Já para a impressão em ordem de ocorrência, o mesmo método da lista ligada desordenada é usado, resultando em $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
+
+\section{Testes}
+Os testes foram feitos com uma versão do dicionário inglês de 1913 \cite{dict}, em que os caracteres que não estão na tabela ASCII foram retirados.\\
+%\begin{changemargin}{-0.5in}{0in}
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | c | c |} \hline 
+\multicolumn{7}{| c |}{Inserção}\\ \hline
+\multirow{2}{*}{Implementação da tabela} & \multicolumn{2}{| c |}{Comparações} & \multicolumn{2}{| c |}{Movimentações} & \multicolumn{2}{| c |}{Tempos}\\ \cline{2-7}
+& médio & pior & médio & pior & Dicionário & Bíblia \\ \hline
+Vetor desordenado & $\frac{n(m+1)}{2}$ & $\frac{n(n+1)}{2}$ & 0 & 0 & 273,37s & 2,7s\\ \hline
+Vetor ordenado & $\frac{n(m+1)}{2}$ & $\frac{n(n+1)}{2}$ & $n(n-m)$ & $nm$ & 8,72s & 0,2s\\ \hline
+Lista ligada desordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 427,5s & 3,3s\\ \hline
+Lista ligada ordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 10900s (3h) & 48s\\ \hline
+Árvore de busca binária & $n\log n$ & $n^2$ & 0 & 0 & 1,78s & 0,2\\ \hline
+\end{tabular}
+\end{center}
+%\end{changemargin}
+\begin{thebibliography}{1}
+\bibitem{dict} Link para o dicionário \url{http://www.gutenberg.org/ebooks/29765}
+\end{thebibliography}
 \end{document}
