@@ -114,13 +114,13 @@ por ordem alfabética*/
 void BSTPrintLexi (BTNode *Table, int topChar) {
     int i;
     if (Table != NULL) {
-        BSTPrintLexi(Table->left, topChar);
+        BSTPrintLexi(Table->right, topChar);
         for (i = 0; i < Table->value; i++) {
             printf("%s ", Table->key);
             if (i%1000 == 0)
                 printf("\n");
         }
         printf("%d\n", Table->value);
-        BSTPrintLexi(Table->right, topChar);
+        BSTPrintLexi(Table->left, topChar);
     }
 }

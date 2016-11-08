@@ -24,7 +24,16 @@
 O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de lista ligada e uma ordem de impressão. O programa imprime na saída padrão as todas as palavras do arquivo e suas respectivas ocorrências, tanto em ordem alfabética, ou em ordem de ocorrência, dependendo do que for recebido na linha de comando.
 
 \section{As funções}
-As funções foram separadas em bibliotecas de acordo com a sua utilidade:
+	\subsection{No arquivo da main}
+	\begin{itemize}
+		\item \textit{show\_usage}: Mostra uma mensagem de erro na saída de erro de acordo com o número fornecido;
+		\item \textit{executeOV}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com vetor;
+		\item \textit{executeUV}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com vetor;
+		\item \textit{executeOLL}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com lista ligada;
+		\item \textit{executeULL}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com lista ligada;
+		\item \textit{executeBST}: Executa o programa utilizando uma tabela de símbolos implementada com árvore de busca binária;
+	\end{itemize}
+
 	\subsection{auxfuncs.h}
 	Biblioteca com funções e uma struct que auxiliam o programa a manusear a memória:
 	\begin{itemize}
@@ -109,83 +118,70 @@ As funções foram separadas em bibliotecas de acordo com a sua utilidade:
 		\item \textit{BSTPrintVal}: Imprime os elementos de uma tabela de símbolos, implementada com árvore de busca binária, em ordem decrescente de valor;
 		\item \textit{BSTPrintLexi}: Imprime os elementos de uma tabela de símbolos, implementada com árvore de busca binária, em ordem alfabética; 
 	\end{itemize}
-%divisao nao especificada entre subsection e section
-	Na main: %verificar
-	\begin{itemize}
-		\item \textit{show\_usage}: Mostra uma mensagem de erro na saída de erro de acordo com o número fornecido;
-		\item \textit{executeOV}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com vetor;
-		\item \textit{executeUV}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com vetor;
-		\item \textit{executeOLL}: Executa o programa utilizando uma tabela de símbolos ordenada e implementada com lista ligada;
-		\item \textit{executeULL}: Executa o programa utilizando uma tabela de símbolos desordenada e implementada com lista ligada;
-		\item \textit{executeBST}: Executa o programa utilizando uma tabela de símbolos implementada com árvore de busca binária;
-	\end{itemize}
 \section{Análize dos algoritmos}
 	\subsection{Vetor desordenado}
 		\subsubsection{Inserção}
 		\par A inserção na tabela foi feita de modo linear, comparando a chave a ser inserida com todas as que estão na tabela. Se for achada uma chave igual, a função para de comparar, caso contrário, o algoritmo insere a nova chave no final da lista.
-		\par No pior caso, temos todas as palavras do texto diferentes, sempre inserindo a palavra no final da lista. Com isso, para cada palavra, fazemos $m$ comparações (sendo $m$ o número de palavras na tabela). Para $n$ palavras fazemos:
-		$$
-		\text{Max} = \sum^n_{m = 1}m\stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{n(n+1)}{2}\;\text{comparações}
-		$$
-		\par No caso médio, temos que a média de comparações é para uma inserção:
+		\par No pior caso, temos que a palavra é inserida no fim da lista, fazendo $n$ comparações.
+		\par No caso médio, temos que a média de comparações para uma inserção é:
 		\begin{equation}
-		E(x) = \sum^m_{i=1}\left(i\cdot \frac{1}{m}\right) = \frac{1}{m}\cdot\sum^m_{i=1}i \stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{m(m+1)}{2m} = \frac{m+1}{2}
+		E(x) = \sum^n_{i=1}\left(i\cdot \frac{1}{n}\right) = \frac{1}{n}\cdot\sum^n_{i=1}i \stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{n(n+1)}{2n} = \frac{n+1}{2}
 		\end{equation}
-		\par Para $n$ inserções, temos, em média, $\frac{n(m+1)}{2}$ comparações. Como é dificil estimar a média de palavras que a tabela terá, não sabemos o valor exato de $m$, porém sabemos que $\frac{n(m+1)}{2}<\frac{n(n+1)}{2}\Rightarrow m<n$
 		\par Já em se tratando de movimentação de elementos da lista, o algoritmo de inserção não movimenta nenhum elemento, já que os elementos novos são inseridos no final da lista.
-		%$$
-		%\sum^m_{i=0}\frac{i+1}{2} = \frac{1}{2}\cdot\sum^{m+1}_{i = 1}i \stackrel{\text{Soma de P.A.}}{\Longrightarrow} \frac{(m+1)(m+2)}{2}
-		%$$
 		\subsubsection{Impressão}
-		\par Para ambas as ordens de impressão, é preciso ordenar a lista. Para isso, o programa usa um merge sort, que faz $\,2n\log n$ movimentações e $n\log n$ comparações em todos os casos.
+		\par Para ambas as ordens de impressão, é preciso ordenar a lista. Para isso, o programa usa um merge sort, que faz $2n\log n$ movimentações e $n\log n$ comparações em todos os casos.
 
 	\subsection{Vetor ordenado}
 		\subsubsection{Inserção}
-		\par O programa faz uma busca binária para achar o lugar certo de inserção, então move todos os elementos, a partir desse lugar, uma posição à frente, para poder inserir a nova chave. Na busca binária, o algoritmo faz $\log n$ comparações, e colocando as chaves maiores para frente, se considerarmos que a probabilidade de uma palavra entrar em uma lugar da tabela é a mesma para qualquer posição, ele faz, em média, $\frac{n+1}{2}$ movimentações (a equação fica igual à equação (1) do item anterior).
-		\par Então concluímos que, para $n$ elementos, o algoritmo faz $n\log n$ comparações e, em média,$ \frac{n(n+1)}{2}$ movimentações.
+		\par O programa faz uma busca binária para achar o lugar certo de inserção, então move todos os elementos, a partir desse lugar, uma posição à frente, para poder inserir a nova chave. Na busca binária, o algoritmo faz $\log n$ comparações, e colocando as chaves maiores para frente, se considerarmos que a probabilidade de uma palavra entrar em uma lugar da tabela é a mesma para qualquer posição, ele faz, em média, $\frac{n+1}{2}$ movimentações (a equação fica igual à equação (1) do item anterior) e no pior caso, a palavra é inserida no começo da lista, movendo os $n$ elementos para frente.
 		\subsubsection{Impressão}
 		\par Como o vetor já está ordenado em ordem alfabética, para a impressão em ordem alfabética não são necessários comparações ou movimentações.
 		\par Já para a impressão em ordem de frequência, é preciso ordenar o vetor. Para isso foi utilizado um merge sort, que faz $2n\log n$ movimentações e $n\log n$ comparações.
 
 	\subsection{Lista ligada desordenada}
 		\subsubsection{Inserção}
-		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações (assim como calculado na equação (1) da inserção do vetor desordenado) se a chave estiver na lista, e faz $n$ comparações se ela não estiver; porém não faz nenhuma movimentação, já que o novo nó pode ser inserido trocando o ponteiro do nó anterior.
+		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações por inserção se a chave estiver na lista (assim como calculado na equação (1) da inserção do vetor desordenado), e faz $n$ comparações se ela não estiver; porém não faz nenhuma movimentação, já que o novo nó pode ser inserido trocando o ponteiro do nó anterior.
 		\par Se o algoritmo não achar uma chave igual na tabela, ele a insere no final da lista.
-		\par Com isso, concluímos que, no caso médio, o algoritmo faz $\frac{n(n+1)}{2}$ comparações, no pior caso faz $n^2$ comparações e não faz movimentações.
 		\subsubsection{Impressão}
 		\par Como a lista está desordenada, em ambos os casos programa passa as chaves da lista ligada para um vetor, fazendo $n$ movimentações e $n$ comparações, e ordena o vetor com um merge sort, que faz $2n\log n$ movimentações e $n\log n$ comparações, fazendo no total $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
 
 	\subsection{Lista ligada ordenada}
 		\subsubsection{Inserção}
-		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações (assim como calculado na equação (1) da inserção do vetor desordenado), porém, ele para ao achar uma chave maior ou igual à que será inserida e a insere nessa posição.
-		\par Com isso, o caso médio do algoritmo faz $\frac{n(n+1)}{2}$ comparações, seu pior caso faz $n^2$ comaprações e ele não faz nenhuma movimentação.
+		\par O programa faz uma busca linear, que faz, em média, $\frac{n+1}{2}$ comparações (assim como calculado na equação (1) da inserção do vetor desordenado), porém, ele para ao achar uma chave maior ou igual à que será inserida e a insere nessa posição. O pior caso acontece se a nova chave for lexicograficamente maior que todas as da tabela, então o algoritmo faz $n$ comparações (note que o pior caso aqui é mais difícil de acontecer que na lista ligada desordenada, já que aqui a palavra tem que ser lexicograficamente maior que todas as da tabela para ser inserida no final, diferente da desordenada que insere todas as palavras novas no fim da lista).
 		\subsubsection{Impressão}
 		\par Para a impressão em ordem alfabética, o programa só percorre a lista e imprime seus elementos, fazendo $n$ comparações, já que ela já está ordenada por ordem alfabética. Já para a ordem de ocorrência, o programa faz o mesmo procedimento da impressão da lista ligada desordenada, resultando em $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
 
 	\subsection{Árvore de busca binária}
 		\subsubsection{Inserção}
 		\par O programa percorre a árvore fazendo, no melhor caso, $\log n$ comparações e, no pior caso, $n$ comparações, porém a inserção nesse local é feita sem comparações ou movimentações, já que só é preciso mudar o ponteiro da folha em que será inserida o novo elemento.
-		\par Com isso, para $n$ elementos, temos que o caso médio é de $n\log n$ comparações, e o pior caso é de $n^2$ comparações.
+		\par O caso médio é mais complicadode se calcular, pois leva em conta a estrutura do texto utilizado, mas vamos dizer que é muito mais perto de $\log n$ do que $n$, ou seja $\log n + c$.
 		\subsubsection{Impressão}
 		\par Para a impressão em ordem alfabética, o programa utiliza um algoritmo recursivo que faz $n$ comparações e nenhuma movimentação. Já para a impressão em ordem de ocorrência, o mesmo método da lista ligada desordenada é usado, resultando em $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
 
 \section{Testes}
-Os testes foram feitos com uma versão do dicionário inglês de 1913 \cite{dict}, em que os caracteres que não estão na tabela ASCII foram retirados.\\
-%\begin{changemargin}{-0.5in}{0in}
+\par Os testes foram feitos com uma versão do dicionário inglês de 1913 \cite{dict}, em que os caracteres que não estão na tabela ASCII foram retirados, e com uma versão da bíblia em inglês também \cite{bib}. A versão ordenada da bíblia, citada na tabela, foi feita por mim, pegando as palavras da original e ordenando-as. Sendo assim, um arquivo com o mesmo número de palavras do original é gerado, porém as palavras estão organizadas em ordem alfabética. Esse caso é o pior caso de quase todas as tabelas, já que elas adicionam palavras novas e lexicograficamente maiores no final da lista, então isso obriga os algoritmos a checar todas as palavras da lista antes de adicioná-las. A outra versão, a ivertida, é o mesmo da versão ordenada, porém ordenada de "z" à "a", que seria o pior caso do vetor ordenado.\\[-0.5cm]
+\begin{changemargin}{-0.7in}{0in}
 \begin{center}
-\begin{tabular}{ | c | c | c | c | c | c | c |} \hline 
-\multicolumn{7}{| c |}{Inserção}\\ \hline
-\multirow{2}{*}{Implementação da tabela} & \multicolumn{2}{| c |}{Comparações} & \multicolumn{2}{| c |}{Movimentações} & \multicolumn{2}{| c |}{Tempos}\\ \cline{2-7}
-& médio & pior & médio & pior & Dicionário & Bíblia \\ \hline
-Vetor desordenado & $\frac{n(m+1)}{2}$ & $\frac{n(n+1)}{2}$ & 0 & 0 & 273,37s & 2,7s\\ \hline
-Vetor ordenado & $n\log n$ & $\frac{n(n+1)}{2}$ & $n(n-m)$ & $nm$ & 8,72s & 0,2s\\ \hline
-Lista ligada desordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 427,5s & 3,3s\\ \hline
-Lista ligada ordenada & $\frac{n(n+1)}{2}$ & $n^2$ & 0 & 0 & 10900s (3h) & 48s\\ \hline
-Árvore de busca binária & $n\log n$ & $n^2$ & 0 & 0 & 1,78s & 0,2\\ \hline
+\begin{tabular}{| c | c | c | c | c | c | c | c | c |} \hline 
+\multicolumn{9}{| c |}{Inserção}\\ \hline
+\multirow{2}{*}{Implementação da tabela} & \multicolumn{2}{| c |}{Comparações} & \multicolumn{2}{| c |}{Movimentações} & \multicolumn{4}{| c |}{Tempos}\\ \cline{2-9}
+& médio & pior & médio & pior & Dicionário & Bíblia & ordenada & invertida\\ \hline
+Vetor desordenado & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 273,37s & 2,7s & 21s & 17s\\ \hline
+Vetor ordenado & $\log n$ & $\log n$ & $\frac{n+1}{2}$ & $n$ & 8,72s & 0,2s & 0,16s & 0,23s\\ \hline
+Lista ligada desordenada & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 427,5s & 3,3s & 27,2s & 0,12s\\ \hline
+Lista ligada ordenada & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 10900s (3h) & 48s & 27,5s & 22,6s\\ \hline
+Árvore de busca binária & $\log n + c$ & $n$ & 0 & 0 & 1,78s & 0,2s & 32s & 27,3s\\ \hline 
 \end{tabular}
 \end{center}
-%\end{changemargin}
-\begin{thebibliography}{1}
+\end{changemargin}
+\hfill \\
+\hfill
+\par Os tempos foram obtidos com a impressão em ordem alfabética. A impressão em ordem de ocorrência não mostrou uma diferença significante nos tempos, por isso não será citada. O tempo de impressão também não é citado pois também não mostrou muita diferença nos tempos.
+\par Analizando os resultados, vemos que as maneiras mais eficientes são a árvore de busca binária e o vetor ordenado, e a mais ineficiente é a lista ligada ordenada. Nota-se também que o algoritmo dos dois tipos de lista ligada são bem similares, então eles fazem o mesmo tempo na bíblia ordenada.
+\par Outro fato que se pode perceber olhando a tabela, é que a versão ordenada da lista ligada se saiu bem pior que a versão desordenada, o que vai contra a nossa intuição. Fazendo algumas observações, percebi que, na lista ligada desordenada, as palavras mais comuns do vocabulário são adicionadas mais perto da cabeça da lista, dando uma vantagem sobre a lista ligada ordenada, já que palavras como "the" e "them", que são muito comuns no vocabulário inglês, ficam no final da versão ordenada, mas têm muita chance de aparecer no começo da desordenada.
+\par Percebe-se também que quase todas as tabelas gastam todo o tempo comparando as chaves, a única em que isso não acontece é a implementada com vetor ordenado, que gasta a maior parte de seu tempo movimentando seu conteúdo para se manter ordenada. Porém essa troca ainda assim melhora sua performance, como é observado nos testes com a bíblia. Assim conseguimos ver que as comparações gastam muito mais tempo que as movimentações.
+\begin{thebibliography}{2}
 \bibitem{dict} Link para o dicionário \url{http://www.gutenberg.org/ebooks/29765}
+\bibitem{bib} Link para a Bíblia \url{http://www.gutenberg.org/ebooks/10}
 \end{thebibliography}
 \end{document}

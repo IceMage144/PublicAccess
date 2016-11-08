@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.2.20)  7 NOV 2016 13:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.3.15)  7 NOV 2016 21:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **relatorio.tex
 (./relatorio.tex
-LaTeX2e <2014/05/01>
-Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 3 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
@@ -38,7 +38,7 @@ File: babel.def 2014/09/25 3.9l Babel common definitions
 Package babel Info: Making " an active character on input line 145.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2014/04/30 v1.2b Input encoding file
+Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
@@ -258,7 +258,7 @@ Now handling font encoding U ...
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
@@ -290,15 +290,15 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 137.
+Package color Info: Driver file: pdftex.def on input line 142.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -498,7 +498,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
-Package: amsthm 2009/07/02 v2.20.1
+Package: amsthm 2015/03/04 v2.20.2
 \thm@style=\toks23
 \thm@bodyfont=\toks24
 \thm@headfont=\toks25
@@ -518,10 +518,10 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
@@ -529,7 +529,7 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 94.
 )
 \Gin@req@height=\dimen125
 \Gin@req@width=\dimen126
@@ -657,145 +657,164 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 26.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 28.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 31.
+(babel)             in language append on input line 27.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 31.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 29.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 36.
+(babel)             in language append on input line 37.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 47.
+(babel)             in language append on input line 43.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 50.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 50.
+(babel)             in language append on input line 43.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 60.
+(babel)             in language append on input line 45.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 56.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 69.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 77.
+(babel)             in language append on input line 74.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 80.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 80.
+(babel)             in language append on input line 74.
  [2]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 85.
+(babel)             in language append on input line 78.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 93.
+(babel)             in language append on input line 86.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 101.
+(babel)             in language append on input line 94.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 106.
+(babel)             in language append on input line 100.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 106.
+(babel)             in language append on input line 100.
  [3]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 102.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 110.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 121.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 122.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 123.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 124.
+(babel)             in language append on input line 125.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 133.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 133.
+(babel)             in language append on input line 125.
  [4]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 139.
+(babel)             in language append on input line 131.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 134.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 135.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 137.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 141.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 142.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 143.
+(babel)             in language append on input line 144.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 146.
+(babel)             in language append on input line 144.
+ [5]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 150.
+(babel)             in language append on input line 145.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 148.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 149.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 151.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 153.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 153.
- [5]
+(babel)             in language append on input line 154.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 155.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 158.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 159.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 162.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 165.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 166.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 169.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 171.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 171.
+(babel)             in language append on input line 158.
  [6]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 172.
+(babel)             in language append on input line 158.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 161.
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--175
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 189.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+Overfull \hbox (48.56926pt too wide) in paragraph at lines 165--175
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--179
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 182.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 182.
+[7]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 184.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 187.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 191.
+(babel)             in language append on input line 187.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 191.
- [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
- (./relatorio.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
+(babel)             in language append on input line 187.
+ [8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 187.
+
+(./relatorio.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 187.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 187.
 Package rerunfilecheck Info: File `relatorio.out' has not changed.
-(rerunfilecheck)             Checksum: E1E9D6BD5BE6E6E68129938819EF9616;3623.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
+(rerunfilecheck)             Checksum: DE9A1613823E8463CF5FCB2ABABB9361;3781.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 187.
  ) 
 Here is how much of TeX's memory you used:
- 10629 strings out of 493105
- 145682 string characters out of 6137072
- 226334 words of memory out of 5000000
- 13923 multiletter control sequences out of 15000+600000
+ 10644 strings out of 494976
+ 145903 string characters out of 6180334
+ 225889 words of memory out of 5000000
+ 13715 multiletter control sequences out of 15000+600000
  20342 words of font info for 56 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 29i,10n,32p,550b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb
-></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/f
-onts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm
--super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-</usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fo
-nts/type1/public/cm-super/sfrm2074.pfb></usr/share/texmf/fonts/type1/public/cm-
-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on relatorio.pdf (7 pages, 234091 bytes).
+ 16 hyphenation exceptions out of 8191
+ 29i,10n,32p,883b,414s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </
+home/joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/
+joaogabriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/joaog
+abriel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/joaogabrie
+l/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/joaogabriel/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/joaogabriel/.texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/joaogabriel/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/joaogabriel/.texmf-var/fonts/p
+k/ljfour/jknappen/ec/ecrm2074.600pk></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on relatorio.pdf (8 pages, 159400 bytes).
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
- 202 compressed objects within 3 object streams
- 39 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 519 PDF objects out of 1000 (max. 8388607)
+ 220 compressed objects within 3 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 233 words of extra memory for PDF output out of 10000 (max. 10000000)
 
