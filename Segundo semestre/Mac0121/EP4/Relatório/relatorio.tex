@@ -9,7 +9,7 @@
 \usepackage{amsmath, amssymb, amsthm, amsfonts} %permite fazer textos matemáticos
 \usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
 \usepackage{graphicx} %permite colocar imagens no documento
-\usepackage{indentfirst}
+\usepackage{indentfirst} %Indenta o primeiro parágrafo do capítulo
 \usepackage{multirow}
 \setlength\parindent{24pt}
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
@@ -21,7 +21,7 @@
 \begin{document}
 \maketitle
 \section{O programa}
-O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de lista ligada e uma ordem de impressão. O programa imprime na saída padrão as todas as palavras do arquivo e suas respectivas ocorrências, tanto em ordem alfabética, ou em ordem de ocorrência, dependendo do que for recebido na linha de comando.
+O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de lista ligada e uma ordem de impressão, e imprime na saída padrão todas as palavras do arquivo e suas respectivas ocorrências, tanto em ordem alfabética, ou em ordem de ocorrência, dependendo do que for recebido na linha de comando.
 
 \section{As funções}
 	\subsection{No arquivo da main}
@@ -154,12 +154,12 @@ O programa recebe, na linha de comando, um arquivo, um tipo de implemetação de
 	\subsection{Árvore de busca binária}
 		\subsubsection{Inserção}
 		\par O programa percorre a árvore fazendo, no melhor caso, $\log n$ comparações e, no pior caso, $n$ comparações, porém a inserção nesse local é feita sem comparações ou movimentações, já que só é preciso mudar o ponteiro da folha em que será inserida o novo elemento.
-		\par O caso médio é mais complicadode se calcular, pois leva em conta a estrutura do texto utilizado, mas vamos dizer que é muito mais perto de $\log n$ do que $n$, ou seja $\log n + c$.
+		\par O caso médio da árvore de busca binária foi calculado em classe, e o resultado foi que $E(alt) = 2\ln n$.
 		\subsubsection{Impressão}
 		\par Para a impressão em ordem alfabética, o programa utiliza um algoritmo recursivo que faz $n$ comparações e nenhuma movimentação. Já para a impressão em ordem de ocorrência, o mesmo método da lista ligada desordenada é usado, resultando em $n(1+2\log n)$ movimentações e $n(1+\log n)$ comparações.
 
 \section{Testes}
-\par Os testes foram feitos com uma versão do dicionário inglês de 1913 \cite{dict}, em que os caracteres que não estão na tabela ASCII foram retirados, e com uma versão da bíblia em inglês também \cite{bib}. A versão ordenada da bíblia, citada na tabela, foi feita por mim, pegando as palavras da original e ordenando-as. Sendo assim, um arquivo com o mesmo número de palavras do original é gerado, porém as palavras estão organizadas em ordem alfabética. Esse caso é o pior caso de quase todas as tabelas, já que elas adicionam palavras novas e lexicograficamente maiores no final da lista, então isso obriga os algoritmos a checar todas as palavras da lista antes de adicioná-las. A outra versão, a ivertida, é o mesmo da versão ordenada, porém ordenada de "z" à "a", que seria o pior caso do vetor ordenado.\\[-0.5cm]
+\par Os testes foram feitos com uma versão do dicionário inglês de $1913^{\cite{dict}}$, em que os caracteres que não estão na tabela ASCII foram retirados, e com uma versão da bíblia em inglês $\text{também}^{\cite{bib}}$. A versão ordenada da bíblia, citada na tabela, foi feita por mim, pegando as palavras da original e ordenando-as. Sendo assim, um arquivo com o mesmo número de palavras do original é gerado, porém as palavras estão organizadas em ordem alfabética. Esse caso é o pior caso de quase todas as tabelas, já que elas adicionam palavras novas e lexicograficamente maiores no final da lista, então isso obriga os algoritmos a checar todas as palavras da lista antes de adicioná-las. A outra versão, a ivertida, é o mesmo da versão ordenada, porém ordenada de "z" à "a", que seria o pior caso do vetor ordenado.\\[-0.5cm]
 \begin{changemargin}{-0.7in}{0in}
 \begin{center}
 \begin{tabular}{| c | c | c | c | c | c | c | c | c |} \hline 
@@ -170,7 +170,7 @@ Vetor desordenado & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 273,37s & 2,7s & 21s & 17s\\
 Vetor ordenado & $\log n$ & $\log n$ & $\frac{n+1}{2}$ & $n$ & 8,72s & 0,2s & 0,16s & 0,23s\\ \hline
 Lista ligada desordenada & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 427,5s & 3,3s & 27,2s & 0,12s\\ \hline
 Lista ligada ordenada & $\frac{n+1}{2}$ & $n$ & 0 & 0 & 10900s (3h) & 48s & 27,5s & 22,6s\\ \hline
-Árvore de busca binária & $\log n + c$ & $n$ & 0 & 0 & 1,78s & 0,2s & 32s & 27,3s\\ \hline 
+Árvore de busca binária & $2\ln n$ & $n$ & 0 & 0 & 1,78s & 0,2s & 32s & 27,3s\\ \hline 
 \end{tabular}
 \end{center}
 \end{changemargin}

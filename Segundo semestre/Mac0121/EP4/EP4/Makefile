@@ -12,11 +12,5 @@ tabelaSimbolo.o: tabelaSimbolo.c
 ep4: buffer.o vectorfuncs.o tabelaSimbolo_VO.o tabelaSimbolo.o auxfuncs.o tabelaSimbolo_LO.o linkedlistfuncs.o tabelaSimbolo_LD.o tabelaSimbolo_VD.o tabelaSimbolo_AB.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-dep4: buffer.c vectorfuncs.c tabelaSimbolo_VO.c tabelaSimbolo.c auxfuncs.c tabelaSimbolo_LO.c linkedlistfuncs.c tabelaSimbolo_LD.c tabelaSimbolo_VD.c tabelaSimbolo_AB.c
-	$(CC) -g $^ $(SFLAGS)
-
-mep4:  buffer.c vectorfuncs.c tabelaSimbolo_VO.c tabelaSimbolo.c auxfuncs.c tabelaSimbolo_LO.c linkedlistfuncs.c tabelaSimbolo_LD.c tabelaSimbolo_VD.c tabelaSimbolo_AB.c
-	$(CC) -g $^ $(SFLAGS)
-
 clean:
 	rm -f *.o *~
