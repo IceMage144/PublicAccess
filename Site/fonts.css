@@ -1,0 +1,45 @@
+body {
+  font: normal 16px/1.5 "Helvetica Neue", sans-serif;
+}
+
+body, a {
+  color: #fff;
+}
+
+header {
+  background: #333;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, li, a {
+  display: inline-block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+li a {
+  text-decoration: none;
+  padding: 10px 5px;
+}
+
+li:not(:last-child) a {
+  margin-right: 15px;
+}
+
+.menu {
+  margin: 0 auto;
+}
