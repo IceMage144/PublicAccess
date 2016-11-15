@@ -1,1 +1,2 @@
-main     STR    "o"ok"l"
+EXTERN a
+a STR "a"
