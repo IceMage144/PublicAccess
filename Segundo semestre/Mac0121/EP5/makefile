@@ -4,8 +4,11 @@ CC = gcc
 CFLAGS = -I.
 SFLAGS = -Wall -ansi -pedantic -O2
 
-Hey: HexPlayer.o myvector.o auxfuncs.o PlayerFunctions.o
+Hex: HexPlayer.o myvector.o auxfuncs.o PlayerFunctions.o
 	$(CC) $^ -o $@ $(CFLAGS)
+
+Hexdb: HexPlayer.o myvector.o auxfuncs.o PlayerFunctions.o
+	$(CC) $^ -g $(CFLAGS)
 
 %.o: %.c %.h
 	$(CC) -c $< $(CFLAGS) $(SFLAGS)
