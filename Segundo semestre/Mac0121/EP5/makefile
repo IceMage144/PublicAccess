@@ -17,4 +17,4 @@ HexPlayer.o: HexPlayer.c
 	$(CC) -c $< $(CFLAGS) $(SFLAGS)
 
 clean:
-	rm -f *.o *~ *.gch Hex
+	rm -f *.o *~ *.gch Hex a.out
