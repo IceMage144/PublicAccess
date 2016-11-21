@@ -19,7 +19,7 @@ typedef struct tile_t {
     char color;
 } Pos;
 
-typedef struct pathprot_t {
+typedef struct protopath_t {
     int value, *tops;
     Pos **stacks;
 } PPath;
@@ -30,7 +30,7 @@ typedef struct pathnode_t {
     struct pathnode_t *next;
 } PNode;
 
-typedef struct {
+typedef struct path_t {
     PNode* head;
 } Path;
 
@@ -41,8 +41,8 @@ typedef struct btile_t {
     int **weights;
 } BTile;
 
-static const int macro[2][2][6] = {{{1, 0, 0, 1, 4, 4}, {1, 4, 4, 1, 0, 0}},
-                                   {{4, 4, 1, 0, 0, 1}, {0, 0, 1, 4, 4, 1}}};
+static const int macro[2][2][6] = {{{1, 0, 0, 1, 10, 10}, {1, 10, 10, 1, 0, 0}},
+                                   {{10, 10, 1, 0, 0, 1}, {0, 0, 1, 10, 10, 1}}};
 
 static const int macroAux[2][6] = {{3, 2, 1, 0, 5, 4}, {1, 0, 5, 4, 3, 2}};
 
@@ -131,69 +131,69 @@ BTile **criaTabuleiro (int m, int n){
                 mat[i][j].weights[k] = emalloc(2*sizeof(int), errmsg);
             if (j + 1 < 14) {
                 mat[i][j].Neigh[5] = &(mat[i][j+1]);
-                mat[i][j].weights[5][0] = 2;
-                mat[i][j].weights[5][1] = 2;
+                mat[i][j].weights[5][0] = 4;
+                mat[i][j].weights[5][1] = 4;
                 if (i - 1 >= 0) {
                     mat[i][j].Neigh[4] = &(mat[i-1][j+1]);
-                    mat[i][j].weights[4][0] = 2;
-                    mat[i][j].weights[4][1] = 2;
+                    mat[i][j].weights[4][0] = 4;
+                    mat[i][j].weights[4][1] = 4;
                 }
                 else {
                     mat[i][j].Neigh[4] = NULL;
                     mat[i][j].weights[4][0] = INF;
-                    mat[i][j].weights[4][1] = 1;
+                    mat[i][j].weights[4][1] = 2;
                 }
             }
             else {
                 mat[i][j].Neigh[5] = NULL;
-                mat[i][j].weights[5][0] = 1;
+                mat[i][j].weights[5][0] = 2;
                 mat[i][j].weights[5][1] = INF;
                 mat[i][j].Neigh[4] = NULL;
                 mat[i][j].weights[4][0] = INF;
-                mat[i][j].weights[4][1] = 1;
+                mat[i][j].weights[4][1] = 2;
             }
             if (i + 1 < 14) {
                 mat[i][j].Neigh[0] = &(mat[i+1][j]);
-                mat[i][j].weights[0][0] = 2;
-                mat[i][j].weights[0][1] = 2;
+                mat[i][j].weights[0][0] = 4;
+                mat[i][j].weights[0][1] = 4;
             }
             else {
                 mat[i][j].Neigh[0] = NULL;
                 mat[i][j].weights[0][0] = INF;
-                mat[i][j].weights[0][1] = 1;
+                mat[i][j].weights[0][1] = 2;
             }
             if (j - 1 >= 0) {
                 mat[i][j].Neigh[2] = &(mat[i][j-1]);
-                mat[i][j].weights[2][0] = 2;
-                mat[i][j].weights[2][1] = 2;
+                mat[i][j].weights[2][0] = 4;
+                mat[i][j].weights[2][1] = 4;
                 if (i + 1 < 14) {
                     mat[i][j].Neigh[1] = &(mat[i+1][j-1]);
-                    mat[i][j].weights[1][0] = 2;
-                    mat[i][j].weights[1][1] = 2;
+                    mat[i][j].weights[1][0] = 4;
+                    mat[i][j].weights[1][1] = 4;
                 }
                 else {
                     mat[i][j].Neigh[1] = NULL;
                     mat[i][j].weights[1][0] = INF;
-                    mat[i][j].weights[1][1] = 1;
+                    mat[i][j].weights[1][1] = 2;
                 }
             }
             else {
                 mat[i][j].Neigh[2] = NULL;
                 mat[i][j].weights[2][0] = INF;
-                mat[i][j].weights[2][1] = 1;
+                mat[i][j].weights[2][1] = 2;
                 mat[i][j].Neigh[1] = NULL;
-                mat[i][j].weights[1][0] = 1;
+                mat[i][j].weights[1][0] = 2;
                 mat[i][j].weights[1][1] = INF;
             }
             if (i - 1 >= 0) {
                 mat[i][j].Neigh[3] = &(mat[i-1][j]);
-                mat[i][j].weights[3][0] = 2;
-                mat[i][j].weights[3][1] = 2;
+                mat[i][j].weights[3][0] = 4;
+                mat[i][j].weights[3][1] = 4;
             }
             else {
                 mat[i][j].Neigh[3] = NULL;
                 mat[i][j].weights[3][0] = INF;
-                mat[i][j].weights[3][1] = 1;
+                mat[i][j].weights[3][1] = 2;
             }
         }
     }
@@ -283,8 +283,8 @@ PPath *PPathCreate () {
     PPath *ret;
     ret = emalloc(sizeof(PPath), errmsg);
     ret->stacks = emalloc(2*sizeof(Pos*), errmsg);
-    ret->stacks[0] = emalloc(100*sizeof(Pos), errmsg);
-    ret->stacks[1] = emalloc(100*sizeof(Pos), errmsg);
+    ret->stacks[0] = emalloc(20*sizeof(Pos), errmsg);
+    ret->stacks[1] = emalloc(20*sizeof(Pos), errmsg);
     ret->tops = emalloc(2*sizeof(int*), errmsg);
     ret->tops[0] = 0;
     ret->tops[1] = 0;
@@ -300,7 +300,7 @@ void PPathDestroy (PPath *path) {
     free(path);
 }
 
-void PPathAdd (PPath *path, int stack, int lin, int col, char color) {
+void PPathPush (PPath *path, int stack, int lin, int col, char color) {
     int prevColor;
     /*printf("Adding (%d:%d) %c to stack %d\n", lin, col, color, stack);*/
     path->stacks[stack][path->tops[stack]].lin = lin;
@@ -309,26 +309,32 @@ void PPathAdd (PPath *path, int stack, int lin, int col, char color) {
     if (path->tops[stack] != 0) {
         prevColor = path->stacks[stack][(path->tops[stack])-1].color;
         if (color == '-' && prevColor == '-')
-            path->value += 2;
+            path->value += 4;
         else if (color != prevColor)
-            (path->value)++;
+            path->value += 2;
     }
     (path->tops[stack])++;
 }
 
-Pos PPathRemove (PPath *path, int stack) {
+Pos PPathPop (PPath *path, int stack) {
     int prevColor, color;
     if (path->tops[stack] > 1) {
         color = path->stacks[stack][(path->tops[stack])-1].color;
         prevColor = path->stacks[stack][(path->tops[stack])-2].color;
         if (color == '-' && prevColor == '-')
-            path->value -= 2;
+            path->value -= 4;
         else if (color != prevColor)
-            (path->value)--;
+            path->value -= 2;
     }
     (path->tops[stack])--;
     /*printf("Removing (%d:%d)\n", path->stacks[stack][path->tops[stack]].lin, path->stacks[stack][path->tops[stack]].col);*/
     return path->stacks[stack][path->tops[stack]];
+}
+
+int PPathIsFull (PPath *path) {
+    if (path->tops[0] == 20 || path->tops[1] == 20)
+        return 1;
+    return 0;
 }
 
 void PathDestroy (Path *path) {
@@ -422,70 +428,96 @@ void troca (int *num1, int *num2) {
 	*num1 ^= *num2;
 }
 
-void getPriority (int macro[], int macroAux[], int tam) {
-    int count = 0, i;
-    while (count != tam-1) {
+int *getPriority (BTile **board, int lin, int col, char color, int dir, int par) {
+    int count = 0, i, *macro, *priority, colorNo;
+    colorNo = coltoi(color);
+    macro = decode(color, dir);
+    printf("Macro = ");
+    imprimeVetor(macro, 6);
+    priority = decodeAux(color, par);
+    printf("Priority = ");
+    imprimeVetor(priority, 6);
+    for (i = 0; i < 6; i++)
+        macro[i] = macro[i] + board[lin][col].weights[i][colorNo];
+    printf("Weighted macro = ");
+    imprimeVetor(macro, 6);
+    while (count != 5) {
         count = 0;
-        for (i = 0; i < tam-1; i++)
+        for (i = 0; i < 5; i++)
             if (macro[i] > macro[i+1]) {
                 troca(&macro[i], &macro[i+1]);
-                troca(&macroAux[i], &macroAux[i+1]);
+                troca(&priority[i], &priority[i+1]);
             }
             else
                 count++;
     }
+    free(macro);
+    return priority;
 }
 
 /*dir = 0 -> down/left
 dir = 1 -> up/right*/
 int partialFindPath (BTile **board, PPath *path, int **used, int lin, int col, char color, int dir, int par) {
     char thiscolor = board[lin][col].color;
-    int i, linN, colN, *priority, *macro, res = 0;
-    if (used[lin][col])
+    int i, linN, colN, *priority, res = 0;
+    if (PPathIsFull(path)) {
+        printf("Path is full, returning 0\n");
         return 0;
+    }
+    if (used[lin][col]) {
+        printf("%d:%d already used\n", lin, col);
+        return 0;
+    }
+    printf("Marking %d:%d as used\n", lin, col);
     used[lin][col] = 1;
-    if (thiscolor != '-' && thiscolor != color)
+    if (thiscolor != '-' && thiscolor != color) {
+        printf("Tile has oposit color, returning 0\n");
         return 0;
-    PPathAdd(path, dir, lin, col, color);
+    }
+    PPathPush(path, dir, lin, col, thiscolor);
     if (color == 'b') {
-        if (dir == 0 && lin == 0)
+        if (dir == 0 && lin == 0) {
+            printf("Position is a goal\n");
             return 1;
-        if (dir == 1 && lin == 13)
+        }
+        if (dir == 1 && lin == 13) {
+            printf("Position is a goal\n");
             return 1;
+        }
     }
     else {
-        if (dir == 0 && col == 0)
+        if (dir == 0 && col == 0) {
+            printf("Position is a goal\n");
             return 1;
-        if (dir == 1 && col == 13)
+        }
+        if (dir == 1 && col == 13) {
+            printf("Position is a goal\n");
             return 1;
+        }
     }
-    macro = decode(color, dir);
-    priority = decodeAux(color, par);
-    /*imprimeVetor(macro, 6);*/
-    for (i = 0; i < 6; i++)
-        macro[i] = macro[i] + board[lin][col].weights[i][coltoi(color)];
-    /*imprimeVetor(macro, 6);*/
-    getPriority(macro, priority, 6);
-    /*imprimeVetor(macro, 6);*/
-    /*imprimeVetor(priority, 6);*/
+    priority = getPriority(board, lin, col, color, dir, par);
+    imprimeVetor(priority, 6);
     for (i = 0; i < 6 && !res; i++) {
         if (board[lin][col].Neigh[priority[i]] != NULL) {
+            if (i != 0)
+                printf("%d:%d: Neighbor %d returned 0, checking neighbor %d\n", lin, col, priority[i-1], priority[i]);
             linN = board[lin][col].Neigh[priority[i]]->lin;
             colN = board[lin][col].Neigh[priority[i]]->col;
             res = partialFindPath(board, path, used, linN, colN, color, dir, !par);
         }
     }
-    free(macro);
     free(priority);
-    if (res == 0) {
-        PPathRemove(path, dir);
-        return 0;
+    if (res != 1) {
+        printf("%d:%d: Partial path returned 0 or -1\n", lin, col);
+        PPathPop(path, dir);
+        return res;
     }
+    printf("%d:%d: All alright, returning 1\n", lin, col);
     return 1;
 }
 
 Path *findPath (BTile **board, char color) {
-    int i, j, k, l, m;
+    int i, j, k, l, m, ret1, ret2;
     PPath *ppath1, *ppath2;
     Path *ret;
     int **used;
@@ -499,20 +531,36 @@ Path *findPath (BTile **board, char color) {
                         for (l = 0; l < 14; l++)
                             used[k][l] = 0;
                     ppath1 = PPathCreate();
-                    partialFindPath(board, ppath1, used, i, j, color, 0, m);
+                    printf("Creating Protopath1\n");
+                    ret1 = partialFindPath(board, ppath1, used, i, j, color, 0, m);
+                    printf("Finding direction 0 and returning %d\n", ret1);
                     used[i][j] = 0;
-                    partialFindPath(board, ppath1, used, i, j, color, 1, m);
-                    if (ppath2 == NULL)
+                    ret2 = partialFindPath(board, ppath1, used, i, j, color, 1, m);
+                    printf("Finding direction 1 and returning %d\n", ret2);
+                    if (ret1 != 1 || ret2 != 1) {
+                        printf("Destoying path1\n");
+                        PPathDestroy(ppath1);
+                        continue;
+                    }
+                    if (ppath2 == NULL) {
+                        printf("Transfering path1 to path2, because path2 == NULL\n");
                         ppath2 = ppath1;
+                    }
                     else if (ppath1->value < ppath2->value) {
+                        printf("Destroying path2\n");
+                        printf("Transfering path1 to path2, because %d < %d\n", ppath1->value, ppath2->value);
                         PPathDestroy(ppath2);
                         ppath2 = ppath1;
+                    }
+                    else {
+                        printf("Destroying path1 because %d >= %d\n", ppath1->value, ppath2->value);
+                        PPathDestroy(ppath1);
                     }
                 }
             }
         }
     ret = PPtoP(ppath2);
-    freeMatriz(used);
+    freeMatriz(used, 14);
     if (ppath1 != ppath2)
         PPathDestroy(ppath1);
     PPathDestroy(ppath2);
@@ -523,6 +571,7 @@ void printPath (Path *path) {
     PNode *ptr;
     for (ptr = path->head; ptr != NULL; ptr = ptr->next)
         printf("%d:%d -> %c /", ptr->lin, ptr->col, ptr->color);
+    printf("\n");
 }
 
 Pos *Interssec (Path* path1, Path *path2) {
@@ -640,19 +689,19 @@ void updateWeights (BTile **board, int lin, int col) {
     if (board[lin][col].color == 'b') {
         for (i = 0; i < 6; i++) {
             board[lin][col].weights[i][0] = INF;
-            (board[lin][col].weights[i][1])--;
+            board[lin][col].weights[i][1] -= 2;
             if (board[lin][col].Neigh[i] != NULL) {
                 board[lin][col].Neigh[i]->weights[(i+3)%6][0] = INF;
-                (board[lin][col].Neigh[i]->weights[(i+3)%6][1])--;
+                board[lin][col].Neigh[i]->weights[(i+3)%6][1] -= 2;
             }
         }
     }
     if (board[lin][col].color == 'p') {
         for (i = 0; i < 6; i++) {
-            (board[lin][col].weights[i][0])--;
+            board[lin][col].weights[i][0] -= 2;
             board[lin][col].weights[i][1] = INF;
             if (board[lin][col].Neigh[i] != NULL) {
-                (board[lin][col].Neigh[i]->weights[(i+3)%6][0])--;
+                board[lin][col].Neigh[i]->weights[(i+3)%6][0] -= 2;
                 board[lin][col].Neigh[i]->weights[(i+3)%6][1] = INF;
             }
         }
@@ -670,6 +719,7 @@ int beginGame (BTile **board, char color, int printTab) {
         updateWeights(board, ret->lin, ret->col);
         if (printTab)
             printGame(board);
+        free(ret);
     }
     while (noWinner(board)) {
         do {
@@ -681,6 +731,7 @@ int beginGame (BTile **board, char color, int printTab) {
                 return 0;
             }
             /*--------------------*/
+            /*Consertar isso*/
             if (turn == 1 && color == 1) {
                 if (lin == ret->lin && col == ret->col) {
                     color = 2;
