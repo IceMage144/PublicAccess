@@ -8,38 +8,43 @@
 /*Biblioteca de funções que ajudam o programa a manusear a memória e
 resumir operações*/
 
-#define INF 2147483647
+/*Define o tamanho do tabuleiro*/
+#define N 14
 
-typedef struct tile_t {
-    int lin, col;
-} Tile;
+/*Define infinito como 2^30*/
+#define INF 1073741824
 
-/*typedef struct treenode_t {
-    struct treenode_t *rNode;
-    struct treenode_t *lNode;
-    Tile *tile;
-    int size, depth;
-} TreeNode;*/
-
-//typedef Set TreeNode*;
-
-typedef struct btile_t {
+/*Struct que armazena uma posição do tabuleiro e sua cor*/
+typedef struct pos_t {
     int lin, col;
     char color;
-    struct btile_t **Neigh;
-    int **weigths;
-} BTile;
+} Pos;
 
 /*Aloca espaço de tamanho "size" na memória, e, se a alocação falhar,
 mostra a mensagem "msg" na saída de erros*/
 void *emalloc (size_t size, const char *msg);
 
-//int SAdd (Set set, Tile *tile);
+/*Aloca uma matriz com "m" linhas e "n" colunas e devolve um ponteiro para
+ela*/
+int **criaMatriz (int m, int n);
 
-//Tile *tileCreate (int lin, int col);
+/*Desaloca uma matriz "mat" com "m" linhas*/
+void freeMatriz (int **mat, int m);
 
-//Tile **findNeighbors (Tile *tile);
+/*-----------------------------Retirar----------------------------------------*/
+void imprimeMatriz (int **mat, int m, int n);
 
-//int tilecmp (Tile *tile1, Tile *tile2);
+/*Aloca uma vetor de tamanho "tam" e devolve um ponteiro para ele*/
+int *criaVetor (int tam);
+
+/*-----------------------------Retirar----------------------------------------*/
+void imprimeVetor (int *v, int tam);
+
+/*Transforma um char, que representa uma cor, em um inteiro. Se "color" for
+'p' ela retorna 0, se for 'b' ela retorna 1*/
+int coltoi (char color);
+
+/*Troca o conteúdo de duas posições de memória "num1" e "num2"*/
+void troca (int *num1, int *num2);
 
 #endif
