@@ -37,9 +37,6 @@ typedef struct path_t {
 /*Desaloca um caminho "path"*/
 void PathDestroy (Path *path);
 
-/*-----------------------------Retirar----------------------------------------*/
-void printPath (Path *path);
-
 /*Devolve o primeiro nó pertencente ao "path1" que é comum aos caminhos "path1"
 e "path2"*/
 PNode *Intersec (Path *path1, Path *path2);

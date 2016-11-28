@@ -62,44 +62,6 @@ BTile **BoardCreate (int m, int n) {
     return mat;
 }
 
-/*-----------------------------Retirar----------------------------------------*/
-void printBoard (BTile **board, int m, int n) {
-    int i, j;
-    for (i = 0; i < m; i++){
-        for (j = 0; j < n; j++){
-            printf("========================================\n");
-            printf("lin = %d\n", board[i][j].lin);
-            printf("col = %d\n", board[i][j].col);
-            printf("color = %c\n", board[i][j].color);
-            printf("Weights = [0]%d/[1]%d\n", board[i][j].weights[0], board[i][j].weights[1]);
-            if (board[i][j].Neigh[0])
-                printf("Neigh[0] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[0], board[i][j].Neigh[0]->lin, board[i][j].Neigh[0]->col);
-            else
-                printf("Neigh[0] = NULL\n");
-            if (board[i][j].Neigh[1])
-                printf("Neigh[1] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[1], board[i][j].Neigh[1]->lin, board[i][j].Neigh[1]->col);
-            else
-                printf("Neigh[1] = NULL\n");
-            if (board[i][j].Neigh[2])
-                printf("Neigh[2] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[2], board[i][j].Neigh[2]->lin, board[i][j].Neigh[2]->col);
-            else
-                printf("Neigh[2] = NULL\n");
-            if (board[i][j].Neigh[3])
-                printf("Neigh[3] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[3], board[i][j].Neigh[3]->lin, board[i][j].Neigh[3]->col);
-            else
-                printf("Neigh[3] = NULL\n");
-            if (board[i][j].Neigh[4])
-                printf("Neigh[4] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[4], board[i][j].Neigh[4]->lin, board[i][j].Neigh[4]->col);
-            else
-                printf("Neigh[4] = NULL\n");
-            if (board[i][j].Neigh[5])
-                printf("Neigh[5] = %p (lin: %d, col: %d)\n", board[i][j].Neigh[5], board[i][j].Neigh[5]->lin, board[i][j].Neigh[5]->col);
-            else
-                printf("Neigh[5] = NULL\n");
-        }
-    }
-}
-
 /*Desaloca um tabuleiro "board" com "m" linhas e "n" colunas*/
 void freeBoard (BTile **board, int m, int n) {
     int i, j;
@@ -116,16 +78,9 @@ void freeBoard (BTile **board, int m, int n) {
 /*Imprime o tabuleiro "board"*/
 void printGame (BTile **board) {
     int i, j;
-    /*for (i = 0; i >= N+1; i--)
-        fprintf(stderr, " ");*/
-    fprintf(stderr, " ");
-    for (i = 0; i < N; i++)
-        fprintf(stderr, "%d ", i%10);
-    fprintf(stderr, "\n");
     for (i = 0; i < N; i++) {
-        for (j = 0; j < i-i/10; j++)
+        for (j = 0; j < i; j++)
             fprintf(stderr, " ");
-        fprintf(stderr, "%d ", i);
         for (j = 0; j < N; j++)
             fprintf(stderr, "%c%c", board[i][j].color, "\n "[j != N-1]);
     }
@@ -154,7 +109,6 @@ uma cor "color" e devolve 1 se foi achado um caminho vencedor de peças da cor
 "color" ou 0 caso contrário*/
 int search (BTile **board, int **used, int lin, int col, char color) {
     int s1 = 0, s2 = 0, s3 = 0, s4 = 0, s5 = 0, s6 = 0;
-    /*MEMO*//*printf("Verifying %d:%d\n", lin, col);*//*MEMO*/
     if (board[lin][col].color == color && color == 'b' && lin == N-1)
         return 1;
     if (board[lin][col].color == color && color == 'p' && col == N-1)

@@ -32,9 +32,6 @@ void show_usage (int num) {
     }
 }
 
-/*dir = 0 -> down/left
-dir = 1 -> up/right*/
-
 /*Recebe o tabuleiro "board", o caminho achado na jogada anterior "prevpath",
 uma cor "color", o turno "turn" e a última jogada do oponente ("lin","col") e
 retorna uma posição vaga do tabuleiro como jogada*/
@@ -45,9 +42,7 @@ Pos *play (BTile **board, Path *prevpath, char color, int turn, int Llin, int Lc
     Path *pathB, *pathP;
     if (turn != 0) {
         pathB = findPath(board, 'b');
-        /*MEMO*/printPath(pathB);/*MEMO*/
         pathP = findPath(board, 'p');
-        /*MEMO*/printPath(pathP);/*MEMO*/
         if (pathB == NULL || pathP == NULL) {
             ret = emalloc(sizeof(Pos), errmsg);
             do {
@@ -57,63 +52,38 @@ Pos *play (BTile **board, Path *prevpath, char color, int turn, int Llin, int Lc
             return ret;
         }
         if (color == 'b') {
-            if (prevpath != NULL && pathcmp(pathB, prevpath)) {
-                /*Attack*/
+            if (prevpath != NULL && pathcmp(pathB, prevpath))
                 ptr = Intersec(pathB, pathP);
-                /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
-            }
             else if (prevpath != NULL) {
-                /*Deffend*/
                 ptr = Intersec(pathP, pathB);
-                /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
-                /*MEMO*//*printf("Destroying prevpath\n");*//*MEMO*/
                 PathDestroy(prevpath);
                 prevpath = pathB;
             }
             else {
-                /*Forced deffense*/
                 ptr = Intersec(pathP, pathB);
-                /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
                 prevpath = pathB;
             }
-            /*if (ptr->next != NULL)
-                if (ptr->next->color == '-')
-                    ptr = ptr->next;*/
             ret = emalloc(sizeof(Pos), errmsg);
-            /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
             ret->lin = ptr->lin;
             ret->col = ptr->col;
-            /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
         }
         else {
-            if (prevpath != NULL && pathcmp(pathP, prevpath)) {
-                /*Attack*/
+            if (prevpath != NULL && pathcmp(pathP, prevpath))
                 ptr = Intersec(pathP, pathB);
-            }
             else if (prevpath != NULL) {
-                /*Deffend*/
                 ptr = Intersec(pathB, pathP);
-                /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
-                /*MEMO*//*printf("Destroying prevpath\n");*//*MEMO*/
                 PathDestroy(prevpath);
                 prevpath = pathP;
             }
             else {
-                /*Forced deffense*/
                 ptr = Intersec(pathB, pathP);
-                /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
                 prevpath = pathP;
             }
-            /*if (ptr->next != NULL && ptr->next->color == '-')
-                ptr = ptr->next;*/
             ret = emalloc(sizeof(Pos), errmsg);
             ret->lin = ptr->lin;
             ret->col = ptr->col;
-            /*MEMO*//*printf("%d %d\n", ptr->lin, ptr->col);*//*MEMO*/
         }
-        /*MEMO*//*printf("Destroying pathP\n");*//*MEMO*/
         PathDestroy(pathP);
-        /*MEMO*//*printf("Destroying pathB\n");*//*MEMO*/
         PathDestroy(pathB);
     }
     else {
@@ -144,20 +114,16 @@ int beginGameLoop (BTile **board, char color, int printBoard) {
     int turn = 0, col, lin, win = 0;
     Pos *ret, *retAux;
     Path *prevpath;
-    clock_t t;
     ret = NULL;
     retAux = NULL;
     prevpath = NULL;
-    srand(time(NULL));
     if (color == 'b') {
         retAux = play(board, prevpath, color, turn, 0, 0);
         board[retAux->lin][retAux->col].color = 'b';
         turn++;
         updateWeights(board, retAux->lin, retAux->col);
-        if (printBoard) {
+        if (printBoard)
             printGame(board);
-            /*printBo(board, N, N);*/
-        }
     }
     while (!win) {
         if (color == 'p' && turn == 0 && printBoard)
@@ -165,12 +131,6 @@ int beginGameLoop (BTile **board, char color, int printBoard) {
         do {
             if (scanf("%d %d", &lin, &col) != 2)
                 return 0;
-            /*Remover-------------*/
-            if (lin == EOF) {
-                PathDestroy(prevpath);
-                return 0;
-            }
-            /*--------------------*/
             if (turn == 1 && color == 'b') {
                 if (lin == retAux->lin && col == retAux->col) {
                     color = 'p';
@@ -181,7 +141,6 @@ int beginGameLoop (BTile **board, char color, int printBoard) {
                 free(retAux);
             }
         } while (!isValid(board, lin, col, 1));
-        t = clock();
         board[lin][col].color = (color == 'b')? 'p' : 'b';
         updateWeights(board, lin, col);
         win = getWinner(board);
@@ -201,8 +160,6 @@ int beginGameLoop (BTile **board, char color, int printBoard) {
         else
             break;
         win = getWinner(board);
-        t = clock() - t;
-        printf("Runtime = %fs\n", ((float)t)/CLOCKS_PER_SEC);
     }
     if (printBoard)
         printGame(board);
@@ -210,7 +167,6 @@ int beginGameLoop (BTile **board, char color, int printBoard) {
         fprintf(stderr, "b ganhou\n");
     else if (win == 2)
         fprintf(stderr, "p ganhou\n");
-    /*MEMO*//*printf("Destroying prevpath\n");*//*MEMO*/
     if (prevpath != NULL)
         PathDestroy(prevpath);
     return 1;
@@ -234,7 +190,6 @@ int main(int argc, char *argv[]) {
         show_usage(1);
         return 0;
     }
-    /*printBo(board, N, N);*/
     beginGameLoop(board, argv[1][0], printBoard);
     freeBoard(board, N, N);
     return 0;

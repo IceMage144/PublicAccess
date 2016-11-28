@@ -19,9 +19,6 @@ typedef struct btile_t {
 com "m" linhas e "n" colunas*/
 BTile **BoardCreate (int m, int n);
 
-/*-----------------------------Retirar----------------------------------------*/
-void printBoard (BTile **board, int m, int n);
-
 /*Desaloca um tabuleiro "board" com "m" linhas e "n" colunas*/
 void freeBoard (BTile **board, int m, int n);
 

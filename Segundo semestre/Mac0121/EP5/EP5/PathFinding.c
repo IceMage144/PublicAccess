@@ -32,17 +32,6 @@ void PathDestroy (Path *path) {
     free(path);
 }
 
-/*-----------------------------Retirar----------------------------------------*/
-void printPath (Path *path) {
-    PNode *ptr;
-    if (path == NULL)
-        printf("(NULL)\n");
-    else
-        for (ptr = path->head->next; ptr != NULL; ptr = ptr->next)
-            printf("%d:%d -> %c /", ptr->lin, ptr->col, ptr->color);
-        printf("\n");
-}
-
 /*Devolve o primeiro nó pertencente ao "path1" que é comum aos caminhos "path1"
 e "path2"*/
 PNode *Intersec (Path *path1, Path *path2) {
@@ -94,19 +83,13 @@ int *getPriority (BTile **board, int lin, int col, char color, int dir, int par)
     int count = 0, i, *macro, *priority, colorNo;
     colorNo = coltoi(color);
     macro = decode(color, dir);
-    /*MEMO*//*printf("Macro = ");
-    imprimeVetor(macro, 6);*//*MEMO*/
     priority = decodeAux(color, par);
-    /*MEMO*//*printf("Priority = ");
-    imprimeVetor(priority, 6);*//*MEMO*/
     for (i = 0; i < 6; i++) {
         if (board[lin][col].Neigh[priority[i]] != NULL)
             macro[i] = macro[i] + board[lin][col].Neigh[priority[i]]->weights[colorNo];
         else
             macro[i] = INF;
     }
-    /*MEMO*//*printf("Weighted macro = ");
-    imprimeVetor(macro, 6);*//*MEMO*/
     while (count != 5) {
         count = 0;
         for (i = 0; i < 5; i++)
@@ -133,22 +116,13 @@ int partialFindPath (BTile **board, PNode **node, Path *path, int **used, int li
     /*char otcolor = (color == 'b')? 'p' : 'b';*/
     int i, linN, colN, *priority, res = 0;
     PNode *aux;
-    if ((*node)->pos >= 25) {
-        /*MEMO*//*printf("Path is full, returning 0\n");*//*MEMO*/
+    if ((*node)->pos >= 25)
         return 0;
-    }
-    if (used[lin][col]) {
-        /*MEMO*//*printf("%d:%d already used\n", lin, col);*//*MEMO*/
+    if (used[lin][col])
         return 0;
-    }
-    /*MEMO*//*printf("Marking %d:%d as used\n", lin, col);*//*MEMO*/
     used[lin][col] = 1;
-    /*if (color == 'b')*/
-    /*MEMO*//*imprimeMatriz(used, N, N);*//*MEMO*/
-    if (thiscolor != '-' && thiscolor != color) {
-        /*MEMO*//*printf("Tile has oposit color, returning 0\n");*//*MEMO*/
+    if (thiscolor != '-' && thiscolor != color)
         return 0;
-    }
     aux = emalloc(sizeof(PNode), errmsg);
     aux->lin = lin;
     aux->col = col;
@@ -158,52 +132,33 @@ int partialFindPath (BTile **board, PNode **node, Path *path, int **used, int li
     (*node)->next = aux;
     path->value += board[lin][col].weights[coltoi(color)];
     if (color == 'b') {
-        if (dir == 0 && lin == 0) {
-            /*MEMO*//*printf("Position is a goal\n");*//*MEMO*/
+        if (dir == 0 && lin == 0)
             return 1;
-        }
-        if (dir == 1 && lin == N-1) {
-            /*MEMO*//*printf("Position is a goal\n");*//*MEMO*/
+        if (dir == 1 && lin == N-1)
             return 1;
-        }
     }
     else {
-        if (dir == 0 && col == 0) {
-            /*MEMO*//*printf("Position is a goal\n");*//*MEMO*/
+        if (dir == 0 && col == 0)
             return 1;
-        }
-        if (dir == 1 && col == N-1) {
-            /*MEMO*//*printf("Position is a goal\n");*//*MEMO*/
+        if (dir == 1 && col == N-1)
             return 1;
-        }
     }
     priority = getPriority(board, lin, col, color, dir, par);
-    /*MEMO*//*imprimeVetor(priority, 6);*//*MEMO*/
     for (i = 0; i < 6 && !res; i++) {
         if (board[lin][col].Neigh[priority[i]] != NULL) {
-            /*MEMO*//*if (i != 0)*//*MEMO*/
-                /*MEMO*//*printf("%d:%d: Neighbor %d returned 0, checking neighbor %d\n", lin, col, priority[i-1], priority[i]);*//*MEMO*/
             linN = board[lin][col].Neigh[priority[i]]->lin;
             colN = board[lin][col].Neigh[priority[i]]->col;
             res = partialFindPath(board, &aux, path, used, linN, colN, color, dir, !par);
         }
-        /*if (board[lin][col].Neigh[i] != NULL && board[lin][col].Neigh[(i+2)%6] != NULL) {
-            if (board[lin][col].Neigh[i]->color == otcolor && board[lin][col].Neigh[(i+2)%6]->color == otcolor) {
-                res = 0;
-                break;
-            }
-        }*/
     }
     free(priority);
     if (res != 1) {
-        /*MEMO*//*printf("%d:%d: Partial path returned 0 or -1\n", lin, col);*//*MEMO*/
         free(aux);
         (*node)->next = NULL;
         if (thiscolor == '-')
             path->value -= board[lin][col].weights[coltoi(color)];
         return res;
     }
-    /*MEMO*//*printf("%d:%d: All alright, returning 1\n", lin, col);*//*MEMO*/
     return 1;
 }
 
@@ -223,68 +178,48 @@ Path *findPath (BTile **board, char color) {
             for (k = 0; k < N; k++)
                 for (l = 0; l < N; l++)
                     used[k][l] = 0;
-            /*MEMO*//*printf("Creating Path1\n");*//*MEMO*/
             path1 = PathCreate();
             if (color == 'p')
                 found = partialFindPath(board, &(path1->head), path1, used, i, 0, color, 1, j);
             else
                 found = partialFindPath(board, &(path1->head), path1, used, 0, i, color, 1, j);
-            /*MEMO*//*imprimeMatriz(used, N, N);*//*MEMO*/
-            /*MEMO*//*printf("Finding direction 0 and returning %d\n", found);*//*MEMO*/
             if (found != 1) {
-                /*MEMO*//*printf("Destoying path1\n");*//*MEMO*/
                 PathDestroy(path1);
                 continue;
             }
             count = 1;
-            if (path2 == NULL) {
-                /*MEMO*//*printf("Transfering path1 to path2, because path2 == NULL\n");*//*MEMO*/
+            if (path2 == NULL)
                 path2 = path1;
-            }
             else if (path1->value < path2->value) {
-                /*MEMO*//*printf("Destroying path2\n");*//*MEMO*/
-                /*MEMO*//*printf("Transfering path1 to path2, because %d < %d\n", path1->value, path2->value);*//*MEMO*/
                 PathDestroy(path2);
                 path2 = path1;
             }
-            else {
-                /*MEMO*//*printf("Destroying path1 because %d >= %d\n", path1->value, path2->value);*//*MEMO*/
+            else
                 PathDestroy(path1);
-            }
         }
     for (i = 7; i < N; i++)
         for (j = 0; j < 2; j++) {
             for (k = 0; k < N; k++)
                 for (l = 0; l < N; l++)
                     used[k][l] = 0;
-            /*MEMO*//*printf("Creating Protopath1\n");*//*MEMO*/
             path1 = PathCreate();
             if (color == 'p')
                 found = partialFindPath(board, &(path1->head), path1, used, i, 13, color, 0, j);
             else
                 found = partialFindPath(board, &(path1->head), path1, used, 13, i, color, 0, j);
-            /*MEMO*//*printf("Finding direction 0 and returning %d\n", found);*//*MEMO*/
-            /*MEMO*//*imprimeMatriz(used, N, N);*//*MEMO*/
             if (found != 1) {
-                /*MEMO*//*printf("Destoying path1\n");*//*MEMO*/
                 PathDestroy(path1);
                 continue;
             }
             count = 1;
-            if (path2 == NULL) {
-                /*MEMO*//*printf("Transfering path1 to path2, because path2 == NULL\n");*//*MEMO*/
+            if (path2 == NULL)
                 path2 = path1;
-            }
             else if (path1->value < path2->value) {
-                /*MEMO*//*printf("Destroying path2\n");*//*MEMO*/
-                /*MEMO*//*printf("Transfering path1 to path2, because %d < %d\n", path1->value, path2->value);*//*MEMO*/
                 PathDestroy(path2);
                 path2 = path1;
             }
-            else {
-                /*MEMO*//*printf("Destroying path1 because %d >= %d\n", path1->value, path2->value);*//*MEMO*/
+            else
                 PathDestroy(path1);
-            }
         }
     if (!count)
         ret = NULL;
@@ -302,7 +237,6 @@ int pathcmp (Path *path1, Path *path2) {
     ptr1 = path1->head->next;
     ptr2 = path2->head->next;
     while (ptr1 != NULL && ptr2 != NULL) {
-        /*printf("Hey\n") ;*/
         if (ptr1->lin != ptr2->lin || ptr1->col != ptr2->col)
             return 0;
         ptr1 = ptr1->next;
