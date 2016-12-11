@@ -1,6 +1,8 @@
 #include "polygons.h"
 #include <cmath>
-#include <cstdio>
+#include <iostream>
+
+using namespace std;
 
 double sq (double x) {
 	return x*x;
@@ -43,26 +45,17 @@ Rect Circle::boundingBox () const {
 }
 
 bool Line::has_point (const Point& p) const {
-	Point med((p1.x+p2.x)/2, (p1.y+p2.y)/2);
-	double deltax = p1.x-p2.x;
-	double deltay = p1.y-p2.y;
-	double distPL;
-	if (deltax == 0.0)
-		distPL = std::abs(p.x-p1.x);
-	else {
-		/*double ythick = thick*1.0/sin(fabs(90.0-atan(deltay/deltax)));
-		double det = p2.x*p1.y + p1.x*p2.y;
-		if (deltax*p.y+deltay*p.x+(det-ythick) > 0)*/
-		double det = p2.x*p1.y + p1.x*p2.y;
-		distPL = std::fabs(deltax*p.y+deltay*p.x+det)/sqrt(sq(deltax)+sq(deltay));
-	}
-	double radius = sqrt(sq(p1.x-p2.x)+sq(p1.y-p2.y))/2;
-	double distPM = sqrt(sq(med.x-p.x)+sq(med.y-p.y));
-	if (distPM <= radius && distPL <= thick)
+	double t = min(sqrt((p.x-p1.x)*(p.x-p1.x)+(p.y-p1.y)*(p.y-p1.y)), sqrt((p.x-p2.x)*(p.x-p2.x)+(p.y-p2.y)*(p.y-p2.y)));
+	if (t <= thick)
 		return true;
-	double distPP1 = sqrt(sq(p1.x-p.x)+sq(p1.y-p.y));
-	double distPP2 = sqrt(sq(p2.x-p.x)+sq(p2.y-p.y));
-	if (distPP1 <= thick || distPP2 <= thick)
+	Point vec1(p1.x-p2.x, p1.y-p2.y);
+	Point vec2(p1.x-p.x, p1.y-p.y);
+	double frac = (vec1.x*vec2.x + vec1.y*vec2.y)/(vec1.x*vec1.x + vec1.y*vec1.y);
+	if (frac < 0 || frac > 1)
+		return false;
+	Point vec3(vec1.x*frac, vec1.y*frac);
+	t = sqrt((vec2.x*vec2.x + vec2.y*vec2.y) - (vec3.x*vec3.x + vec3.y*vec3.y));
+	if (t <= thick)
 		return true;
 	return false;
 }
@@ -100,10 +93,10 @@ void Group::add (const GraphicalObject& obj) {
 bool Group::has_point (const Point& p) const {
 	for (Node *cell = Head; cell != NULL; cell = cell->next)
 		if (cell->obj->has_point(p)) {
-			printf("%p have (%f, %f)\n", cell, p.x, p.y);
+			//printf("%p have (%f, %f)\n", cell, p.x, p.y);
 			return true;
 		}
-	printf("I do not have (%f, %f)\n", p.x, p.y);
+	//printf("I do not have (%f, %f)\n", p.x, p.y);
 	return false;
 }
 
@@ -190,14 +183,21 @@ Rect Polygon::boundingBox () const {
 	return box;
 }
 
-CurvedLine::CurvedLine (const CurvedLine& other, double thick):
-	thick(thick) {
+void LineArray::add (const Point& pt) {
+	Node *cell = new Node;
+	cell->pt = new Point(pt.x, pt.y);
+	cell->next = Head;
+	Head = cell;
+}
+
+LineArray::LineArray (const LineArray& other, double thick):
+	thick(thick), Head(NULL) {
 	for (Node *cell = other.Head; cell != NULL; cell = cell->next) {
-		add(*cell->pt);
+		add(*(cell->pt));
 	}
 }
 
-bool CurvedLine::has_point (const Point& p) const {
+bool LineArray::has_point (const Point& p) const {
 	if (Head == NULL)
 		return false;
 	Node *cell = Head;
@@ -206,7 +206,117 @@ bool CurvedLine::has_point (const Point& p) const {
 		if (line.has_point(p))
 			return true;
 	}
+}
+
+Rect LineArray::boundingBox () const {
+	Rect box;
+	for (Node *cell = Head; cell != NULL; cell = cell->next) {
+		if(cell->pt->x < box.llc.x)
+            box.llc.x = cell->pt->x;
+        if(cell->pt->y < box.llc.y)
+            box.llc.y = cell->pt->y;
+        if(cell->pt->x > box.urc.x)
+            box.urc.x = cell->pt->x;
+        if(cell->pt->y > box.urc.y)
+            box.urc.y = cell->pt->y;
+	}
+	return box;
+}
+
+RegularPolygon::RegularPolygon (const Point& center, int sides, double size, double thick):
+	sides(sides), size(size), thick(thick), center(center), Head(NULL) {
+	Node *cell;
+	double angle = 0;
+	for (int i = 0; i < sides; i++) {
+		cell = new Node;
+		cell->pt = new Point(center.x + size*cos(angle), center.y + size*sin(angle));
+		cell->next = Head;
+		Head = cell;
+		angle += TAU/sides;
+		cout << "(" << center.x*cos(angle) << ", " << center.y*sin(angle) << ")" << endl;
+	}
+}
+
+RegularPolygon::RegularPolygon (const RegularPolygon& other):
+	Head(NULL) {
+	Node *aux;
+	for (Node *cell = other.Head; cell != NULL; cell = cell->next) {
+		aux = new Node;
+		aux->pt = new Point(cell->pt->x, cell->pt->y);
+		aux->next = Head;
+		Head = aux;
+	}
+	sides = other.sides;
+	size = other.size;
+	thick = other.thick;
+	center = Point(other.center.x, other.center.y);
+}
+
+bool RegularPolygon::has_point (const Point& p) const {
+	if (Head == NULL)
+		return false;
+	Node *cell = Head;
+	for (Node *cell2 = Head->next; cell2 != NULL; cell = cell2, cell2 = cell2->next) {
+		//cout << "(" << cell2->pt->x << ", " << cell2->pt->y << ")" << endl;
+		Line line(*cell->pt, *cell2->pt, thick);
+		if (line.has_point(p))
+			return true;
+	}
 	Line line(*cell->pt, *Head->pt, thick);
 	if (line.has_point(p))
 		return true;
+}
+
+Rect RegularPolygon::boundingBox () const {
+	Rect box;
+	for (Node *cell = Head; cell != NULL; cell = cell->next) {
+		if(cell->pt->x < box.llc.x)
+            box.llc.x = cell->pt->x;
+        if(cell->pt->y < box.llc.y)
+            box.llc.y = cell->pt->y;
+        if(cell->pt->x > box.urc.x)
+            box.urc.x = cell->pt->x;
+        if(cell->pt->y > box.urc.y)
+            box.urc.y = cell->pt->y;
+	}
+	return box;
+}
+
+Ellipse::Ellipse (const Ellipse& other) {
+	f1 = Point(other.f1.x, other.f1.y);
+	f2 = Point(other.f2.x, other.f2.y);
+	center = Point(other.center.x, other.center.y);
+	angle = other.angle;
+	thick = other.thick;
+	a = other.a;
+	b = other.b;
+}
+
+bool Ellipse::has_point (const Point& p) const {
+	/*double distfbf1 = 2*max(a,b)-thick; //Sum of the distance of the focuses to the border minus thick
+	double distfbf2 = 2*max(a,b)+thick; //Sum of the distance of the focuses to the border plus thick
+	double distfpf = sqrt(sq(f1.x-p.x)+sq(f1.y-p.y)) + sqrt(sq(f2.x-p.x)+sq(f2.y-p.y)); //Sum of the distance of the focuses to the point
+	if (distfpf >= distfbf1 && distfpf <= distfbf2)
+		return true;
+	return false;*/
+	double xcoord = (p.x-center.x)*cos(angle)-(p.y-center.y)*sin(angle);
+	double ycoord = (p.x-center.x)*sin(angle)+(p.y-center.y)*cos(angle);
+	double val1 = sq(xcoord/(a-thick/2)) + sq(ycoord/(b-thick/2));
+	double val2 = sq(xcoord/(a+thick/2)) + sq(ycoord/(b+thick/2));
+	if (val1 >= 1 && val2 <= 1)
+		return 1;
+	return 0;
+}
+
+Rect Ellipse::boundingBox () const {
+	Rect box;
+	double varx = sq(a*sin(angle))+sq(b*cos(angle));
+	double vary = sq(a*cos(angle))+sq(b*sin(angle));
+	varx = a*b/sqrt(varx) + fabs(sin(2*angle))*min(a,b)/max(a,b);
+	vary = a*b/sqrt(vary) + fabs(sin(2*angle))*min(a,b)/max(a,b);
+	box.llc.x = center.x - varx - thick;
+	box.llc.y = center.y - vary - thick;
+	box.urc.x = center.x + varx + thick;
+	box.urc.y = center.y + vary + thick;
+	return box;
 }

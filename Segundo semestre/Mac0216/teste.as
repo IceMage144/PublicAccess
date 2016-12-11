@@ -1,2 +1,3 @@
-EXTERN a
-a STR "a"
+      EXTERN main
+main  XOR  $0,$0,$0
+      CALL hello

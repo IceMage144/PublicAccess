@@ -2,6 +2,11 @@
 #define __POLYGONS_H__
 
 #include <iostream>
+#include <cmath>
+
+#define TAU 6.2831853
+
+double sq (double x);
 
 struct Point {
 	double x, y;
@@ -79,7 +84,7 @@ class Polygon : public GraphicalObject {
 	bool filled;
 	double thick;
 public:
-	Polygon (): Head(NULL), filled(false), thick(1) {}
+	Polygon (bool filled, double thick): Head(NULL), filled(filled), thick(thick) {}
 	Polygon (const Polygon& other, bool filled, double thick);
 	~Polygon ();
 	void add (const Point& pt);
@@ -90,7 +95,7 @@ public:
 	}
 };
 
-class CurvedLine : public Polygon {
+class LineArray : public GraphicalObject {
 	struct Node {
 		Point *pt;
 		struct Node *next;
@@ -98,9 +103,52 @@ class CurvedLine : public Polygon {
 	Node *Head;
 	double thick;
 public:
-	CurvedLine (): Head(NULL), thick(1) {}
-	CurvedLine (const CurvedLine& other, double thick);
+	LineArray (double thick): Head(NULL), thick(thick) {}
+	LineArray (const LineArray& other, double thick);
+	void add (const Point& pt);
 	bool has_point (const Point& p) const;
+	Rect boundingBox () const;
+	GraphicalObject *clone () const {
+		return (new LineArray(*this));
+	}
+};
+
+class RegularPolygon : public GraphicalObject {
+	struct Node {
+		Point *pt;
+		struct Node *next;
+	};
+	Node *Head;
+	Point center;
+	double thick, size;
+	int sides;
+public:
+	RegularPolygon (const Point& center, int sides, double size, double thick);
+	RegularPolygon (const RegularPolygon& other);
+	bool has_point (const Point& p) const;
+	Rect boundingBox () const;
+	GraphicalObject *clone () const {
+		return (new RegularPolygon(*this));
+	}
+};
+
+class Ellipse : public GraphicalObject {
+	Point f1, f2, center;
+	double a, b, angle, thick;
+public:
+	Ellipse (const Point& center, double angle, double a, double b, double thick):
+		center(center), angle(angle), a(a), b(b), thick(thick) {
+		double recoilx = sqrt(fabs(sq(a)-sq(b)))*cos(angle);
+		double recoily = sqrt(fabs(sq(a)-sq(b)))*sin(angle);
+		f1 = Point(center.x+recoilx, center.y+recoily);
+		f2 = Point(center.x-recoilx, center.y-recoily);
+	}
+	Ellipse (const Ellipse& other);
+	bool has_point (const Point& p) const;
+	Rect boundingBox () const;
+	GraphicalObject *clone () const {
+		return (new Ellipse(*this));
+	}
 };
 
 #endif

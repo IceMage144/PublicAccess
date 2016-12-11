@@ -93,7 +93,7 @@ Pos *play (BTile **board, Path *prevpath, char color, int turn, int Llin, int Lc
             ret->col = 5;
         }
         else {
-            if (Llin == Lcol) {
+            if ((Llin == Lcol || Llin + Lcol == 13) && Llin >= 4 && Llin <= 9) {
                 ret->lin = Llin;
                 ret->col = Lcol;
             }
