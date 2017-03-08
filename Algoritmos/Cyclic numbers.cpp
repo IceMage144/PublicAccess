@@ -1,10 +1,17 @@
 #include <iostream>
 #include <cmath>
 
+/*
+This program tells if a number is a cyclic number or not (https://en.wikipedia.org/wiki/Cyclic_number)
+
+Esse programa fala se um número é um número cíclico ou não (https://en.wikipedia.org/wiki/Cyclic_number)
+*/
+
 using namespace std;
 
 int main(){
       int num;
+      cout << "Give a number to anilyze:\n";
       cin >> num;
       int digits = (int)log10((double)num) + 1;
       int r = 1, loops = 0, q = 9;

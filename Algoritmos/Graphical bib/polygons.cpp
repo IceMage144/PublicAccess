@@ -2,6 +2,12 @@
 #include <cmath>
 #include <iostream>
 
+/*
+In this file, the rest of the methods from polygons.h are implemented.
+
+Nesse arquivo são implementados os métodos do polygons.h que sobraram.
+*/
+
 using namespace std;
 
 double sq (double x) {

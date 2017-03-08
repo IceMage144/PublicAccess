@@ -1,6 +1,16 @@
 #include <iostream>
 #include <cmath>
 
+/*
+This program calculates the Khinchin's constant (http://mathworld.wolfram.com/KhinchinsConstant.html)
+with a precision not so good due to the overflow, just input the constant index
+(p), the inicial number (x) and the precision (n).
+
+Esse programa calcula a constante de Khinchin (http://mathworld.wolfram.com/KhinchinsConstant.html)
+com uma precisão não muito boa por causa de overflow, basta fornecer o índice da
+constante (p), o número inicial (x) e a precisão (n).
+*/
+
 using namespace std;
 
 int V[112345];

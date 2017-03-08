@@ -2,6 +2,20 @@
 #include <map>
 #include <cmath>
 
+/*
+This program was made with the purpose of finding primes of the form 4x+1 using
+the sum of two squares. I excluded the sums of the form odd^2+odd^2 and
+even^2+even^2, because their results are both even, and put an option to exclude
+the results that are multiple of five. A year before I made this, I found this
+page https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares
+
+Esse programa foi feito com o intuito de achar primos da forma 4x+1 usando uma
+soma de dois quadrados. Eu excluí as somas da forma ímpar^2+ímpar^2 e
+par^2+par^2, porque seus resultados serão sempre par, e também coloquei uma
+opção para excluir os resultados múltiplos de cinco. Um ano depois de fazer esse
+programa eu achei essa página https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares
+*/
+
 using namespace std;
 
 //Verifica se x^2+y^2!=primo, x!=y(mod 2), x,y \in N
@@ -103,7 +117,7 @@ int main(){
 			k++;
 		}
 	}
-	for (int i = 1; i <= counter; i++){ 
+	for (int i = 1; i <= counter; i++){
 		if ((showFives == "somente" || showFives == "todos") && notPrimes[i]%5 == 0){
 			cout << notPrimes[i] << " = " << factors1[i] << "^2 + " << factors2[i] << "^2";
 			if (notPrimes[i] == 5){

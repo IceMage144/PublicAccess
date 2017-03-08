@@ -4,6 +4,12 @@
 
 using namespace std;
 
+/*
+This is the main file for testing the functions.
+
+Esse é o arquivo principal para testar as funções.
+*/
+
 int main () {
 	Point pt1(10,10);
 	Point pt2(8,7);

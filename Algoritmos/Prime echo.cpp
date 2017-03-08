@@ -3,6 +3,16 @@
 #include <map>
 #include <vector>
 
+/*
+This program were made with the purpose of anilyzing the veracity of the video
+https://www.youtube.com/watch?v=6KHTrLEfHIM , about an alleged "pattern" of the
+primes.
+
+Esse programa foi feito com o intuito de analizar a veracidade do vídeo
+https://www.youtube.com/watch?v=6KHTrLEfHIM , que fala sobre um suposto "padrão"
+nos números primos.
+*/
+
 using namespace std;
 
 bool isPrime(int num){
@@ -25,6 +35,7 @@ bool isPrime(int num){
 	}
 	return res;
 }
+
 int main(){
 	map<int, bool> primes;
 	int echo[2000];

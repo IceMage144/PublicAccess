@@ -2,6 +2,12 @@
 #include "pgmdrawer.h"
 #include "polygons.h"
 
+/*
+Implementing the method save_pgm from Canvas.
+
+Implementando o método save_pgm do Canvas.
+*/
+
 bool Canvas::save_pgm (const GraphicalObject& obj, FILE *output,
 					int pix_per_unit, int sample_size) const {
 	double pix_size = 1.0/pix_per_unit;
