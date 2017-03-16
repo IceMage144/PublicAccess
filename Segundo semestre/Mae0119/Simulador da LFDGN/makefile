@@ -1,6 +1,6 @@
 CC = g++
-CFLAGSF = -ISFML-2.4.0/include
-CFLAGSS = -LSFML-2.4.0/lib
+CFLAGSF = -I../../../SFML-2.4.0/include
+CFLAGSS = -L../../../SFML-2.4.0/lib
 OBJS = Simulador_da_LFDGN.o
 
 %.o: %.cpp
@@ -11,4 +11,4 @@ plot: Simulador_da_LFDGN.o
 	rm -f *.o
 
 exec: plot
-	export LD_LIBRARY_PATH=./SFML-2.4.0/lib && ./plot
+	export LD_LIBRARY_PATH=./../../../SFML-2.4.0/lib && ./plot
