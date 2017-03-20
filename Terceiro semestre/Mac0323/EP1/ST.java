@@ -7,12 +7,12 @@ import edu.princeton.cs.algs4.In; // arquivo
 // The StdIn class provides static methods for reading strings and numbers from standard input.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/stdlib/documentation/index.html
 // http://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdIn.html
-import edu.princeton.cs.algs4.StdIn; 
+import edu.princeton.cs.algs4.StdIn;
 
 // This class provides methods for printing strings and numbers to standard output.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/stdlib/documentation/index.html
 // http://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdOut.html
-import edu.princeton.cs.algs4.StdOut; 
+import edu.princeton.cs.algs4.StdOut;
 
 // Stopwatch. This class is a data type for measuring the running time (wall clock) of a program.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/algs4/documentation/index.html
@@ -22,7 +22,7 @@ import edu.princeton.cs.algs4.Stopwatch; // arquivo
 // http://codereview.stackexchange.com/questions/48109/simple-example-of-an-iterable-and-an-iterator-in-java
 import java.util.Iterator; //f//
 
-public class ST <Key, Value> {
+public class ST {
     private String[] keys = null;
     private int[] values = null;
     private int n = 0;
@@ -59,6 +59,14 @@ public class ST <Key, Value> {
     public ST() {
         keys = new String[1];
         values = new int[1];
+    }
+    public String toString() {
+        String res = "{ ";
+        for (int i = 0; i < n-1; i++) {
+            res += keys[i] + " : " + values[i] + ", ";
+        }
+        res += keys[n-1] + " : " + values[n-1] + " }";
+        return res;
     }
     public boolean isEmpty() {
         return (n == 0);
