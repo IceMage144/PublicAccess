@@ -7,12 +7,12 @@ import edu.princeton.cs.algs4.In; // arquivo
 // The StdIn class provides static methods for reading strings and numbers from standard input.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/stdlib/documentation/index.html
 // http://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdIn.html
-import edu.princeton.cs.algs4.StdIn; 
+import edu.princeton.cs.algs4.StdIn;
 
 // This class provides methods for printing strings and numbers to standard output.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/stdlib/documentation/index.html
 // http://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdOut.html
-import edu.princeton.cs.algs4.StdOut; 
+import edu.princeton.cs.algs4.StdOut;
 
 // Stopwatch. This class is a data type for measuring the running time (wall clock) of a program.
 // https://www.ime.usp.br/~pf/sedgewick-wayne/algs4/documentation/index.html
@@ -30,12 +30,12 @@ public class Corretor {
     public static void main(String[] args) {
         String PROMPT  = ">>> ";
         // neste unit test show, keys, size e max são palavras reservadas
-        String SHOW    = "show"; // mostre a ST 
+        String SHOW    = "show"; // mostre a ST
         String KEYS    = "keys"; // mostre as chaves na ST
         String SIZE    = "size"; // mostre o 'tamanho' da ST
         String MAX     = "max";  // mostre chave com maior valor
         String s;
-        
+
         // Initializes an input stream from a filename or web page name.
         In in = new In(args[0]);
         // criamos duas ST
@@ -50,7 +50,7 @@ public class Corretor {
 
         // teste toString()
         StdOut.println("Vejamos a ST1 inicialmente vazia: " + st1);
-        
+
         // teste put()
         st1.put("aaa");
         StdOut.println("Vejamos a ST1 com 1 par key-val: " + st1);
@@ -66,13 +66,13 @@ public class Corretor {
         // teste get()
         assert st1.get("xx") == -1 : "Putz! get('xx') devia retorna -1 X#@@$" ;
         assert st1.get("bbb") == 3 : "Vixe! get('bbb') devia retorna 3 X#@@$" ;
-        
+
         // teste size()
         assert st1.size() == 4 : "Vixe! size errado..." ;
 
         // teste toString()
         StdOut.println("Vejamos a ST1 com 4 pares key-val: " + st1);
-        
+
         // teste delete
         for (String key: st1.keys()) {
             StdOut.println(key);
@@ -104,14 +104,14 @@ public class Corretor {
         st1.put("estudar");
         st1.put("MAC0323!");
         assert st1.size() == 5 : "... ainda está com problemas X-|";
-        
+
         // teste st2
         assert st2.size() == 0 : "Inicialmente ST2 devia estar vazia";
-        
+
         // disparamos o cronometro
         Stopwatch sw = new Stopwatch();
 
-        // vamos povoar a ST2 com palavras de um arquivo 
+        // vamos povoar a ST2 com palavras de um arquivo
         StdOut.println("Criando a ST2 com as palavras do arquivo '" + args[0] + "' ...");
         while (!in.isEmpty()) {
             // Read and return the next line.
@@ -124,9 +124,9 @@ public class Corretor {
         }
         // sw.elapsedTime(): returns elapsed time (in seconds) since this object was created.
         StdOut.println("ST2 criada em " + sw.elapsedTime() + " segundos");
-        
+
         StdOut.println("ST2 contém " + st2.size() + " pares key-val");
-        
+
         StdOut.println("Início da consulta interativa. Tecle ctrl+D encerrar");
         StdOut.print(PROMPT);
         // consultas à ST criada
@@ -154,5 +154,3 @@ public class Corretor {
          }
     }
 }
-
-

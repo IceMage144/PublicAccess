@@ -9,9 +9,13 @@ main.o: main.cpp
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< $(CFLAGSF)
 
-teste: main.o physical_objects.o vectors.o
+teste2: main.o physical_objects.o vectors.o
 	$(CC) $^ -o $@ $(CFLAGSS) -lsfml-graphics -lsfml-window -lsfml-system
 	rm -f *.o
 
-exec: plot
+teste:
+	g++ topper.cpp -o teste -I../../../SFML-2.4.0/include -L../../../SFML-2.4.0/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+exec: teste
+	g++ topper.cpp -o teste -I../../../SFML-2.4.0/include -L../../../SFML-2.4.0/lib -lsfml-graphics -lsfml-window -lsfml-system
 	export LD_LIBRARY_PATH=./../../SFML-2.4.0/lib && ./teste

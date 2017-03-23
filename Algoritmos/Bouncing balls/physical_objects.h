@@ -44,9 +44,11 @@ class ball : public physical_object {
     vector2d velocity;
     double radius;
 public:
-    ball(): x(0), y(0), radius(0), mass(0), grav(true), airres(true) {};
+    ball(): x(0), y(0), radius(0), mass(0), grav(true), airres(true) {
+        airrescons = 0.47*airden*PI*radius/(mass*10000);
+    };
     ball(double x, double y, double radius, double mass): x(x), y(y), radius(radius), mass(mass), grav(true), airres(true) {
-        airrescons = 0.47*airden*PI*sq(radius)/(mass*10000);
+        airrescons = 0.47*airden*PI*radius/(mass*10000);
     };
     char type() {
         return 'b';
