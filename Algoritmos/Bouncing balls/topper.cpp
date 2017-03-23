@@ -9,7 +9,7 @@ using namespace std;
 #define TAU 6.283185
 #define PI 3.141592
 #define g 9.80665
-#define airden 1225
+#define airden 1.225
 #define circcons 0.47
 #define G 0.00000000006674
 
@@ -20,6 +20,7 @@ using namespace std;
 // Colors
 #define MWhite sf::Color(255, 255, 255)
 #define Blue sf::Color(0, 0, 255)
+#define Red sf::Color(255, 0, 0)
 
 inline float sq(float num) {
     return num*num;
@@ -66,10 +67,10 @@ double direction(Vector2d v) {
 }
 
 class physical_object {
+public:
     double x, y, mass, airrescons, volume;
     bool grav, airres, buoy;
     Vector2d velocity;
-public:
     Vector2d get_pos();
     Vector2d get_velocity();
     double get_mass() {
@@ -88,7 +89,7 @@ public:
     void apply_gravity();
     virtual void apply_air_resistance() = 0;
     void apply_buoyancy() {
-        velocity.y -= airden*g*volume/100;
+        velocity.y -= airden*g*volume/10000000;
     };
     void apply_velocity();
     void add_velocity(Vector2d vec) {
@@ -102,17 +103,28 @@ public:
 };
 
 class ball : public physical_object {
-    double x, y, mass, airrescons, volume;
-    bool grav, airres, buoy;
-    Vector2d velocity;
     double radius;
 public:
-    ball(): x(0), y(0), radius(1), mass(1), grav(true), airres(true), buoy(true) {
+    ball() {
+        physical_object::x = 0;
+        physical_object::y = 0;
+        radius = 1;
+        physical_object::mass = 1;
+        physical_object::grav = true;
+        physical_object::airres = true;
+        physical_object::buoy = true;
         airrescons = circcons*airden*PI*radius/(mass*10000);
         volume = PI*sq(radius);
         velocity = Vector2d();
     };
-    ball(double x, double y, double radius, double mass): x(x), y(y), radius(radius), mass(mass), grav(true), airres(true), buoy(true) {
+    ball(double x, double y, double r, double mass) {
+        physical_object::x = x;
+        physical_object::y = y;
+        radius = r;
+        physical_object::mass = mass;
+        physical_object::grav = true;
+        physical_object::airres = true;
+        physical_object::buoy = true;
         airrescons = circcons*airden*PI*radius/(mass*10000);
         volume = PI*sq(radius);
         velocity = Vector2d();
@@ -130,7 +142,7 @@ public:
 
 void physical_object::apply_gravity() {
     if (grav)
-        velocity.y += g/1000;
+        velocity.y += g/500;
 }
 
 void physical_object::apply_velocity() {
@@ -139,7 +151,6 @@ void physical_object::apply_velocity() {
 }
 
 Vector2d physical_object::get_pos() {
-    cout << x << ", " << y;
     return Vector2d(x, y);
 }
 
@@ -150,32 +161,35 @@ Vector2d physical_object::get_velocity() {
 
 void ball::apply_air_resistance() {
     if (airres) {
-        double acc = airrescons*svabs(velocity);
-        double dir = direction(velocity);
-        velocity.x -= acc*cos(dir);
-        velocity.y -= acc*sin(dir);
+        double acc = airrescons*svabs(physical_object::velocity);
+        double dir = direction(physical_object::velocity);
+        physical_object::velocity.x -= acc*cos(dir)/500;
+        physical_object::velocity.y -= acc*sin(dir)/500;
     }
 }
 
 void ball::wall_collision(double xmax, double ymax) {
-    if (x < radius || x > xmax - 200)
-        velocity.x = -velocity.x;
-    if (y < radius || y > ymax - 200)
-        velocity.y = -velocity.y;
+    if (physical_object::x < 0 || physical_object::x > xmax - 2*radius)
+        physical_object::velocity.x = -85*(physical_object::velocity.x)/100;
+    if (physical_object::y < 0 || physical_object::y > ymax - 2*radius) {
+        physical_object::velocity.y = -85*(physical_object::velocity.y)/100;
+    }
 }
 
 void ball::ball_collision(ball& other) {
     double oradius = other.get_radius();
-    Vector2d opos = other.get_pos();
-    double dist = sqrt(sq(x-opos.x) + sq(y-opos.y));
+    Vector2d opos = vsum(other.get_pos(), Vector2d(oradius, oradius));
+    double myx = physical_object::x + radius;
+    double myy = physical_object::y + radius;
+    double dist = sqrt(sq(myx - opos.x) + sq(myy - opos.y));
     if (dist < radius + oradius) {
         double omass = other.get_mass();
         Vector2d ovel = other.get_velocity();
-        Vector2d vf1 = vsum(rprod(2*omass, ovel), rprod(mass-omass, velocity));
-        vf1 = rdiv(mass+omass, vf1);
-        Vector2d vf2 = vsum(rprod(2*mass, velocity), rprod(omass-mass, ovel));
-        vf2 = rdiv(mass+omass, vf2);
-        velocity = vf1;
+        Vector2d vf1 = vsum(rprod(2*omass, ovel), rprod(mass-omass, physical_object::velocity));
+        vf1 = rdiv(mass + omass, vf1);
+        Vector2d vf2 = vsum(rprod(2*mass, physical_object::velocity), rprod(omass-mass, ovel));
+        vf2 = rdiv(mass + omass, vf2);
+        physical_object::velocity = vf1;
         other.change_velocity(vf2);
     }
 }
@@ -193,20 +207,30 @@ int main() {
 
     vector<physical_object*> objs;
     vector<sf::CircleShape*> shapes;
-    ball ba(200.0, 200.0, 20.0, 20.0);
-    sf::CircleShape circ(ba.get_radius());
-    Vector2d vect = ba.get_pos();
-    cout << vect.x << "," << vect.y;
-    circ.setPosition((float)vect.x, (float)vect.y);
-    circ.setFillColor(Blue);
+    objs.resize(2);
+    shapes.resize(2);
 
-    shapes.push_back(&circ);
-    objs.push_back((physical_object*)&ba);
+    objs[0] = new ball(200.0, 200.0, 20.0, 20.0);
+    objs[0]->add_velocity(Vector2d(20.0, 0.0));
+    shapes[0] = new sf::CircleShape(20.0);
+    Vector2d vect = objs[0]->get_pos();
+    shapes[0]->setPosition(vect.x, vect.y);
+    shapes[0]->setFillColor(Blue);
+
+    objs[1] = (physical_object*)new ball(400.0, 400.0, 20.0, 20.0);
+    objs[1]->add_velocity(Vector2d(-20.0, -20.0));
+    shapes[1] = new sf::CircleShape(20.0);
+    vect = objs[1]->get_pos();
+    shapes[1]->setPosition(vect.x, vect.y);
+    shapes[1]->setFillColor(Red);
+
     siz = objs.size();
+    cout << siz << endl;
 
     for (int i = 0; i < 4; i++)
         window_bg[i].color = MWhite;
 
+    bool boo = true;
     while (window.isOpen()) {
         sf::Event event;
 		while (window.pollEvent(event)) {
@@ -216,9 +240,10 @@ int main() {
         for (int i = 0; i < siz; i++) {
             objs[i]->apply_velocity();
             objs[i]->apply_gravity();
-            //objs[i]->apply_air_resistance();
-            //objs[i]->apply_buoyancy();
-            objs[i]->wall_collision(video_max_x, video_max_y);
+            objs[i]->apply_air_resistance();
+            objs[i]->apply_buoyancy();
+            if (boo)
+                objs[i]->wall_collision(video_max_x, video_max_y);
         }
         for (int i = 0; i < siz; i++) {
             for (int j = i+1; j < siz; j++) {
@@ -230,9 +255,10 @@ int main() {
         window.draw(window_bg);
         for (int i = 0; i < siz; i++) {
             vect = objs[i]->get_pos();
-            shapes[i]->setPosition((float)vect.x, (float)vect.y);
+            shapes[i]->setPosition(vect.x, vect.y);
             window.draw(*(shapes[i]));
         }
         window.display();
+        boo = !boo;
     }
 }
