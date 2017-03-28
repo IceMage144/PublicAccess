@@ -1,34 +1,51 @@
+#include <cmath>
 #include "vectors.h"
 
-vector2d vsum(vector2d v1, vector2d v2) {
-    vector2d res(v1.x+v2.x, v1.y+v2.y);
-    return res;
+Vector2d Vector2d::operator + (const Vector2d& other) {
+    return Vector2d(x+other.x, y+other.y);
 }
 
-vector2d vsub(vector2d v1, vector2d v2) {
-    vector2d res(v1.x-v2.x, v1.y-v2.y);
-    return res;
+Vector2d Vector2d::operator += (const Vector2d& other) {
+    *this = *this + other;
 }
 
-double dprod(vector2d v1, vector2d v2) {
-    return v1.x*v2.x + v1.y*v2.y;
+Vector2d Vector2d::operator - (const Vector2d& other) {
+    return Vector2d(x-other.x, y-other.y);
 }
 
-vector2d rprod(double num, vector2d v) {
-    vector2d res(num*v.x, num*v.y);
-    return res;
+Vector2d Vector2d::operator -= (const Vector2d& other) {
+    *this = *this - other;
 }
 
-vector2d rdiv(double num, vector2d v) {
-    vector2d res(v.x/num, v.y/num);
-    return res;
+Vector2d Vector2d::operator * (double num) {
+    return Vector2d(num*x, num*y);
 }
 
-double svabs(vector2d v) {
+double Vector2d::operator * (const Vector2d& other) {
+    return x*other.x + y*other.y;
+}
+
+Vector2d Vector2d::operator *= (double num) {
+    *this = (*this)*num;
+}
+
+Vector2d Vector2d::operator / (double num) {
+    return Vector2d(x/num, y/num);
+}
+
+Vector2d Vector2d::operator /= (double num) {
+    *this = (*this)/num;
+}
+
+Vector2d Vector2d::operator - () {
+    return Vector2d(-x, -y);
+}
+
+double snorm(const Vector2d v) {
     return sq(v.x)+sq(v.y);
 }
 
-double direction(vector2d v) {
+double direction(const Vector2d v) {
     if (v.x != 0 && v.y != 0)
         return atan2(v.y, v.x);
     return 0;
