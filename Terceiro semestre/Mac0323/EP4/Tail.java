@@ -85,15 +85,19 @@ public class Tail {
     // do arquivo fileName. O valor 10 é o default.
     public Tail(String fileName) {
         // escreva seu método a seguir
-        top = 10;
-        lines = new String[10];
+        top = 11;
+        lines = new String[11];
         In in = new In(fileName);
         while (!in.isEmpty()) {
             lines[ptr] = in.readLine();
             ptr = (ptr+1)%top;
-            if (lines[ptr] != null)
+            if (lines[ptr] != null) {
+                lines[ptr] = null;
                 beg = ptr;
+            }
         }
+        if (lines[beg] == null)
+            beg = (beg+1)%top;
     }
 
     // Construtor que prepara para que o método lines()
@@ -101,15 +105,19 @@ public class Tail {
     // do arquivo fileName.
     public Tail(String fileName, int k) {
         // escreva seu método a seguir
-        top = k;
-        lines = new String[k];
+        top = k+1;
+        lines = new String[k+1];
         In in = new In(fileName);
         while (!in.isEmpty()) {
             lines[ptr] = in.readLine();
             ptr = (ptr+1)%top;
-            if (lines[ptr] != null)
+            if (lines[ptr] != null) {
+                lines[ptr] = null;
                 beg = ptr;
+            }
         }
+        if (lines[beg] == null)
+            beg = (beg+1)%top;
     }
 
     /** Returns an iterable object containing the last k lines.
@@ -142,10 +150,7 @@ public class Tail {
                 // escreva seu método a seguir
                 if (!hasNext())
                     return null;
-                if (lines[count] == null)
-                    return null;
                 String ret = lines[count];
-                lines[count] = null;
                 count = (count+1)%top;
                 return ret;
             }

@@ -22,7 +22,6 @@ def main():
         times.append(nums[0])
     f.close()
     matrix = np.array(matrix)
-    #print(matrix)
     df = pd.DataFrame(matrix, columns=legend, index=times)
     df.plot()
     plt.show()
