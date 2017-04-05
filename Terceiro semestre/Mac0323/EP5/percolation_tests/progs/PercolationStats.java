@@ -33,7 +33,7 @@ public class PercolationStats {
         return mi;
     }
     public double stddev() {
-        return sigma; // Sigma, não sigma^2
+        return sigma;
     }
     public double confidenceLow() {
         return mi - 1.96*sigma/Math.sqrt((double)trials);
