@@ -1,13 +1,17 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF ufop;
+    private WeightedQuickUnionUF uffu;
     private int side;
     private int openSites;
     private boolean[][] opened;
     private final int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     public Percolation(int n) {
-        uf = new WeightedQuickUnionUF((n+2)*n);
+        if (n <= 0)
+            throw new java.lang.IllegalArgumentException();
+        ufop = new WeightedQuickUnionUF((n+2)*n);
+        uffu = new WeightedQuickUnionUF((n+1)*n);
         opened = new boolean[n+2][n];
         side = n;
         openSites = 0;
@@ -16,39 +20,44 @@ public class Percolation {
         for (int i = 1; i < n; i++) {
             opened[0][i] = true;
             opened[n+1][i] = true;
-            uf.union(i-1, i);
-            uf.union((n+1)*n + i - 1, (n+1)*n + i);
+            uffu.union(i-1, i);
+            ufop.union(i-1, i);
+            ufop.union((n+1)*n + i - 1, (n+1)*n + i);
         }
     }
     public void open(int row, int col) {
-        if (row < 1 || row > side || col < 1 || col > side) return;
-        if (opened[row][col-1] == true) return;
+        if (row < 0 || row > side-1 || col < 0 || col > side-1)
+            throw new java.lang.IndexOutOfBoundsException();
+        if (opened[row+1][col] == true) return;
         int nrow;
         int ncol;
-        opened[row][col-1] = true;
+        opened[row+1][col] = true;
         for (int i = 0; i < 4; i++) {
             nrow = row + dirs[i][0];
             ncol = col + dirs[i][1];
-            if (ncol <= side && ncol > 0 && opened[nrow][ncol-1] == true) {
-                //StdOut.println((side*row+col-1) + " united with " + (side*nrow+ncol-1));
-                uf.union(side*row+col-1, side*nrow+ncol-1);
+            if (ncol < side && ncol >= 0 && opened[nrow+1][ncol] == true) {
+                ufop.union(side*(row+1)+col, side*(nrow+1)+ncol);
+                if (nrow < side)
+                    uffu.union(side*(row+1)+col, side*(nrow+1)+ncol);
             }
         }
         openSites++;
     }
     public boolean isOpen(int row, int col) {
-        if (row < 1 || row > side || col < 1 || col > side) return false;
-        return opened[row][col-1];
+        if (row < 0 || row > side-1 || col < 0 || col > side-1)
+            throw new java.lang.IndexOutOfBoundsException();
+        return opened[row+1][col];
     }
     public boolean isFull(int row, int col) {
-        if (row < 1 || row > side || col < 1 || col > side) return false;
-        return uf.connected(0, side*row+col-1);
+        if (row < 0 || row > side-1 || col < 0 || col > side-1)
+            throw new java.lang.IndexOutOfBoundsException();
+        return uffu.connected(0, side*(row+1)+col);
     }
     public int numberOfOpenSites() {
         return openSites;
     }
     public boolean percolates() {
-        return uf.connected(0, side*(side+1));
+        return ufop.connected(0, side*(side+1));
     }
 
 }

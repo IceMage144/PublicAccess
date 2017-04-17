@@ -24,7 +24,7 @@ import edu.princeton.cs.algs4.StdDraw;
 public class PercolationVisualizer {
 
     // delay in miliseconds (controls animation speed)
-    private static final int DELAY = 100;
+    private static final int DELAY = 1;
 
     // draw n-by-n percolation system
     public static void draw(Percolation perc, int n) {
@@ -36,8 +36,8 @@ public class PercolationVisualizer {
 
         // draw n-by-n grid
         int opened = 0;
-        for (int row = 1; row <= n; row++) {
-            for (int col = 1; col <= n; col++) {
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
                 if (perc.isFull(row, col)) {
                     StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
                     opened++;
@@ -48,7 +48,7 @@ public class PercolationVisualizer {
                 }
                 else
                     StdDraw.setPenColor(StdDraw.BLACK);
-                StdDraw.filledSquare(col - 0.5, n - row + 0.5, 0.45);
+                StdDraw.filledSquare(col + 0.5, n - row - 0.5, 0.45);
             }
         }
 
@@ -76,7 +76,7 @@ public class PercolationVisualizer {
         while (!in.isEmpty()) {
             int i = in.readInt();
             int j = in.readInt();
-            perc.open(i, j);
+            perc.open(i-1, j-1);
             draw(perc, n);
             StdDraw.show();
             StdDraw.pause(DELAY);

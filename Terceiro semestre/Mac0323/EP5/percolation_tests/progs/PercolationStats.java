@@ -8,6 +8,8 @@ public class PercolationStats {
     private int trials;
     private Percolation tester;
     public PercolationStats(int n, int trials) {
+        if (n <= 0 || trials <= 0)
+            throw new java.lang.IllegalArgumentException();
         int row;
         int col;
         double sites;
@@ -18,16 +20,16 @@ public class PercolationStats {
         for (int i = 0; i < trials; i++) {
             tester = new Percolation(n);
             while (!tester.percolates()) {
-                row = StdRandom.uniform(0, n)+1;
-                col = StdRandom.uniform(0, n)+1;
+                row = StdRandom.uniform(0, n);
+                col = StdRandom.uniform(0, n);
                 tester.open(row, col);
             }
             sites = tester.numberOfOpenSites()/sqn;
             msum += sites;
             ssum += sites*sites;
         }
-        mi = msum/(double)trials;
-        sigma = ssum/(double)(trials-1) - mi*mi;
+        mi = msum/trials;
+        sigma = Math.sqrt((ssum - trials*mi*mi)/(trials-1));
     }
     public double mean() {
         return mi;
