@@ -3,7 +3,7 @@ import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RedBlackBST;
 
 public class PointST<Value> {
-    private RedBlackBST<Point2D, Value> tree;
+    private RedBlackBST tree;
     // construct an empty symbol table of points
     public PointST() {
         tree = new RedBlackBST<Point2D, Value>();
