@@ -1,0 +1,33 @@
+Criando a SeparateChainingHashST com as palavras do arquivo 'les-miserables.txt' ...
+Hashing com SeparateChainingHashST
+ST criada em 0.601 segundos
+ST contém 26764 itens
+
+=============================================
+Criou
+Criando a MeuSeparateChainingHashST com as palavras do arquivo 'les-miserables.txt' ...
+Criou
+Got resized to 1, size = 56, cap = 13
+Criou
+Got resized to 2, size = 104, cap = 31
+Criou
+Got resized to 3, size = 248, cap = 61
+Criou
+Got resized to 4, size = 488, cap = 127
+Criou
+Got resized to 5, size = 1016, cap = 251
+Criou
+Got resized to 6, size = 2008, cap = 509
+Criou
+Got resized to 7, size = 4072, cap = 1021
+Criou
+Got resized to 8, size = 8168, cap = 2039
+Criou
+Got resized to 9, size = 16312, cap = 4093
+Hashing com MeuSeparateChainingHashST
+ST criada em 0.369 segundos
+ST contém 26764 itens
+Tabela hash tem 4093 listas
+Maior comprimento de uma lista é 17
+Fator de carga (= n/m) = 6.538968971414611
+Chi^2 = 4175.58, [m-sqrt(m),m+sqrt(m)] = [4029.02, 4156.98]
