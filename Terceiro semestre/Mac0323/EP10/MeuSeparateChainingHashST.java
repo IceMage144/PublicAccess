@@ -154,19 +154,15 @@ public class MeuSeparateChainingHashST<Key, Value> {
      */
     public MeuSeparateChainingHashST(int m, double alfaInf, double alfaSup) {
         // TAREFA: veja o método original e faça adaptações necessárias
-        if (alfaInf >= alfaSup) {
-            // Show some error?
-        }
+        n = 0;
         this.alfaSup = alfaSup;
         this.alfaInf = alfaInf;
-        this.n = 0;
-        while (PRIMES[this.iPrimes] < m)
-            this.iPrimes++;
-        this.m = PRIMES[this.iPrimes];
+        while (PRIMES[iPrimes] < m)
+            iPrimes++;
+        this.m = PRIMES[iPrimes];
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[this.m];
-        for (int i = 0; i < this.m; i++)
-            st[i] = new SequentialSearchST<Key, Value>();
-        //StdOut.println("Criou");
+        for (int i = 0; i < m; i++)
+            st[i] = new SequentialSearchST<>();
     }
 
 
@@ -181,16 +177,15 @@ public class MeuSeparateChainingHashST<Key, Value> {
     private void resize(int k) {
         // TAREFA: veja o método original e faça adaptação para que
         //         o tamanho da nova tabela seja PRIMES[k].
-        MeuSeparateChainingHashST<Key, Value> temp = new MeuSeparateChainingHashST<Key, Value>(PRIMES[k]);
+        MeuSeparateChainingHashST<Key, Value> temp = new MeuSeparateChainingHashST<Key, Value>(PRIMES[k], alfaInf, alfaSup);
         for (int i = 0; i < m; i++) {
             for (Key key : st[i].keys()) {
                 temp.put(key, st[i].get(key));
             }
         }
         this.m  = temp.m;
+        this.n  = temp.n;
         this.st = temp.st;
-        iPrimes = k;
-        //StdOut.println("Got resized to " + k + ", size = " + this.n + ", cap = " + this.m);
     }
 
     // hash function: returns a hash value between 0 and M-1
@@ -232,12 +227,12 @@ public class MeuSeparateChainingHashST<Key, Value> {
             return;
         }
 
-        if (n/m >= alfaSup) resize(this.iPrimes+1);
+        // double table size if average length of list >= 10
+        if (n/(double)m > alfaSup) resize(++iPrimes);
 
         int i = hash(key);
         if (!st[i].contains(key)) n++;
         st[i].put(key, val);
-
     }
 
     // delete key (and associated value) if key is in the table
@@ -251,7 +246,8 @@ public class MeuSeparateChainingHashST<Key, Value> {
         if (st[i].contains(key)) n--;
         st[i].delete(key);
 
-        if (m > INIT_CAPACITY && n/m <= alfaInf) resize(this.iPrimes-1);
+        // halve table size if average length of list <= 2
+        if (m > INIT_CAPACITY && n/(double)m < alfaInf) resize(--iPrimes);
     }
 
     // return keys in symbol table as an Iterable
@@ -301,12 +297,11 @@ public class MeuSeparateChainingHashST<Key, Value> {
      */
     public double chiSquare() {
         double sum = 0;
-        double alfa = n/m;
+        double alfa = (double)n/(double)m;
         for (SequentialSearchST<Key, Value> node : st) {
-            //double diff = node.size()-alfa;
             sum += (node.size()-alfa)*(node.size()-alfa);
         }
-        return sum*m/n;
+        return sum/alfa;
     }
 
    /***********************************************************************
@@ -409,11 +404,11 @@ public class MeuSeparateChainingHashST<Key, Value> {
 
 
     private static void showUse() {
-        String msg = "Uso: meu_prompt> java MeuSeparateChainingHashST <alfa inf> <alfa sup> <nome arquivo>\n"
+        String msg = "Uso: meu_prompt> java MeuLinearProbingingHashST <alfa inf> <alfa sup> <nome arquivo>\n"
             + "    <alfa inf>: limite inferior para o comprimento médio das listas (= fator de carga)\n"
             + "    <alfa sup>: limite superior para o comprimento médio das listas (= fator de carga)\n"
-            + "    <nome arquivo>: nome de um arquivo com um texto\n"
-            + "          um ST será criada com as palavras do texto.";
+            + "    <nome arquivo>: nome de um arquivo com um texto para que uma ST seja\n"
+            + "                    criada com as palavras nesse texto.";
         StdOut.println(msg);
     }
 }
