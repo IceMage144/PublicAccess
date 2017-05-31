@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
