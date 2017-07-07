@@ -311,57 +311,44 @@ public class MeuTST<Value extends Comparable<Value>> {
      */
     public void delete(String key) {
         // TAREFA
+        if (key == null) throw new NullPointerException();
         root = delete(root, key, 0, 1);
     }
 
     private Node<Value> delete(Node<Value> x, String key, int d, int last) {
         if (x == null) return null;
-        if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
         char c = key.charAt(d);
         Node<Value> res;
-        if (c < x.c) {
-            //StdOut.println("Got to left");
+        if (c < x.c)
             x.left = delete(x.left, key, d, 2);
-        }
-        else if (c > x.c) {
-            //StdOut.println("Got to right");
+        else if (c > x.c)
             x.right = delete(x.right, key, d, 0);
-        }
         else {
-            if (d < key.length() - 1) {
-                //StdOut.println("Got to mid");
+            if (d < key.length() - 1)
                 x.mid = delete(x.mid, key, d+1, 1);
-            }
             if (x.mid == null) {
                 if (x.val != null)
                     n--;
-                //StdOut.println("Mid is null");
                 if (last == 0) {
-                    //StdOut.println("Returned right");
                     if (x.left != null)
                         x.left.right = x.right;
                     return x.right;
                 }
                 else if (last == 2) {
-                    //StdOut.println("Returned left");
                     if (x.right != null)
                         x.right.left = x.left;
                     return x.left;
                 }
                 else {
                     if (x.right != null) {
-                        //StdOut.println("Returned right 2");
                         x.right.left = x.left;
                         return x.right;
                     }
-                    else {
-                        //StdOut.println("Returned left 2");
+                    else
                         return x.left;
-                    }
                 }
             }
             else if (d == key.length() - 1){
-                //StdOut.println("Just deleted val");
                 x.val = null;
                 n--;
             }

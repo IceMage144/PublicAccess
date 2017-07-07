@@ -188,7 +188,7 @@ public class MeuLinearProbingHashST<Key, Value> {
     private void resize(int k) {
         // TAREFA: veja o método original e faça adaptação para que
         //         o tamanho da nova tabela seja PRIMES[k].
-        MeuLinearProbingHashST<Key, Value> temp = new MeuLinearProbingHashST<Key, Value>(PRIMES[k]);
+        MeuLinearProbingHashST<Key, Value> temp = new MeuLinearProbingHashST<Key, Value>(PRIMES[k], alfaInf, alfaSup);
         for (int i = 0; i < m; i++) {
             if (keys[i] != null) {
                 temp.put(keys[i], vals[i]);
@@ -197,7 +197,6 @@ public class MeuLinearProbingHashST<Key, Value> {
         keys = temp.keys;
         vals = temp.vals;
         m    = temp.m;
-        iPrimes = k;
     }
 
     /**
@@ -218,7 +217,7 @@ public class MeuLinearProbingHashST<Key, Value> {
             return;
         }
 
-        if (n/(double)m > alfaSup) resize(iPrimes+1);
+        if (n/(double)m > alfaSup) resize(++iPrimes);
 
         int i;
         for (i = hash(key); keys[i] != null; i = (i + 1) % m) {
@@ -262,7 +261,7 @@ public class MeuLinearProbingHashST<Key, Value> {
 
         n--;
 
-        if (n > INIT_CAPACITY && n/(double)m < alfaInf) resize(iPrimes-1);
+        if (m > INIT_CAPACITY && n/(double)m < alfaInf) resize(--iPrimes);
 
         assert check();
     }
