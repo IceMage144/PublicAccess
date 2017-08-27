@@ -59,9 +59,9 @@
 \begin{document}
 \maketitle
 \begin{enumerate}
-\item[1.]
+\item[\textbf{1.}]
 \begin{enumerate}
-\item[(a)]
+\item[\textbf{a)}]
 Supondo que $n$ é potência de 2 e adotando $n^2$ como representante da classe
 $\Theta(n^2)$, temos:
 \begin{align*}
@@ -93,8 +93,9 @@ T(2^k) &= 2T(2^{k-1}) + 2^{2k} \\
        &= 2^{2k} - 2^k + 2^{2k}\\
        &= 2^{2k+1} - 2^k\\
 \end{align*}
+Portanto concluímos que $T(n) = \Theta(n^2)$.
 
-\item[(d)]
+\item[\textbf{d)}]
 Supondo que $n$ é potência de 3 e adotando $n^2$ como representante da classe
 $\Theta(n^2)$, temos:
 \begin{align*}
@@ -127,9 +128,10 @@ T(3^k) &= 7T(3^{k-1}) + 3^{2k}\\
        &= \frac{7\cdot 3^{2k} - 7^{k+1} + 2\cdot 3^{2k}}{2} \\
        &= \frac{3^{2k + 2} - 7^{k+1}}{2}
 \end{align*}
+Portanto concluímos que $T(n) = \Theta(n^2)$.
 \end{enumerate}
 
-\item[2.]
+\item[\textbf{2.}]
 Pseudo-código do merge:
 \begin{lstlisting}
 TMERGESORT(A, b, e):
@@ -206,9 +208,26 @@ T(3^k) &= 3T(3^{k-1}) + 3^k\\
        &= 3^k + (k-1)3^k + 3^k\\
        &= 3^k + k3^k
 \end{align*}
-Portando concluímos que o algoritmo é $\Theta(n\log_3 n)$
+Portando concluímos que o algoritmo é $\Theta(n\log_3 n)$.
 
-\item[4.]
-
+\item[\textbf{4.}]
+O algoritmo terá duas funções, a DIVIDE e a INTERCALA. A DIVIDE recebrá
+uma lista de listas, dividirá a lista em duas partes com quase o mesmo tamanho,
+executará DIVIDE em cada parte e devolverá o resultado da INTERCALA entre as
+duas listas devolvidas pelas execuções do DIVIDE. A INTERCALA receberá duas
+listas ordenadas e devolverá uma lista ordenada com todos os elementos das
+listas recebidas.\\
+Representando como $a$, $b$, $c$ e $d$ os tamanhos das listas recebidas, temos a
+seguinte árvore de recorrência:
+\begin{center}
+\includegraphics[scale=0.4]{rectree.png}
+\end{center}
+A cada chamada do DIVIDE, as listas são divididas em dois grupos, o que faz com
+que a árvore tenha tamanho médio $\lg k$ e, a cada nível da árvore, o tempo
+gasto pelo INTERCALA a cada execução (que está anotado nos quadrinhos da figura)
+soma $n$, pois sabemos que $a+b+c+d = n$ e que a INTERCALA é linear. Com isso,
+podemos concluir que o algoritmo é $\Theta(n\lg k)$. Em especial se $k = 2$,
+a complexidade é $n\lg 2 = n = \Theta(n)$ e se $k = n$ a complexidade é
+$n\lg n = \Theta(n\lg n)$.
 \end{enumerate}
 \end{document}
