@@ -23,27 +23,65 @@
 \usepackage{listings}
 \usepackage{logicproof}
 
+\newcommand\then{\rightarrow}
+\newcommand\liff{\leftrightarrow}
+
+\title{ \textbf{Lista 1 - MAC444}}
+\date{}
+\author{ \textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
+
 \begin{document}
-\begin{logicproof}{2}
-(p\lor q)\lor r & premise\\
+\maketitle
+\begin{enumerate}
+\item[\textbf{1.}]
+\begin{enumerate}
+\item[\textbf{a)}]
+
+\end{enumerate}
+
+\item[\textbf{2.}]
+\begin{enumerate}
+\item[\textbf{a)}]
+E(x): x é esquiador\\
+A(x): x é alpinista\\
+N(x): x gosta de neve\\
+C(x): x gosta de chuva\\[0.4cm]
+$D = \{\text{Tony}, \text{Mike}, \text{John}\}$
+\begin{itemize}
+\item $E(x) \lor A(x)$
+\item $\lnot A(x) \lor \lnot C(x)$
+\item $N(x) \lor \lnot E(x)$
+\item $\lnot C(\text{Mike}) \lor \lnot C(\text{Tony})$
+\item $C(\text{Mike}) \lor C(\text{Tony})$
+\item $\lnot N(\text{Mike}) \lor \lnot N(\text{Tony})$
+\item $N(\text{Mike}) \lor N(\text{Tony})$
+\item $C(\text{Tony})$
+\item $N(\text{Tony})$
+\end{itemize}
+
+\item[\textbf{b)}]
+$\text{KB} \vdash \exists x(A(x) \land \lnot E(x))$
+\begin{logicproof}{1}
+E(x) \lor A(x)\\
+\lnot A(x) \lor \lnot C(x)\\
+N(x) \lor \lnot E(x)\\
+\lnot C(\text{Mike}) \lor \lnot C(\text{Tony})\\
+C(\text{Mike}) \lor C(\text{Tony})\\
+\lnot N(\text{Mike}) \lor \lnot N(\text{Tony})\\
+N(\text{Mike}) \lor N(\text{Tony})\\
+C(\text{Tony})\\
+N(\text{Tony})\\
 \begin{subproof}
-(p\lor q) & assumption\\
-\begin{subproof}
-p & assumption\\
-p\lor (q\lor r) & $\lor\mathrm{i}_1$, 3
+\lnot A(x) \lor E(x) & suposição\\
+E(x) & 1,10 resolução\\
+N(x) & 3,11 resolução\\
+N(Mike) & 12 x/Mike\\
+\lnot N(Tony) & 7,13 resolução\\
+\bot & 9,14 $\bot_i$
 \end{subproof}
-\begin{subproof}
-q & assumption\\
-q\lor r & $\lor\mathrm{i}_1$, 5\\
-p\lor (q\lor r) & $\lor\mathrm{i}_2$, 6
-\end{subproof}
-p\lor (q\lor r) & $\lor$e, 2, 3--4, 5--7
-\end{subproof}
-\begin{subproof}
-r & assumption\\
-q\lor r & $\lor\mathrm{i}_2$, 9\\
-p\lor (q\lor r) & $\lor\mathrm{i}_2$, 10
-\end{subproof}
-p\lor (q\lor r) & $\lor$e, 1, 2--8, 9--11
+\exists x(A(x) \land \lnot E(x)) & 10-15 $\exists_i$
 \end{logicproof}
+\end{enumerate}
+\end{enumerate}
+
 \end{document}
