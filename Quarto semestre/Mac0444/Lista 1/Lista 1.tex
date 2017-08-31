@@ -1,0 +1,49 @@
+% https://www.ctan.org/tex-archive/macros/latex/contrib/logicproof?lang=en
+% https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages
+% latex logicproof.ins
+% latex logicproof.dtx
+% mv logicproof.sty ~/texmf/tex/latex/logicproof/
+% cd ~
+% texhash texmf
+
+
+\documentclass[12pt, a4paper]{article} %mostra o tipo do documento
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.3in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\usepackage[brazil]{babel} % permite escrever em português
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % define a fonte das letras
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % permite fazer textos matemáticos
+\usepackage{float} % permite mover tabelas e figuras para qualquer ponto da página
+\usepackage{graphicx} % permite colocar imagens no documento
+\usepackage{color} % permite colorir o texto
+\usepackage{listings}
+\usepackage{logicproof}
+
+\begin{document}
+\begin{logicproof}{2}
+(p\lor q)\lor r & premise\\
+\begin{subproof}
+(p\lor q) & assumption\\
+\begin{subproof}
+p & assumption\\
+p\lor (q\lor r) & $\lor\mathrm{i}_1$, 3
+\end{subproof}
+\begin{subproof}
+q & assumption\\
+q\lor r & $\lor\mathrm{i}_1$, 5\\
+p\lor (q\lor r) & $\lor\mathrm{i}_2$, 6
+\end{subproof}
+p\lor (q\lor r) & $\lor$e, 2, 3--4, 5--7
+\end{subproof}
+\begin{subproof}
+r & assumption\\
+q\lor r & $\lor\mathrm{i}_2$, 9\\
+p\lor (q\lor r) & $\lor\mathrm{i}_2$, 10
+\end{subproof}
+p\lor (q\lor r) & $\lor$e, 1, 2--8, 9--11
+\end{logicproof}
+\end{document}
