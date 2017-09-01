@@ -26,9 +26,9 @@
 \newcommand\then{\rightarrow}
 \newcommand\liff{\leftrightarrow}
 
-\title{ \textbf{Lista 1 - MAC444}}
+\title{\textbf{Lista 1 - MAC444}}
 \date{}
-\author{ \textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
+\author{\textbf{João Gabriel Basi - $\text{N}^\circ$ USP: 9793801}}
 
 \begin{document}
 \maketitle
@@ -36,7 +36,22 @@
 \item[\textbf{1.}]
 \begin{enumerate}
 \item[\textbf{a)}]
+$D = \{a, b, c\}$\\
+$I[P] = \{(a, b), (b, a)\}$\\
+$I[a] = c$\\
+$I[b] = a$\\
 
+\item[\textbf{b)}]
+$D = \{a, b, c\}$\\
+$I[P] = \{(a, a), (b, b), (a, b), (b, a)\}$\\
+$I[a] = c$\\
+$I[b] = a$\\
+
+\item[\textbf{c)}]
+$D = \{a, b\}$\\
+$I[P] = \{(a, a), (b, b), (a, b)\}$\\
+$I[a] = a$\\
+$I[b] = a$\\
 \end{enumerate}
 
 \item[\textbf{2.}]
@@ -56,10 +71,12 @@ $D = \{\text{Tony}, \text{Mike}, \text{John}\}$
 \item $\lnot N(\text{Mike}) \lor \lnot N(\text{Tony})$
 \item $N(\text{Mike}) \lor N(\text{Tony})$
 \item $C(\text{Tony})$
-\item $N(\text{Tony})$
+\item $N(\text{Tony})$\\[2cm]
 \end{itemize}
 
 \item[\textbf{b)}]
+Sabendo que $(x \lor y) \land (\lnot x \lor z) \vdash (y \land z)$ (regra da
+resolução), temos:\\
 $\text{KB} \vdash \exists x(A(x) \land \lnot E(x))$
 \begin{logicproof}{1}
 E(x) \lor A(x)\\
@@ -75,13 +92,21 @@ N(\text{Tony})\\
 \lnot A(x) \lor E(x) & suposição\\
 E(x) & 1,10 resolução\\
 N(x) & 3,11 resolução\\
-N(Mike) & 12 x/Mike\\
-\lnot N(Tony) & 7,13 resolução\\
+N(\text{Mike}) & 12 x/Mike\\
+\lnot N(\text{Tony}) & 7,13 resolução\\
 \bot & 9,14 $\bot_i$
 \end{subproof}
 \exists x(A(x) \land \lnot E(x)) & 10-15 $\exists_i$
 \end{logicproof}
-\end{enumerate}
-\end{enumerate}
 
+\item[\textbf{c)}]
+
+\item[\textbf{d)}]
+.\\
+\begin{center}
+\includegraphics[scale=0.6]{tree.jpg}
+\end{center}
+
+\end{enumerate}
+\end{enumerate}
 \end{document}
